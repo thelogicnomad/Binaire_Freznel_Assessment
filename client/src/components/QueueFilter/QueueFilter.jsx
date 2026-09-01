@@ -3,7 +3,7 @@ import './QueueFilter.css';
 import { Search, Trash2, AlertTriangle, X } from 'lucide-react';
 
 /**
- * Greentiq filter tab bar, search input, and Clear All action with Confirmation Dialog
+ * Greentiq filter tab bar with right-aligned search and Clear All action
  */
 export function QueueFilter({
   activeFilter,
@@ -35,7 +35,7 @@ export function QueueFilter({
 
   return (
     <div className="QueueFilter-container">
-      {/* Tabs with var(--radius) */}
+      {/* Left-side Navigation Filter Tabs */}
       <div className="QueueFilter-tabs-wrapper">
         <button
           type="button"
@@ -86,8 +86,23 @@ export function QueueFilter({
         >
           [ Completed ]
         </button>
+      </div>
 
-        {/* Clear All Button matching TaskCard remove styling */}
+      {/* Right-side Action & Search Controls */}
+      <div className="QueueFilter-controls-wrapper">
+        {/* Search Input with var(--input) border and var(--ring) focus */}
+        <div className="QueueFilter-search-wrapper">
+          <Search className="QueueFilter-search-icon" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Filter by file or client ID..."
+            className="QueueFilter-search-input"
+          />
+        </div>
+
+        {/* Clear All Button separated to the right */}
         {counts.mine > 0 && onClearAll && (
           <button
             type="button"
@@ -100,18 +115,6 @@ export function QueueFilter({
             <span>[ Clear All ({counts.mine}) ]</span>
           </button>
         )}
-      </div>
-
-      {/* Search Input with var(--input) border and var(--ring) focus */}
-      <div className="QueueFilter-search-wrapper">
-        <Search className="QueueFilter-search-icon" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Filter by file or client ID..."
-          className="QueueFilter-search-input"
-        />
       </div>
 
       {/* Confirmation Dialog Modal */}

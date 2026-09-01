@@ -9,7 +9,7 @@
   gap: 1rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .QueueFilter-container {
     flex-direction: row;
     align-items: center;
@@ -59,49 +59,33 @@
   background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
 }
 
-/* Clear All Button matching TaskCard-remove-btn styling */
-.QueueFilter-clear-all-btn {
-  display: inline-flex;
+/* Right-side Controls Group (Search + Clear All Action) */
+.QueueFilter-controls-wrapper {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.38rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
+  gap: 0.75rem;
+  width: 100%;
 }
 
-.QueueFilter-clear-all-btn:hover {
-  color: var(--destructive);
-  background-color: var(--status-archived-bg);
-  border-color: color-mix(in lch, var(--destructive) 30%, transparent);
-}
-
-.QueueFilter-clear-all-btn:focus-visible {
-  outline: 2px solid var(--ring);
-}
-
-.QueueFilter-clear-icon {
-  width: 0.8125rem;
-  height: 0.8125rem;
-  stroke-width: 1.5px;
+@media (min-width: 900px) {
+  .QueueFilter-controls-wrapper {
+    width: auto;
+    flex-shrink: 0;
+    justify-content: flex-end;
+  }
 }
 
 .QueueFilter-search-wrapper {
   position: relative;
-  width: 100%;
+  flex: 1;
+  min-width: 13rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .QueueFilter-search-wrapper {
-    width: 18rem;
-    flex-shrink: 0;
+    width: 16rem;
+    flex: initial;
   }
 }
 
@@ -141,6 +125,41 @@
 .QueueFilter-search-input::placeholder {
   color: var(--muted-foreground);
   font-family: var(--font-mono);
+}
+
+/* Clear All Button matching TaskCard-remove-btn styling */
+.QueueFilter-clear-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.QueueFilter-clear-all-btn:hover {
+  color: var(--destructive);
+  background-color: var(--status-archived-bg);
+  border-color: color-mix(in lch, var(--destructive) 30%, transparent);
+}
+
+.QueueFilter-clear-all-btn:focus-visible {
+  outline: 2px solid var(--ring);
+}
+
+.QueueFilter-clear-icon {
+  width: 0.8125rem;
+  height: 0.8125rem;
+  stroke-width: 1.5px;
 }
 
 /* Confirmation Dialog Modal */
