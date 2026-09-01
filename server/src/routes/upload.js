@@ -105,6 +105,44 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
   });
 
   /**
+   * DELETE /api/tasks/:id
+   * Remove / cancel a specific task by ID.
+   */
+  router.delete('/tasks/:id', (req, res) => {
+    try {
+      const taskId = req.params.id;
+      const clientId = req.query.clientId || req.body?.clientId;
+
+      const removed = scheduler.removeTask(taskId, clientId);
+      if (!removed) {
+        return res.status(404).json({ error: 'Task not found or already removed.' });
+      }
+
+      return res.json({ message: 'Task removed successfully.', taskId });
+    } catch (err) {
+      return res.status(403).json({ error: err.message });
+    }
+  });
+
+  /**
+   * POST /api/tasks/clear
+   * Clear all completed tasks for a specific client.
+   */
+  router.post('/tasks/clear', (req, res) => {
+    try {
+      const clientId = req.body.clientId;
+      if (!clientId) {
+        return res.status(400).json({ error: 'clientId is required.' });
+      }
+
+      const count = scheduler.clearClientTasks(clientId, true);
+      return res.json({ message: `Cleared ${count} completed task(s).`, count });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
    * GET /api/queue
    * Returns live snapshot of the queue and workers.
    */

@@ -3,12 +3,13 @@ import { io } from 'socket.io-client';
 import confetti from 'canvas-confetti';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
  * Custom hook managing WebSocket connection and live queue state.
  *
  * @param {string} clientId - Current persistent client ID
- * @returns {Object} socket state, tasks, stats, and optimistic updater
+ * @returns {Object} socket state, tasks, stats, and task management actions
  */
 export function useQueueSocket(clientId) {
   const [isConnected, setIsConnected] = useState(false);
@@ -59,7 +60,6 @@ export function useQueueSocket(clientId) {
         setTasks((prevTasks) => {
           // Merge optimistic tasks that are still in-flight
           const uploadingTasks = prevTasks.filter((t) => t.status === 'File uploading');
-          // Remove any server tasks that match an optimistic task id
           const serverTaskIds = new Set(data.tasks.map((t) => t.id));
           const stillUploading = uploadingTasks.filter((t) => !serverTaskIds.has(t.id));
           return [...stillUploading, ...data.tasks];
@@ -94,7 +94,6 @@ export function useQueueSocket(clientId) {
             return {
               ...t,
               ...taskUpdate,
-              // Keep originalName if already present
               originalName: t.originalName || taskUpdate.originalName,
             };
           }
@@ -149,6 +148,47 @@ export function useQueueSocket(clientId) {
     });
   }, []);
 
+  /**
+   * Remove a single task by ID (cancel if in queue or delete from dashboard)
+   */
+  const removeTask = useCallback(async (taskId) => {
+    // Optimistically remove from local state
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+
+    if (!taskId.startsWith('temp-')) {
+      try {
+        const endpoint = `${API_URL}/api/tasks/${taskId}?clientId=${encodeURIComponent(clientId)}`;
+        await fetch(endpoint, { method: 'DELETE' });
+      } catch (err) {
+        console.error('Failed to delete task:', err);
+      }
+    }
+  }, [clientId]);
+
+  /**
+   * Clear all finished/completed tasks submitted by current client
+   */
+  const clearCompletedTasks = useCallback(async () => {
+    // Optimistically remove from local state
+    setTasks((prev) =>
+      prev.filter(
+        (t) =>
+          !(t.clientId === clientId && (t.status === 'Completed' || t.status === 'Failed'))
+      )
+    );
+
+    try {
+      const endpoint = `${API_URL}/api/tasks/clear`;
+      await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId }),
+      });
+    } catch (err) {
+      console.error('Failed to clear completed tasks:', err);
+    }
+  }, [clientId]);
+
   return {
     isConnected,
     tasks,
@@ -157,5 +197,7 @@ export function useQueueSocket(clientId) {
     clearLastCompleted: () => setLastCompletedTask(null),
     addOptimisticTasks,
     resolveOptimisticTasks,
+    removeTask,
+    clearCompletedTasks,
   };
 }

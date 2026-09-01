@@ -34,12 +34,16 @@ assert.strictEqual(laneSizes.low, 3);
 assert.strictEqual(low1.status, TaskStatus.ADDED_TO_QUEUE);
 assert.strictEqual(high1.status, TaskStatus.ADDED_TO_QUEUE);
 
+// Test remove task from queue
+const removed = queue.remove(low2.id);
+assert.strictEqual(removed, true, 'Expected low2 to be removed from queue');
+assert.strictEqual(queue.size(), 4);
+
 // Dequeue order MUST be:
 // 1. high1 (High priority arrived first)
 // 2. high2 (High priority arrived second)
 // 3. low1  (Low priority arrived first)
-// 4. low2  (Low priority arrived second)
-// 5. low3  (Low priority arrived third)
+// 4. low3  (Low priority arrived third, low2 was removed)
 const d1 = queue.dequeue();
 assert.strictEqual(d1.id, high1.id, 'Expected high1 first');
 
@@ -50,14 +54,12 @@ const d3 = queue.dequeue();
 assert.strictEqual(d3.id, low1.id, 'Expected low1 third');
 
 const d4 = queue.dequeue();
-assert.strictEqual(d4.id, low2.id, 'Expected low2 fourth');
-
-const d5 = queue.dequeue();
-assert.strictEqual(d5.id, low3.id, 'Expected low3 fifth');
+assert.strictEqual(d4.id, low3.id, 'Expected low3 fourth');
 
 assert.strictEqual(queue.dequeue(), null, 'Expected null when empty');
 assert.strictEqual(queue.isEmpty(), true);
 
 console.log('✓ TaskQueue: High priority served before low priority');
 console.log('✓ TaskQueue: FIFO preserved within identical priority lanes');
+console.log('✓ TaskQueue: Task removal from lane verified');
 console.log('✓ TaskQueue: All assertions passed!');

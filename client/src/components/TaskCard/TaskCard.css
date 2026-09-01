@@ -42,10 +42,49 @@
   gap: 0.5rem;
 }
 
+.TaskCard-top-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .TaskCard-timestamp {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
   color: var(--muted-foreground);
+}
+
+/* Remove / Cancel Task Button */
+.TaskCard-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.TaskCard-remove-btn:hover {
+  color: var(--destructive);
+  background-color: var(--status-archived-bg);
+  border-color: color-mix(in lch, var(--destructive) 30%, transparent);
+}
+
+.TaskCard-remove-btn:focus-visible {
+  outline: 2px solid var(--ring);
+}
+
+.TaskCard-remove-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  stroke-width: 1.5px;
 }
 
 .TaskCard-file-header {

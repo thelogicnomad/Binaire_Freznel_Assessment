@@ -59,6 +59,39 @@
   background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
 }
 
+/* Clear Completed Tasks Button */
+.QueueFilter-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background-color: var(--status-archived-bg);
+  color: var(--status-archived-text);
+  border-color: color-mix(in lch, var(--status-archived-text) 25%, transparent);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.QueueFilter-clear-btn:hover {
+  background-color: color-mix(in lch, var(--status-archived-bg) 85%, var(--status-archived-text));
+}
+
+.QueueFilter-clear-btn:focus-visible {
+  outline: 2px solid var(--ring);
+}
+
+.QueueFilter-clear-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  stroke-width: 1.5px;
+}
+
 .QueueFilter-search-wrapper {
   position: relative;
   width: 100%;

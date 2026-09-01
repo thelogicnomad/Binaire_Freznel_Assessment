@@ -1,9 +1,9 @@
 import React from 'react';
 import './QueueFilter.css';
-import { Search } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
 
 /**
- * Greentiq filter tab bar and search input
+ * Greentiq filter tab bar, search input, and clear completed action
  */
 export function QueueFilter({
   activeFilter,
@@ -11,6 +11,7 @@ export function QueueFilter({
   searchQuery,
   onSearchChange,
   counts,
+  onClearCompleted,
 }) {
   return (
     <div className="QueueFilter-container">
@@ -65,6 +66,19 @@ export function QueueFilter({
         >
           [ Completed ]
         </button>
+
+        {/* Clear Completed for My Tasks */}
+        {counts.completedMine > 0 && onClearCompleted && (
+          <button
+            type="button"
+            onClick={onClearCompleted}
+            className="QueueFilter-clear-btn"
+            title="Clear all completed/failed tasks from my dashboard"
+          >
+            <Trash2 className="QueueFilter-clear-icon" />
+            <span>[ Clear Finished ({counts.completedMine}) ]</span>
+          </button>
+        )}
       </div>
 
       {/* Search Input with var(--input) border and var(--ring) focus */}

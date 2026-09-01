@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import fs from 'fs';
 import { TaskStatus } from './Task.js';
 
 /**
@@ -114,6 +115,66 @@ export class Scheduler extends EventEmitter {
   }
 
   /**
+   * Remove/cancel a task by taskId and optional clientId.
+   * @param {string} taskId
+   * @param {string} [clientId]
+   * @returns {boolean}
+   */
+  removeTask(taskId, clientId = null) {
+    const task = this.tasks.get(taskId);
+    if (!task) return false;
+
+    // If clientId specified, ensure only owner can remove
+    if (clientId && task.clientId !== clientId) {
+      throw new Error('Unauthorized: You can only remove your own tasks.');
+    }
+
+    // 1. Remove from waiting queue if in queue
+    this.taskQueue.remove(taskId);
+
+    // 2. Remove from tasks map and order list
+    this.tasks.delete(taskId);
+    this.taskOrder = this.taskOrder.filter((id) => id !== taskId);
+
+    // 3. Clean up file on disk if exists
+    if (task.filePath && fs.existsSync(task.filePath)) {
+      try {
+        fs.unlinkSync(task.filePath);
+      } catch (err) {
+        console.warn(`Could not delete file ${task.filePath}:`, err.message);
+      }
+    }
+
+    this._notifyQueueChanged();
+    return true;
+  }
+
+  /**
+   * Clear all completed or all tasks for a given clientId.
+   * @param {string} clientId
+   * @param {boolean} [onlyCompleted=true]
+   * @returns {number} count of removed tasks
+   */
+  clearClientTasks(clientId, onlyCompleted = true) {
+    let count = 0;
+    const taskIds = [...this.tasks.keys()];
+
+    for (const taskId of taskIds) {
+      const task = this.tasks.get(taskId);
+      if (!task || task.clientId !== clientId) continue;
+
+      if (onlyCompleted && task.status !== TaskStatus.COMPLETED && task.status !== TaskStatus.FAILED) {
+        continue;
+      }
+
+      this.removeTask(taskId, clientId);
+      count++;
+    }
+
+    return count;
+  }
+
+  /**
    * Core assignment loop: matches idle workers with highest-priority tasks.
    * Guaranteed never to block the event loop.
    */
@@ -136,9 +197,13 @@ export class Scheduler extends EventEmitter {
       this._notifyQueueChanged();
 
       // Dispatch to worker pool
-      // Using a micro-delay (100ms) ensures the 'Waiting for processing' state
-      // with assigned worker ID is distinctly observable before live streaming starts
       setTimeout(() => {
+        // Double check task hasn't been deleted or cancelled in the interim
+        if (!this.tasks.has(nextTask.id)) {
+          idleWorker.release();
+          return;
+        }
+
         if (nextTask.status === TaskStatus.WAITING_FOR_PROCESSING) {
           nextTask.updateStatus(TaskStatus.PROCESSING, {
             assignedWorkerId: idleWorker.displayId,

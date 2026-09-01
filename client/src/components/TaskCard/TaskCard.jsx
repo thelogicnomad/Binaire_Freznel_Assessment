@@ -1,6 +1,6 @@
 import React from 'react';
 import './TaskCard.css';
-import { FileText } from 'lucide-react';
+import { FileText, Trash2 } from 'lucide-react';
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 import { StageTimeline } from '../StageTimeline/StageTimeline';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
@@ -15,9 +15,9 @@ function formatBytes(bytes) {
 }
 
 /**
- * Greentiq task visualization card
+ * Greentiq task visualization card with removal capability
  */
-export function TaskCard({ task, currentClientId }) {
+export function TaskCard({ task, currentClientId, onRemoveTask }) {
   const isOwner = task.clientId === currentClientId;
   const isHighPriority = task.priority === 'high';
   const isCompleted = task.status === 'Completed';
@@ -43,13 +43,29 @@ export function TaskCard({ task, currentClientId }) {
             />
           </div>
 
-          <span className="TaskCard-timestamp">
-            {new Date(task.createdAt).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            })}
-          </span>
+          <div className="TaskCard-top-right">
+            <span className="TaskCard-timestamp">
+              {new Date(task.createdAt).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              })}
+            </span>
+
+            {/* Remove task button for own tasks */}
+            {isOwner && onRemoveTask && (
+              <button
+                type="button"
+                onClick={() => onRemoveTask(task.id)}
+                className="TaskCard-remove-btn"
+                title="Remove / Cancel this task"
+                aria-label="Remove task"
+              >
+                <Trash2 className="TaskCard-remove-icon" />
+                <span>Remove</span>
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="TaskCard-file-header">

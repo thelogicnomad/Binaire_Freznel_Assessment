@@ -5,7 +5,7 @@ import { TaskCard } from '../TaskCard/TaskCard';
 /**
  * Greentiq task list or empty state
  */
-export function QueueList({ tasks, currentClientId, totalTasks = 0 }) {
+export function QueueList({ tasks, currentClientId, totalTasks = 0, onRemoveTask }) {
   if (!tasks || tasks.length === 0) {
     return (
       <div className="QueueList-empty-card">
@@ -43,6 +43,7 @@ export function QueueList({ tasks, currentClientId, totalTasks = 0 }) {
           key={task.id}
           task={task}
           currentClientId={currentClientId}
+          onRemoveTask={onRemoveTask}
         />
       ))}
     </div>

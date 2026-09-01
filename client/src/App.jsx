@@ -19,6 +19,8 @@ export default function App() {
     clearLastCompleted,
     addOptimisticTasks,
     resolveOptimisticTasks,
+    removeTask,
+    clearCompletedTasks,
   } = useQueueSocket(clientId);
 
   const handleResetClientId = () => {
@@ -78,7 +80,12 @@ export default function App() {
             <span className="App-section-label">[ Real-Time Queue Monitor ]</span>
             <div className="App-section-rule" />
           </div>
-          <QueueDashboard tasks={tasks} currentClientId={clientId} />
+          <QueueDashboard
+            tasks={tasks}
+            currentClientId={clientId}
+            onRemoveTask={removeTask}
+            onClearCompleted={clearCompletedTasks}
+          />
         </div>
       </main>
 

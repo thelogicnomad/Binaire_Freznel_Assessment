@@ -4,9 +4,9 @@ import { QueueFilter } from '../QueueFilter/QueueFilter';
 import { QueueList } from '../QueueList/QueueList';
 
 /**
- * Queue visualizer dashboard container
+ * Queue visualizer dashboard container with task deletion capabilities
  */
-export function QueueDashboard({ tasks, currentClientId }) {
+export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearCompleted }) {
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -42,6 +42,9 @@ export function QueueDashboard({ tasks, currentClientId }) {
     active: tasks.filter(
       (t) => t.status !== 'Completed' && t.status !== 'Failed'
     ).length,
+    completedMine: tasks.filter(
+      (t) => t.clientId === currentClientId && (t.status === 'Completed' || t.status === 'Failed')
+    ).length,
   };
 
   return (
@@ -52,12 +55,14 @@ export function QueueDashboard({ tasks, currentClientId }) {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         counts={counts}
+        onClearCompleted={onClearCompleted}
       />
 
       <QueueList
         tasks={filteredTasks}
         currentClientId={currentClientId}
         totalTasks={tasks.length}
+        onRemoveTask={onRemoveTask}
       />
     </div>
   );
