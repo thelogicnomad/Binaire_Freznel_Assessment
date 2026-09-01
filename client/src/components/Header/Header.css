@@ -55,7 +55,7 @@
   text-transform: uppercase;
 }
 
-/* Right Corner: Enlarged Pure Black Menu Button & Dropdown */
+/* Right Corner: Enlarged Pure Black Menu Button without hover background */
 .Header-right-corner {
   display: flex;
   align-items: center;
@@ -72,23 +72,20 @@
   align-items: center;
   gap: 0.625rem;
   background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius);
-  padding: 0.4rem 0.75rem;
+  border: none;
+  padding: 0.4rem 0.25rem;
   color: #000000;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: opacity 0.15s ease;
   user-select: none;
 }
 
 .Header-menu-btn:hover {
-  background-color: var(--secondary);
-  border-color: var(--border);
+  opacity: 0.75;
 }
 
 .Header-menu-btn-active {
-  background-color: var(--secondary);
-  border-color: var(--border);
+  opacity: 1;
 }
 
 .Header-menu-btn:focus-visible {
