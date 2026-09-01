@@ -8,30 +8,27 @@ import { Task, TaskPriority } from '../core/Task.js';
 export function createUploadRouter({ scheduler, uploadsDir }) {
   const router = express.Router();
 
-  // Ensure uploads directory exists
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
   }
 
-  // Configure Multer storage
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
       cb(null, uploadsDir);
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
       const ext = path.extname(file.originalname) || '.csv';
-      const uniqueName = `${Date.now()}-${uuidv4().slice(0, 8)}${ext}`;
-      cb(null, uniqueName);
+      const name = `${Date.now()}-${uuidv4().slice(0, 8)}${ext}`;
+      cb(null, name);
     },
   });
 
   const upload = multer({
     storage,
     limits: {
-      fileSize: 100 * 1024 * 1024, // 100MB max
+      fileSize: 100 * 1024 * 1024, // 100mb
     },
-    fileFilter: (req, file, cb) => {
-      // Accept csv files or text/plain
+    fileFilter: (_req, file, cb) => {
       const ext = path.extname(file.originalname).toLowerCase();
       if (ext === '.csv' || file.mimetype.includes('csv') || ext === '.txt') {
         cb(null, true);
@@ -41,19 +38,15 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
     },
   });
 
-  /**
-   * POST /api/upload
-   * Accepts multiple CSV files and priorities.
-   */
   router.post('/upload', upload.array('files', 50), (req, res) => {
     try {
       if (!req.files || req.files.length === 0) {
         return res.status(400).json({ error: 'No files were uploaded.' });
       }
 
-      const clientId = req.body.clientId || 'anonymous-client';
+      const cId = req.body.clientId || 'anonymous-client';
 
-      // Parse priorities (can be array, JSON string, or single string)
+      // parse priorities JSON or array
       let priorities = [];
       if (req.body.priorities) {
         try {
@@ -61,60 +54,52 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
             ? JSON.parse(req.body.priorities)
             : req.body.priorities;
         } catch (e) {
-          priorities = Array.isArray(req.body.priorities)
-            ? req.body.priorities
-            : [req.body.priorities];
+          priorities = Array.isArray(req.body.priorities) ? req.body.priorities : [req.body.priorities];
         }
       }
 
-      const createdTasks = [];
+      const newTasks = [];
 
-      req.files.forEach((file, index) => {
-        // Look up priority by index or file originalname
-        let priority = TaskPriority.LOW;
-        if (Array.isArray(priorities) && priorities[index]) {
-          priority = priorities[index].toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
+      req.files.forEach((file, idx) => {
+        let p = TaskPriority.LOW;
+        if (Array.isArray(priorities) && priorities[idx]) {
+          p = String(priorities[idx]).toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
         } else if (typeof priorities === 'object' && priorities[file.originalname]) {
-          priority = priorities[file.originalname].toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
+          p = String(priorities[file.originalname]).toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
         } else if (req.body.priority) {
-          priority = req.body.priority.toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
+          p = String(req.body.priority).toLowerCase() === 'high' ? TaskPriority.HIGH : TaskPriority.LOW;
         }
 
         const task = new Task({
-          clientId,
+          clientId: cId,
           filename: file.filename,
           originalName: file.originalname,
           filePath: file.path,
           fileSize: file.size,
-          priority,
+          priority: p,
         });
 
-        // Add task to scheduler (automatically enqueues in priority lane)
         scheduler.addTask(task);
-        createdTasks.push(task.toJSON());
+        newTasks.push(task.toJSON());
       });
 
       return res.status(201).json({
-        message: `Successfully enqueued ${createdTasks.length} file(s).`,
-        tasks: createdTasks,
+        message: `Successfully enqueued ${newTasks.length} file(s).`,
+        tasks: newTasks,
       });
     } catch (err) {
-      console.error('Error handling upload:', err);
-      return res.status(500).json({ error: err.message || 'Upload processing failed.' });
+      console.error('Upload handler error:', err);
+      return res.status(500).json({ error: err.message || 'Upload failed' });
     }
   });
 
-  /**
-   * DELETE /api/tasks/:id
-   * Remove / cancel a specific task by ID.
-   */
   router.delete('/tasks/:id', (req, res) => {
     try {
       const taskId = req.params.id;
       const clientId = req.query.clientId || req.body?.clientId;
 
-      const removed = scheduler.removeTask(taskId, clientId);
-      if (!removed) {
+      const ok = scheduler.removeTask(taskId, clientId);
+      if (!ok) {
         return res.status(404).json({ error: 'Task not found or already removed.' });
       }
 
@@ -124,30 +109,22 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
     }
   });
 
-  /**
-   * POST /api/tasks/clear
-   * Clear tasks for a specific client (supports all tasks or only completed).
-   */
   router.post('/tasks/clear', (req, res) => {
     try {
-      const clientId = req.body.clientId;
-      const all = req.body.all === true || req.body.all === 'true';
+      const { clientId, all } = req.body;
       if (!clientId) {
         return res.status(400).json({ error: 'clientId is required.' });
       }
 
-      const count = scheduler.clearClientTasks(clientId, !all);
-      return res.json({ message: `Cleared ${count} task(s).`, count });
+      const isAll = all === true || all === 'true';
+      const removed = scheduler.clearClientTasks(clientId, !isAll);
+      return res.json({ message: `Cleared ${removed} task(s).`, count: removed });
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
   });
 
-  /**
-   * GET /api/queue
-   * Returns live snapshot of the queue and workers.
-   */
-  router.get('/queue', (req, res) => {
+  router.get('/queue', (_req, res) => {
     res.json(scheduler.getSnapshot());
   });
 

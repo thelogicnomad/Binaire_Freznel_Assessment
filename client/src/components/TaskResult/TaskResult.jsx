@@ -9,9 +9,6 @@ function formatNumber(num) {
   });
 }
 
-/**
- * Greentiq result display for all-reduce numeric sum
- */
 export function TaskResult({ result, rows = 0, columns = 0, numericCount = 0 }) {
   return (
     <div className="TaskResult-card">

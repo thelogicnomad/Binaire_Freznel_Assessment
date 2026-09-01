@@ -6,9 +6,6 @@ import { StagedFileList } from '../StagedFileList/StagedFileList';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-/**
- * Greentiq file upload manager with primary pill button and staged file management
- */
 export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadError }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -16,17 +13,17 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
   const [uploadError, setUploadError] = useState(null);
 
   const handleFilesAdded = (files) => {
-    const csvFiles = Array.from(files).filter(
-      (f) => f.name.endsWith('.csv') || f.type.includes('csv') || f.name.endsWith('.txt')
+    const list = Array.from(files).filter(
+      f => f.name.endsWith('.csv') || f.type.includes('csv') || f.name.endsWith('.txt')
     );
 
-    if (csvFiles.length === 0) {
+    if (list.length === 0) {
       setUploadError('Please select valid .csv files.');
       return;
     }
 
     setUploadError(null);
-    const newEntries = csvFiles.map((file) => ({
+    const newItems = list.map((file) => ({
       file,
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       name: file.name,
@@ -34,13 +31,13 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
       priority: 'low',
     }));
 
-    setSelectedFiles((prev) => [...prev, ...newEntries]);
+    setSelectedFiles(prev => [...prev, ...newItems]);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+    if (e.dataTransfer?.files?.length > 0) {
       handleFilesAdded(e.dataTransfer.files);
     }
   };
@@ -55,17 +52,15 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
   };
 
   const handlePriorityToggle = (id) => {
-    setSelectedFiles((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, priority: item.priority === 'high' ? 'low' : 'high' }
-          : item
+    setSelectedFiles(prev =>
+      prev.map(item =>
+        item.id === id ? { ...item, priority: item.priority === 'high' ? 'low' : 'high' } : item
       )
     );
   };
 
   const handleRemoveFile = (id) => {
-    setSelectedFiles((prev) => prev.filter((item) => item.id !== id));
+    setSelectedFiles(prev => prev.filter(item => item.id !== id));
   };
 
   const handleUploadSubmit = async () => {
@@ -74,6 +69,7 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
     setIsUploading(true);
     setUploadError(null);
 
+    // optimistic list before response
     const optimisticTasks = selectedFiles.map((item) => ({
       id: `temp-${item.id}`,
       clientId,
@@ -99,37 +95,37 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
     const formData = new FormData();
     formData.append('clientId', clientId);
 
-    const priorities = selectedFiles.map((f) => f.priority);
+    const priorities = selectedFiles.map(f => f.priority);
     formData.append('priorities', JSON.stringify(priorities));
 
-    selectedFiles.forEach((item) => {
-      formData.append('files', item.file);
-    });
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append('files', selectedFiles[i].file);
+    }
 
     try {
       const endpoint = `${API_URL}/api/upload`;
-      const response = await fetch(endpoint, {
+      const res = await fetch(endpoint, {
         method: 'POST',
         body: formData,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Upload failed with status ${response.status}`);
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || `Upload failed with status ${res.status}`);
       }
 
-      const result = await response.json();
+      const result = await res.json();
       setSelectedFiles([]);
 
       if (onUploadSuccess) {
-        const tempIds = optimisticTasks.map((t) => t.id);
+        const tempIds = optimisticTasks.map(t => t.id);
         onUploadSuccess(tempIds, result.tasks);
       }
     } catch (err) {
       console.error('Upload failed:', err);
       setUploadError(err.message || 'Failed to connect to upload server.');
       if (onUploadError) {
-        onUploadError(optimisticTasks.map((t) => t.id), err);
+        onUploadError(optimisticTasks.map(t => t.id), err);
       }
     } finally {
       setIsUploading(false);
@@ -140,9 +136,7 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
     <div className="FileUpload-card">
       <div className="FileUpload-header">
         <div className="FileUpload-title-group">
-          <h2 className="FileUpload-title">
-            Upload CSV Files
-          </h2>
+          <h2 className="FileUpload-title">Upload CSV Files</h2>
           <p className="FileUpload-subtitle">
             Tag files with High or Low priority for parallel worker thread reduction
           </p>

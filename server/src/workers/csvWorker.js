@@ -6,35 +6,26 @@ if (!parentPort) {
   throw new Error('csvWorker must be run as a worker thread.');
 }
 
-/**
- * Robust numeric parser:
- * - Returns float or integer if cell is numeric
- * - Handles negative numbers, scientific notation, and thousands separators
- * - Returns null for text, headers, empty cells, and NaN
- *
- * @param {any} val
- * @returns {number|null}
- */
+// parses cell into number, handles commas and currency symbols
 function parseNumericCell(val) {
   if (val === null || val === undefined) return null;
-  let s = String(val).trim();
-  if (s === '') return null;
+  let str = String(val).trim();
+  if (!str) return null;
 
-  // Strip currency prefixes if any
-  if (s.startsWith('$') || s.startsWith('€') || s.startsWith('£')) {
-    s = s.slice(1).trim();
+  // quick check for currency prefixes
+  if (str.startsWith('$') || str.startsWith('€') || str.startsWith('£')) {
+    str = str.slice(1).trim();
   }
 
-  // Standard numeric check
-  const num = Number(s);
+  const num = Number(str);
   if (!Number.isNaN(num) && Number.isFinite(num)) {
     return num;
   }
 
-  // Handle numbers with comma thousands-separators e.g. "1,234.56"
-  if (s.includes(',')) {
-    const uncomma = s.replace(/,/g, '');
-    const num2 = Number(uncomma);
+  // check if formatted with thousands comma
+  if (str.indexOf(',') !== -1) {
+    const clean = str.replace(/,/g, '');
+    const num2 = Number(clean);
     if (!Number.isNaN(num2) && Number.isFinite(num2)) {
       return num2;
     }
@@ -43,23 +34,15 @@ function parseNumericCell(val) {
   return null;
 }
 
-/**
- * Process CSV file: streams contents, sums all numeric values, and emits progress.
- *
- * @param {Object} data
- * @param {string} data.taskId
- * @param {string} data.filePath
- * @param {number} data.fileSize
- */
 async function processCsv({ taskId, filePath, fileSize }) {
-  const startTime = Date.now();
-  let runningSum = 0;
-  let numericCount = 0;
-  let rowCount = 0;
-  let maxColumns = 0;
+  const t0 = Date.now();
+  let totalSum = 0;
+  let numCount = 0;
+  let rows = 0;
+  let maxCols = 0;
   let bytesRead = 0;
-  let lastProgressReportTime = 0;
-  let lastReportedPercent = -1;
+  let lastReport = 0;
+  let lastPct = -1;
 
   if (!fs.existsSync(filePath)) {
     parentPort.postMessage({
@@ -70,67 +53,62 @@ async function processCsv({ taskId, filePath, fileSize }) {
     return;
   }
 
-  const effectiveFileSize = fileSize || fs.statSync(filePath).size || 1;
+  const totalBytes = fileSize || fs.statSync(filePath).size || 1;
+  const stream = fs.createReadStream(filePath);
 
-  const readStream = fs.createReadStream(filePath);
-
-  readStream.on('data', (chunk) => {
+  stream.on('data', (chunk) => {
     bytesRead += chunk.length;
   });
 
-  // headers: false ensures row 1 is not discarded if the file has no header
-  const parser = readStream.pipe(csvParser({ headers: false }));
+  // headers: false so headerless csvs don't lose row 1
+  const parser = stream.pipe(csvParser({ headers: false }));
 
   parser.on('data', (row) => {
-    rowCount++;
-    const values = Object.values(row);
-    if (values.length > maxColumns) {
-      maxColumns = values.length;
+    rows++;
+    const cells = Object.values(row);
+    if (cells.length > maxCols) {
+      maxCols = cells.length;
     }
 
-    for (const val of values) {
-      const num = parseNumericCell(val);
-      if (num !== null) {
-        runningSum += num;
-        numericCount++;
+    for (let i = 0; i < cells.length; i++) {
+      const n = parseNumericCell(cells[i]);
+      if (n !== null) {
+        totalSum += n;
+        numCount++;
       }
     }
 
-    // Periodic progress report (throttled to every 40ms or when percentage changes by at least 1%)
+    // throttle socket updates
     const now = Date.now();
-    const rawPercent = Math.min(98, Math.round((bytesRead / effectiveFileSize) * 100));
-    if (
-      (rawPercent > lastReportedPercent && now - lastProgressReportTime >= 40) ||
-      rawPercent >= 98
-    ) {
-      lastProgressReportTime = now;
-      lastReportedPercent = rawPercent;
+    const pct = Math.min(98, Math.round((bytesRead / totalBytes) * 100));
+    if ((pct > lastPct && now - lastReport >= 40) || pct >= 98) {
+      lastReport = now;
+      lastPct = pct;
       parentPort.postMessage({
         type: 'progress',
         taskId,
-        progress: rawPercent,
-        rows: rowCount,
-        columns: maxColumns,
-        numericCount,
-        runningSum: Number(runningSum.toFixed(4)),
+        progress: pct,
+        rows: rows,
+        columns: maxCols,
+        numericCount: numCount,
+        runningSum: Number(totalSum.toFixed(4)),
       });
     }
   });
 
   parser.on('end', () => {
-    const durationMs = Date.now() - startTime;
-
-    // Final clean rounded sum (preserves decimal precision without IEEE-754 binary floating drift)
-    const finalSum = Number(runningSum.toFixed(4));
+    const dur = Date.now() - t0;
+    // avoid IEEE-754 binary floating drift
+    const finalSum = Number(totalSum.toFixed(4));
 
     parentPort.postMessage({
       type: 'complete',
       taskId,
       result: finalSum,
-      rows: rowCount,
-      columns: maxColumns,
-      numericCount,
-      durationMs,
+      rows: rows,
+      columns: maxCols,
+      numericCount: numCount,
+      durationMs: dur,
     });
   });
 
@@ -142,7 +120,7 @@ async function processCsv({ taskId, filePath, fileSize }) {
     });
   });
 
-  readStream.on('error', (err) => {
+  stream.on('error', (err) => {
     parentPort.postMessage({
       type: 'error',
       taskId,
@@ -151,14 +129,13 @@ async function processCsv({ taskId, filePath, fileSize }) {
   });
 }
 
-// Listen for job assignments from the WorkerPool
-parentPort.on('message', (message) => {
-  if (message && message.type === 'start') {
-    processCsv(message).catch((err) => {
+parentPort.on('message', (msg) => {
+  if (msg?.type === 'start') {
+    processCsv(msg).catch((err) => {
       parentPort.postMessage({
         type: 'error',
-        taskId: message.taskId,
-        error: err.message || 'Unexpected worker thread error',
+        taskId: msg.taskId,
+        error: err.message || 'Worker thread failed',
       });
     });
   }

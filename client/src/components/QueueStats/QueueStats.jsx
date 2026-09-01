@@ -2,12 +2,9 @@ import React from 'react';
 import './QueueStats.css';
 import { Flame, Clock, Cpu, CheckCircle2 } from 'lucide-react';
 
-/**
- * Greentiq summary cards for queue lanes, worker threads, and completed jobs
- */
 export function QueueStats({ stats, tasks }) {
-  const completedTasks = tasks.filter((t) => t.status === 'Completed');
-  const totalSystemSum = completedTasks.reduce((acc, t) => acc + (t.result || 0), 0);
+  const completed = tasks.filter(t => t.status === 'Completed');
+  const totalSum = completed.reduce((acc, t) => acc + (t.result || 0), 0);
 
   return (
     <div className="QueueStats-grid">
@@ -41,7 +38,7 @@ export function QueueStats({ stats, tasks }) {
         </div>
       </div>
 
-      {/* Worker Pool Activity Card */}
+      {/* Worker Pool Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Worker Thread Pool ]</span>
@@ -55,7 +52,7 @@ export function QueueStats({ stats, tasks }) {
             <span className="QueueStats-unit">threads active</span>
           </div>
           <div className="QueueStats-worker-bars">
-            {stats.workers && stats.workers.length > 0 ? (
+            {stats.workers?.length > 0 ? (
               stats.workers.map((w) => (
                 <span
                   key={w.index}
@@ -72,7 +69,7 @@ export function QueueStats({ stats, tasks }) {
         </div>
       </div>
 
-      {/* Completed Tasks & Aggregate Sum Card */}
+      {/* Completed Tasks Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Completed Reductions ]</span>
@@ -80,11 +77,11 @@ export function QueueStats({ stats, tasks }) {
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">
-            <span className="QueueStats-number">{completedTasks.length}</span>
+            <span className="QueueStats-number">{completed.length}</span>
             <span className="QueueStats-unit">files</span>
           </div>
           <p className="QueueStats-subtext">
-            Sum: <span className="QueueStats-aggregate-sum">{Number(totalSystemSum.toFixed(2)).toLocaleString()}</span>
+            Sum: <span className="QueueStats-aggregate-sum">{Number(totalSum.toFixed(2)).toLocaleString()}</span>
           </p>
         </div>
       </div>

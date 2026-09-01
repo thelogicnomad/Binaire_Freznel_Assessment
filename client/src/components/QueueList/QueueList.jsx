@@ -2,9 +2,6 @@ import React from 'react';
 import './QueueList.css';
 import { TaskCard } from '../TaskCard/TaskCard';
 
-/**
- * Greentiq task list or empty state
- */
 export function QueueList({ tasks, currentClientId, totalTasks = 0, onRemoveTask }) {
   if (!tasks || tasks.length === 0) {
     return (
@@ -29,7 +26,7 @@ export function QueueList({ tasks, currentClientId, totalTasks = 0, onRemoveTask
         <p className="QueueList-empty-text">
           {totalTasks === 0
             ? 'No tasks currently scheduled. Upload one or more CSV files above to initiate parallel reduction.'
-            : 'No files match the currently active filter or search parameter.'}
+            : 'No files match the currently active filter parameter.'}
         </p>
         <span className="QueueList-empty-tag">[ Standby • Worker Pool Ready ]</span>
       </div>

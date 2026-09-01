@@ -2,9 +2,6 @@ import React from 'react';
 import './StagedFileList.css';
 import { FileSpreadsheet, Trash2, ArrowRight } from 'lucide-react';
 
-/**
- * Greentiq staged files list
- */
 export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
   if (!files || files.length === 0) return null;
 
@@ -35,7 +32,7 @@ export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
                 className={`StagedFileList-priority-btn ${
                   item.priority === 'high' ? 'StagedFileList-priority-high' : ''
                 }`}
-                title={`Toggle priority (Currently ${item.priority.toUpperCase()})`}
+                title={`Toggle priority (${item.priority})`}
               >
                 <span>[ {item.priority === 'high' ? 'High Priority' : 'Low Priority'} ]</span>
                 <ArrowRight className="StagedFileList-btn-icon" />

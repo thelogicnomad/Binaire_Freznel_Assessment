@@ -14,33 +14,23 @@ function formatBytes(bytes) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
 }
 
-/**
- * Greentiq task visualization card with removal capability
- */
 export function TaskCard({ task, currentClientId, onRemoveTask }) {
   const isOwner = task.clientId === currentClientId;
-  const isHighPriority = task.priority === 'high';
+  const isHigh = task.priority === 'high';
   const isCompleted = task.status === 'Completed';
   const isProcessing = task.status === 'Processing…';
 
   return (
     <div className="TaskCard-container">
-      {/* Header Section (Separated by 1px var(--border) divider) */}
       <div className="TaskCard-header-section">
         <div className="TaskCard-top-bar">
           <div className="TaskCard-badges-group">
-            <StatusBadge
-              type={isHighPriority ? 'priority-high' : 'priority-low'}
-            />
+            <StatusBadge type={isHigh ? 'priority-high' : 'priority-low'} />
             <StatusBadge
               type={isOwner ? 'owner-you' : 'owner-other'}
               clientId={task.clientId}
             />
-            {/* Show stage status badge */}
-            <StatusBadge
-              type="stage-status"
-              status={task.status}
-            />
+            <StatusBadge type="stage-status" status={task.status} />
           </div>
 
           <div className="TaskCard-top-right">
@@ -52,13 +42,12 @@ export function TaskCard({ task, currentClientId, onRemoveTask }) {
               })}
             </span>
 
-            {/* Remove task button for own tasks */}
             {isOwner && onRemoveTask && (
               <button
                 type="button"
                 onClick={() => onRemoveTask(task.id)}
                 className="TaskCard-remove-btn"
-                title="Remove / Cancel this task"
+                title="Remove task"
                 aria-label="Remove task"
               >
                 <Trash2 className="TaskCard-remove-icon" />
@@ -87,9 +76,7 @@ export function TaskCard({ task, currentClientId, onRemoveTask }) {
         </div>
       </div>
 
-      {/* Body Section */}
       <div className="TaskCard-body-section">
-        {/* 6-Stage Visual Timeline Stepper */}
         <div className="TaskCard-timeline-wrapper">
           <StageTimeline
             currentStatus={task.status}
@@ -99,7 +86,6 @@ export function TaskCard({ task, currentClientId, onRemoveTask }) {
           />
         </div>
 
-        {/* Active Processing Live Progress Bar */}
         {isProcessing && (
           <div className="TaskCard-progress-panel">
             <ProgressBar
@@ -111,7 +97,6 @@ export function TaskCard({ task, currentClientId, onRemoveTask }) {
           </div>
         )}
 
-        {/* Completed All-Reduce Result Banner */}
         {isCompleted && (
           <TaskResult
             result={task.result}

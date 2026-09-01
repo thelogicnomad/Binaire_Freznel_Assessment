@@ -2,10 +2,6 @@ import React, { useEffect } from 'react';
 import './CompletionBanner.css';
 import { CheckCircle2, Trash2, X } from 'lucide-react';
 
-/**
- * Greentiq floating toast notification for completions, deletions, and queue actions.
- * Positioned fixed at top-right with 5-second auto-dismiss countdown.
- */
 export function CompletionBanner({ task, toast, onDismiss }) {
   const currentToast = toast || (task ? {
     type: 'completed',
@@ -19,7 +15,7 @@ export function CompletionBanner({ task, toast, onDismiss }) {
   useEffect(() => {
     if (!currentToast) return;
 
-    // Automatically dismiss toast after 5 seconds
+    // auto-dismiss after 5s
     const timer = setTimeout(() => {
       if (onDismiss) onDismiss();
     }, 5000);
@@ -94,7 +90,7 @@ export function CompletionBanner({ task, toast, onDismiss }) {
           </div>
         </div>
 
-        {/* Animated 5s Countdown Bar */}
+        {/* 5s Countdown Bar */}
         <div className="Toast-countdown-track">
           <div className={`Toast-countdown-bar ${isDelete ? 'Toast-countdown-bar-delete' : 'Toast-countdown-bar-success'}`} />
         </div>

@@ -19,19 +19,10 @@ export const STAGES = [
   { key: 'Completed', label: '6. Completed', icon: Check },
 ];
 
-/**
- * Greentiq 6-step lifecycle tracker with status tokens
- */
 export function StageTimeline({ currentStatus, progress = 0, workerId = null, error = null }) {
   const isFailed = currentStatus === 'Failed';
 
-  const getCurrentIndex = () => {
-    if (isFailed) return -1;
-    const idx = STAGES.findIndex((s) => s.key === currentStatus);
-    return idx !== -1 ? idx : 0;
-  };
-
-  const activeIndex = getCurrentIndex();
+  const activeIndex = isFailed ? -1 : STAGES.findIndex(s => s.key === currentStatus);
 
   if (isFailed) {
     return (

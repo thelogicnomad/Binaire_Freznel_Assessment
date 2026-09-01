@@ -10,120 +10,100 @@ import { Scheduler } from './core/Scheduler.js';
 import { SocketService } from './services/SocketService.js';
 import { createUploadRouter } from './routes/upload.js';
 
-// Ensure uploads directory exists
 if (!fs.existsSync(config.uploadsDir)) {
   fs.mkdirSync(config.uploadsDir, { recursive: true });
 }
 
 const app = express();
-const httpServer = http.createServer(app);
+const server = http.createServer(app);
 
-// Dynamic CORS configuration supporting local development and deployed frontend (e.g. Vercel)
+// dynamic cors handler
 const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, or server-to-server)
-    if (!origin) return callback(null, true);
+  origin: (orig, cb) => {
+    if (!orig) return cb(null, true);
 
-    const isExplicitlyAllowed = config.allowedOrigins.some(
-      (allowed) => origin === allowed || allowed === '*'
-    );
-    const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
-    const isVercelPreview = /^https:\/\/[a-zA-Z0-9_-]+\.vercel\.app$/.test(origin);
+    const allowed = config.allowedOrigins.some(o => orig === o || o === '*');
+    const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(orig);
+    const isVercel = /^https:\/\/[a-zA-Z0-9_-]+\.vercel\.app$/.test(orig);
 
-    if (isExplicitlyAllowed || isLocalhost || isVercelPreview) {
-      return callback(null, true);
+    if (allowed || isLocal || isVercel) {
+      return cb(null, true);
     }
-    return callback(new Error(`Origin ${origin} not allowed by CORS policy.`));
+    return cb(new Error(`Origin ${orig} blocked by CORS`));
   },
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Initialize Socket.io
-const io = new SocketIOServer(httpServer, {
+const io = new SocketIOServer(server, {
   cors: corsOptions,
   pingInterval: 10000,
   pingTimeout: 5000,
 });
 
-// Initialize OOP Core Architecture
-const taskQueue = new TaskQueue();
-const workerPool = new WorkerPool({
+// setup queue and worker pool
+const queue = new TaskQueue();
+const pool = new WorkerPool({
   size: config.workerPoolSize,
   scriptPath: config.workerScriptPath,
   timeoutMs: config.taskTimeoutMs,
 });
-const socketService = new SocketService(io);
+const socketSvc = new SocketService(io);
 const scheduler = new Scheduler({
-  taskQueue,
-  workerPool,
-  socketService,
+  taskQueue: queue,
+  workerPool: pool,
+  socketService: socketSvc,
 });
-socketService.setScheduler(scheduler);
+socketSvc.setScheduler(scheduler);
 
-// Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
     uptime: process.uptime(),
     workers: config.workerPoolSize,
-    timestamp: new Date().toISOString(),
+    time: new Date().toISOString(),
   });
 });
 
-// Root info
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.json({
-    name: 'Multi-User CSV Queueing System API',
+    name: 'CSV Queue Engine',
     status: 'online',
     version: '1.0.0',
-    documentation: '/api/queue',
   });
 });
 
-// Mount upload and queue API routes
+// api routes
 app.use('/api', createUploadRouter({ scheduler, uploadsDir: config.uploadsDir }));
 
-// Graceful shutdown handling
-let isShuttingDown = false;
-async function gracefulShutdown(signal) {
-  if (isShuttingDown) return;
-  isShuttingDown = true;
-  console.log(`\nReceived ${signal}. Gracefully shutting down...`);
+let shuttingDown = false;
+async function handleShutdown(sig) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`[server] ${sig} received, closing...`);
 
   try {
-    console.log('Terminating worker pool threads...');
-    await workerPool.terminateAll();
-    console.log('Worker threads terminated.');
-
-    httpServer.close(() => {
-      console.log('HTTP and WebSocket server closed.');
+    await pool.terminateAll();
+    server.close(() => {
       process.exit(0);
     });
 
-    // Force exit after 5s if still hanging
     setTimeout(() => {
-      console.error('Forced exit after shutdown timeout.');
+      console.error('[server] forced shutdown after timeout');
       process.exit(1);
-    }, 5000);
+    }, 4000);
   } catch (err) {
     console.error('Error during shutdown:', err);
     process.exit(1);
   }
 }
 
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => handleShutdown('SIGINT'));
+process.on('SIGTERM', () => handleShutdown('SIGTERM'));
 
-// Start server
-httpServer.listen(config.port, () => {
-  console.log(`====================================================`);
-  console.log(` CSV Queue Engine Server running on port ${config.port}`);
-  console.log(` Worker Pool Size: ${config.workerPoolSize} threads`);
-  console.log(` Task Timeout: ${config.taskTimeoutMs} ms`);
-  console.log(` Health check: http://localhost:${config.port}/health`);
-  console.log(`====================================================`);
+server.listen(config.port, () => {
+  console.log(`> CSV Queue Server listening on port ${config.port} (${config.workerPoolSize} worker threads)`);
 });

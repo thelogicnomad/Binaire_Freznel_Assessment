@@ -1,17 +1,7 @@
 import { Worker } from 'worker_threads';
 import EventEmitter from 'events';
 
-/**
- * Encapsulated worker thread slot.
- */
 class WorkerSlot {
-  /**
-   * @param {number} index - 1-based worker index
-   * @param {string} scriptPath - Path to worker script
-   * @param {number} timeoutMs - Task timeout limit
-   * @param {Function} onMessage - Message relay callback
-   * @param {Function} onError - Error callback
-   */
   constructor(index, scriptPath, timeoutMs, onMessage, onError) {
     this.index = index;
     this.scriptPath = scriptPath;
@@ -37,8 +27,8 @@ class WorkerSlot {
       try {
         this.worker.removeAllListeners();
         this.worker.terminate();
-      } catch (err) {
-        // ignore cleanup error
+      } catch (e) {
+        // ignore cleanup error on old worker
       }
     }
 
@@ -47,8 +37,8 @@ class WorkerSlot {
     this.isBusy = false;
     this.currentTaskId = null;
 
-    this.worker.on('message', (message) => {
-      this.onMessage(this, message);
+    this.worker.on('message', (msg) => {
+      this.onMessage(this, msg);
     });
 
     this.worker.on('error', (err) => {
@@ -56,6 +46,7 @@ class WorkerSlot {
     });
 
     this.worker.on('exit', (code) => {
+      // code !== 0 means worker crashed while working
       if (code !== 0 && this.isBusy) {
         this.onError(
           this,
@@ -74,7 +65,7 @@ class WorkerSlot {
     this.isBusy = true;
     this.currentTaskId = task.id;
 
-    // Safety timeout: prevents hung workers from permanently locking pool slots
+    // kill worker if it hangs longer than timeoutMs
     this.timeoutTimer = setTimeout(() => {
       const err = new Error(
         `Task timed out after ${this.timeoutMs}ms. Worker thread terminated.`
@@ -112,27 +103,20 @@ class WorkerSlot {
   }
 }
 
-/**
- * Fixed-size WorkerPool managing worker_threads for parallel CSV processing.
- */
+// manages a fixed pool of worker threads
 export class WorkerPool extends EventEmitter {
-  /**
-   * @param {Object} options
-   * @param {number} options.size - Total worker threads
-   * @param {string} options.scriptPath - Absolute path to csvWorker.js
-   * @param {number} options.timeoutMs - Task timeout in ms
-   */
-  constructor({ size, scriptPath, timeoutMs = 30000 }) {
+  constructor(opts = {}) {
     super();
+    const { size = 4, scriptPath, timeoutMs = 30000 } = opts;
     this.size = Math.max(1, size);
     this.scriptPath = scriptPath;
     this.timeoutMs = timeoutMs;
     this.slots = [];
 
-    this._initializePool();
+    this._initPool();
   }
 
-  _initializePool() {
+  _initPool() {
     for (let i = 1; i <= this.size; i++) {
       const slot = new WorkerSlot(
         i,
@@ -146,7 +130,7 @@ export class WorkerPool extends EventEmitter {
   }
 
   _handleWorkerMessage(slot, message) {
-    if (!message || !message.taskId) return;
+    if (!message?.taskId) return;
 
     if (message.type === 'progress') {
       this.emit('task:progress', {
@@ -169,7 +153,6 @@ export class WorkerPool extends EventEmitter {
         numericCount: message.numericCount,
         durationMs: message.durationMs,
       });
-      // Slot is now free for another task
       this.emit('worker:free', slot);
     } else if (message.type === 'error') {
       slot.clearTask();
@@ -186,7 +169,7 @@ export class WorkerPool extends EventEmitter {
     const failedTaskId = slot.currentTaskId;
     slot.clearTask();
 
-    // Re-spawn worker to guarantee clean thread state after crash or timeout
+    // respawn so slot is clean for next job
     slot.spawnWorker();
 
     if (failedTaskId) {
@@ -199,31 +182,17 @@ export class WorkerPool extends EventEmitter {
       });
     }
 
-    // Worker slot is reset and available
     this.emit('worker:free', slot);
   }
 
-  /**
-   * Check if any worker is currently idle.
-   * @returns {boolean}
-   */
   hasIdleWorker() {
-    return this.slots.some((slot) => !slot.isBusy);
+    return this.slots.some(s => !s.isBusy);
   }
 
-  /**
-   * Acquire an idle worker slot.
-   * @returns {WorkerSlot|null}
-   */
   acquireIdleWorker() {
-    return this.slots.find((slot) => !slot.isBusy) || null;
+    return this.slots.find(s => !s.isBusy) || null;
   }
 
-  /**
-   * Assign a task to an idle worker and initiate execution.
-   * @param {import('./Task.js').Task} task
-   * @param {WorkerSlot} workerSlot
-   */
   dispatchTask(task, workerSlot) {
     if (!workerSlot) {
       throw new Error('Cannot dispatch task: provided worker slot is invalid');
@@ -231,12 +200,8 @@ export class WorkerPool extends EventEmitter {
     workerSlot.startTask(task);
   }
 
-  /**
-   * Get real-time status of all workers in the pool.
-   * @returns {Array<Object>}
-   */
   getStatus() {
-    return this.slots.map((slot) => ({
+    return this.slots.map(slot => ({
       index: slot.index,
       displayId: slot.displayId,
       threadId: slot.threadId,
@@ -245,10 +210,8 @@ export class WorkerPool extends EventEmitter {
     }));
   }
 
-  /**
-   * Terminate all worker threads in the pool.
-   */
   async terminateAll() {
-    await Promise.all(this.slots.map((s) => s.terminate()));
+    const promises = this.slots.map(s => s.terminate());
+    await Promise.all(promises);
   }
 }

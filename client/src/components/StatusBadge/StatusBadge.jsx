@@ -2,9 +2,6 @@ import React from 'react';
 import './StatusBadge.css';
 import { formatClientId } from '../../utils/clientId';
 
-/**
- * Greentiq status & attribute badge component
- */
 export function StatusBadge({ type, label, clientId, workerId, status }) {
   if (type === 'priority-high') {
     return (
@@ -50,15 +47,15 @@ export function StatusBadge({ type, label, clientId, workerId, status }) {
   }
 
   if (type === 'stage-status') {
-    let statusClass = 'StatusBadge-status-uploaded';
-    if (status === 'File added to queue') statusClass = 'StatusBadge-status-queued';
-    else if (status === 'Waiting for processing') statusClass = 'StatusBadge-status-waiting';
-    else if (status === 'Processing…') statusClass = 'StatusBadge-status-processing';
-    else if (status === 'Completed') statusClass = 'StatusBadge-status-completed';
-    else if (status === 'Failed') statusClass = 'StatusBadge-status-failed';
+    let cls = 'StatusBadge-status-uploaded';
+    if (status === 'File added to queue') cls = 'StatusBadge-status-queued';
+    else if (status === 'Waiting for processing') cls = 'StatusBadge-status-waiting';
+    else if (status === 'Processing…') cls = 'StatusBadge-status-processing';
+    else if (status === 'Completed') cls = 'StatusBadge-status-completed';
+    else if (status === 'Failed') cls = 'StatusBadge-status-failed';
 
     return (
-      <span className={`StatusBadge-badge ${statusClass}`}>
+      <span className={`StatusBadge-badge ${cls}`}>
         [ {label || status} ]
       </span>
     );

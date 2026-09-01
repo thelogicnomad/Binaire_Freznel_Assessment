@@ -3,10 +3,6 @@ import './Header.css';
 import { Copy, Check, RefreshCw, X } from 'lucide-react';
 import { formatClientId } from '../../utils/clientId';
 
-/**
- * Editorial top navigation header with enlarged pure black Binaire logo,
- * centered CSV QUEUE tag, and enlarged pure black Menu button.
- */
 export function Header({ clientId, onResetClientId, isConnected }) {
   const [copied, setCopied] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,31 +14,30 @@ export function Header({ clientId, onResetClientId, isConnected }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Close dropdown menu when clicking outside or pressing Escape
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setIsMenuOpen(false);
       }
     };
-    const handleKeyDown = (e) => {
+    const handleKey = (e) => {
       if (e.key === 'Escape' && isMenuOpen) {
         setIsMenuOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleOutside);
+    window.addEventListener('keydown', handleKey);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleOutside);
+      window.removeEventListener('keydown', handleKey);
     };
   }, [isMenuOpen]);
 
   return (
     <header className="Header-root">
       <div className="Header-container">
-        {/* Left Corner: Enlarged Pure Black Binaire Logo */}
+        {/* Left: Binaire Logo SVG */}
         <div className="Header-left-corner">
           <svg
             className="Header-binaire-svg"
@@ -126,12 +121,12 @@ export function Header({ clientId, onResetClientId, isConnected }) {
           </svg>
         </div>
 
-        {/* Center: CSV QUEUE Tag (color unchanged) */}
+        {/* Center: CSV QUEUE Tag */}
         <div className="Header-center-section">
           <span className="Header-brand-tag">[ CSV QUEUE ]</span>
         </div>
 
-        {/* Right Corner: Enlarged Pure Black Menu Button & Dropdown */}
+        {/* Right: Menu */}
         <div className="Header-right-corner">
           <div className="Header-menu-wrapper" ref={menuRef}>
             <button
@@ -139,7 +134,7 @@ export function Header({ clientId, onResetClientId, isConnected }) {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`Header-menu-btn ${isMenuOpen ? 'Header-menu-btn-active' : ''}`}
               aria-expanded={isMenuOpen}
-              aria-label="Toggle Navigation Menu"
+              aria-label="Toggle Menu"
             >
               <span className="Header-menu-text">Menu</span>
               <div className="Header-hamburger-icon">
@@ -149,7 +144,6 @@ export function Header({ clientId, onResetClientId, isConnected }) {
               </div>
             </button>
 
-            {/* Minimal Editorial Dropdown Menu */}
             {isMenuOpen && (
               <div className="Header-dropdown-panel" role="menu">
                 <div className="Header-dropdown-header">
@@ -158,21 +152,18 @@ export function Header({ clientId, onResetClientId, isConnected }) {
                     type="button"
                     onClick={() => setIsMenuOpen(false)}
                     className="Header-dropdown-close"
-                    aria-label="Close menu"
+                    aria-label="Close"
                   >
                     <X className="Header-dropdown-close-icon" />
                   </button>
                 </div>
 
-                {/* Socket Status */}
                 <div className="Header-dropdown-row">
                   <span className="Header-dropdown-label">Socket Connection</span>
                   <div className="Header-status-indicator">
                     <span
                       className={`Header-status-dot ${
-                        isConnected
-                          ? 'Header-status-dot-online'
-                          : 'Header-status-dot-offline'
+                        isConnected ? 'Header-status-dot-online' : 'Header-status-dot-offline'
                       }`}
                     />
                     <span className="Header-status-value">
@@ -181,7 +172,6 @@ export function Header({ clientId, onResetClientId, isConnected }) {
                   </div>
                 </div>
 
-                {/* Client ID with Copy & Reset */}
                 <div className="Header-dropdown-row">
                   <span className="Header-dropdown-label">Client UUID</span>
                   <div className="Header-client-group">
@@ -189,7 +179,7 @@ export function Header({ clientId, onResetClientId, isConnected }) {
                     <button
                       type="button"
                       onClick={handleCopyId}
-                      title="Copy full client UUID"
+                      title="Copy UUID"
                       className="Header-control-btn"
                     >
                       {copied ? (
@@ -201,7 +191,7 @@ export function Header({ clientId, onResetClientId, isConnected }) {
                     <button
                       type="button"
                       onClick={onResetClientId}
-                      title="Simulate new client session"
+                      title="New client session"
                       className="Header-control-btn"
                     >
                       <RefreshCw className="Header-control-icon" />
@@ -209,7 +199,6 @@ export function Header({ clientId, onResetClientId, isConnected }) {
                   </div>
                 </div>
 
-                {/* Engine Specs */}
                 <div className="Header-dropdown-footer">
                   <span className="Header-footer-sub">Parallel All-Reduce Engine</span>
                   <span className="Header-footer-tag">Node.js worker_threads</span>

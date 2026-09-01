@@ -4,12 +4,6 @@ import { io } from 'socket.io-client';
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-/**
- * Custom hook managing WebSocket connection, live queue state, task lifecycle actions, and toast notifications.
- *
- * @param {string} clientId - Current persistent client ID
- * @returns {Object} socket state, tasks, stats, activeToast, and task management actions
- */
 export function useQueueSocket(clientId) {
   const [isConnected, setIsConnected] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -29,7 +23,6 @@ export function useQueueSocket(clientId) {
   tasksRef.current = tasks;
 
   useEffect(() => {
-    // Determine socket endpoint
     const url = SOCKET_URL || window.location.origin;
 
     const socket = io(url, {
@@ -55,39 +48,26 @@ export function useQueueSocket(clientId) {
       setIsConnected(false);
     });
 
-    // Received initial or updated queue snapshot
-    socket.on('queue:snapshot', (data) => {
+    const handleQueueSync = (data) => {
       if (data && Array.isArray(data.tasks)) {
         setTasks((prevTasks) => {
-          const uploadingTasks = prevTasks.filter((t) => t.status === 'File uploading');
-          const serverTaskIds = new Set(data.tasks.map((t) => t.id));
-          const stillUploading = uploadingTasks.filter((t) => !serverTaskIds.has(t.id));
+          // preserve any in-flight uploads not yet on server
+          const uploading = prevTasks.filter(t => t.status === 'File uploading');
+          const serverIds = new Set(data.tasks.map(t => t.id));
+          const stillUploading = uploading.filter(t => !serverIds.has(t.id));
           return [...stillUploading, ...data.tasks];
         });
       }
-      if (data && data.stats) {
+      if (data?.stats) {
         setStats(data.stats);
       }
-    });
+    };
 
-    // Received broadcast queue update
-    socket.on('queue:update', (data) => {
-      if (data && Array.isArray(data.tasks)) {
-        setTasks((prevTasks) => {
-          const uploadingTasks = prevTasks.filter((t) => t.status === 'File uploading');
-          const serverTaskIds = new Set(data.tasks.map((t) => t.id));
-          const stillUploading = uploadingTasks.filter((t) => !serverTaskIds.has(t.id));
-          return [...stillUploading, ...data.tasks];
-        });
-      }
-      if (data && data.stats) {
-        setStats(data.stats);
-      }
-    });
+    socket.on('queue:snapshot', handleQueueSync);
+    socket.on('queue:update', handleQueueSync);
 
-    // Incremental progress event for a specific task
     socket.on('task:progress', (taskUpdate) => {
-      if (!taskUpdate || !taskUpdate.id) return;
+      if (!taskUpdate?.id) return;
       setTasks((prev) =>
         prev.map((t) => {
           if (t.id === taskUpdate.id) {
@@ -102,7 +82,7 @@ export function useQueueSocket(clientId) {
       );
     });
 
-    // Targeted completion event for this specific client
+    // targeted notification for this client
     socket.on('task:completed', (completedData) => {
       setActiveToast({
         id: Date.now(),
@@ -124,37 +104,27 @@ export function useQueueSocket(clientId) {
     };
   }, [clientId]);
 
-  /**
-   * Add optimistic tasks during active HTTP file upload
-   */
   const addOptimisticTasks = useCallback((optimisticList) => {
-    setTasks((prev) => [...optimisticList, ...prev]);
+    setTasks(prev => [...optimisticList, ...prev]);
   }, []);
 
-  /**
-   * Update or remove optimistic tasks once HTTP response arrives
-   */
   const resolveOptimisticTasks = useCallback((tempIds, serverTasks) => {
     setTasks((prev) => {
       const tempIdSet = new Set(tempIds);
-      const filtered = prev.filter((t) => !tempIdSet.has(t.id));
-      const serverTaskIds = new Set(filtered.map((t) => t.id));
-      const newTasks = serverTasks.filter((t) => !serverTaskIds.has(t.id));
+      const filtered = prev.filter(t => !tempIdSet.has(t.id));
+      const serverTaskIds = new Set(filtered.map(t => t.id));
+      const newTasks = serverTasks.filter(t => !serverTaskIds.has(t.id));
       return [...newTasks, ...filtered];
     });
   }, []);
 
-  /**
-   * Remove a single task by ID and trigger deletion toast
-   */
   const removeTask = useCallback(async (taskId) => {
-    const target = tasksRef.current.find((t) => t.id === taskId);
+    const target = tasksRef.current.find(t => t.id === taskId);
     const filename = target?.originalName || 'Task';
 
-    // Optimistically remove from local state
-    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+    // optimistic delete
+    setTasks(prev => prev.filter(t => t.id !== taskId));
 
-    // Show deletion toast
     setActiveToast({
       id: Date.now(),
       type: 'deleted',
@@ -173,16 +143,11 @@ export function useQueueSocket(clientId) {
     }
   }, [clientId]);
 
-  /**
-   * Clear all tasks submitted by current client and trigger clear toast
-   */
   const clearAllTasks = useCallback(async () => {
-    const count = tasksRef.current.filter((t) => t.clientId === clientId).length;
+    const count = tasksRef.current.filter(t => t.clientId === clientId).length;
 
-    // Optimistically remove all tasks belonging to current client
-    setTasks((prev) => prev.filter((t) => t.clientId !== clientId));
+    setTasks(prev => prev.filter(t => t.clientId !== clientId));
 
-    // Show clear all toast
     setActiveToast({
       id: Date.now(),
       type: 'cleared',
@@ -198,7 +163,7 @@ export function useQueueSocket(clientId) {
         body: JSON.stringify({ clientId, all: true }),
       });
     } catch (err) {
-      console.error('Failed to clear all tasks:', err);
+      console.error('Failed to clear tasks:', err);
     }
   }, [clientId]);
 

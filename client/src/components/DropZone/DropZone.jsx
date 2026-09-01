@@ -2,18 +2,15 @@ import React, { useRef } from 'react';
 import './DropZone.css';
 import { UploadCloud } from 'lucide-react';
 
-/**
- * Greentiq drop zone component
- */
 export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, onDrop }) {
-  const fileInputRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleClick = () => {
-    fileInputRef.current?.click();
+    inputRef.current?.click();
   };
 
-  const handleInputChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
+  const handleChange = (e) => {
+    if (e.target.files?.length > 0) {
       onFilesAdded(e.target.files);
       e.target.value = '';
     }
@@ -34,12 +31,12 @@ export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, on
       }}
     >
       <input
-        ref={fileInputRef}
+        ref={inputRef}
         type="file"
         multiple
         accept=".csv,text/csv,text/plain"
         className="DropZone-hidden-input"
-        onChange={handleInputChange}
+        onChange={handleChange}
       />
       <div className="DropZone-content">
         <div className="DropZone-icon-wrapper">

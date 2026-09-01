@@ -23,29 +23,26 @@ export default function App() {
     clearAllTasks,
   } = useQueueSocket(clientId);
 
-  const handleResetClientId = () => {
-    const newId = resetClientId();
-    setClientId(newId);
+  const handleResetId = () => {
+    const next = resetClientId();
+    setClientId(next);
   };
 
   return (
     <div className="App-container">
-      {/* Greentiq Header with Info Toggletip */}
       <Header
         clientId={clientId}
-        onResetClientId={handleResetClientId}
+        onResetClientId={handleResetId}
         isConnected={isConnected}
       />
 
-      {/* Floating Top-Right Toast Notification (for completions, deletions, and queue actions) */}
       <CompletionBanner
         toast={activeToast}
         onDismiss={clearToast}
       />
 
-      {/* Main Content Area */}
       <main className="App-main">
-        {/* Section 1: System Metrics */}
+        {/* System metrics */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />
@@ -55,7 +52,7 @@ export default function App() {
           <QueueStats stats={stats} tasks={tasks} />
         </div>
 
-        {/* Section 2: Upload Zone */}
+        {/* Upload area */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />
@@ -66,13 +63,13 @@ export default function App() {
             clientId={clientId}
             onUploadStart={(optimistic) => addOptimisticTasks(optimistic)}
             onUploadSuccess={(tempIds, serverTasks) => resolveOptimisticTasks(tempIds, serverTasks)}
-            onUploadError={(tempIds, err) => {
+            onUploadError={(_tempIds, err) => {
               console.error('Upload Error:', err);
             }}
           />
         </div>
 
-        {/* Section 3: Live Dashboard */}
+        {/* Queue monitor */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />
@@ -88,7 +85,6 @@ export default function App() {
         </div>
       </main>
 
-      {/* Greentiq Footer */}
       <footer className="App-footer">
         <div className="App-footer-content">
           <p className="App-footer-title">
