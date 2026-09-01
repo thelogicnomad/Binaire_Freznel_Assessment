@@ -4,7 +4,7 @@ import { Layers, Copy, Check, RefreshCw } from 'lucide-react';
 import { formatClientId } from '../../utils/clientId';
 
 /**
- * Monochrome editorial header bar
+ * Greentiq navigation header
  */
 export function Header({ clientId, onResetClientId, isConnected, stats }) {
   const [copied, setCopied] = useState(false);
@@ -42,7 +42,13 @@ export function Header({ clientId, onResetClientId, isConnected, stats }) {
           </div>
 
           {/* Connection Status Bracket Pill */}
-          <div className="Header-connection-pill">
+          <div
+            className={`Header-connection-pill ${
+              isConnected
+                ? 'Header-connection-connected'
+                : 'Header-connection-disconnected'
+            }`}
+          >
             <span>[ Socket: {isConnected ? 'Connected' : 'Offline'} ]</span>
           </div>
 

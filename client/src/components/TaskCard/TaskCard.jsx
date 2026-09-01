@@ -15,7 +15,7 @@ function formatBytes(bytes) {
 }
 
 /**
- * Editorial task visualization card with black border and divider line
+ * Greentiq task visualization card
  */
 export function TaskCard({ task, currentClientId }) {
   const isOwner = task.clientId === currentClientId;
@@ -25,7 +25,7 @@ export function TaskCard({ task, currentClientId }) {
 
   return (
     <div className="TaskCard-container">
-      {/* Header Section (Separated by 1px black divider) */}
+      {/* Header Section (Separated by 1px var(--border) divider) */}
       <div className="TaskCard-header-section">
         <div className="TaskCard-top-bar">
           <div className="TaskCard-badges-group">
@@ -35,6 +35,11 @@ export function TaskCard({ task, currentClientId }) {
             <StatusBadge
               type={isOwner ? 'owner-you' : 'owner-other'}
               clientId={task.clientId}
+            />
+            {/* Show stage status badge */}
+            <StatusBadge
+              type="stage-status"
+              status={task.status}
             />
           </div>
 

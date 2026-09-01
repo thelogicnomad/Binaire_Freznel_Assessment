@@ -10,7 +10,7 @@ function formatNumber(num) {
 }
 
 /**
- * High-contrast editorial result display for all-reduce numeric sum
+ * Greentiq result display for all-reduce numeric sum
  */
 export function TaskResult({ result, rows = 0, columns = 0, numericCount = 0 }) {
   return (

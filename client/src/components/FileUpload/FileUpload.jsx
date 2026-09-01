@@ -7,7 +7,7 @@ import { StagedFileList } from '../StagedFileList/StagedFileList';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * Editorial file upload container with capsule arrow buttons
+ * Greentiq file upload manager with primary pill button and secondary controls
  */
 export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadError }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -185,7 +185,7 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
           <button
             type="button"
             onClick={() => generateSampleCsv('high_priority_fast')}
-            className="FileUpload-btn-outline"
+            className="FileUpload-btn-secondary"
             title="Generate a 25-row sample tagged with High Priority"
           >
             <span>+ Sample [ High ]</span>
@@ -194,7 +194,7 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
           <button
             type="button"
             onClick={() => generateSampleCsv('large_dataset')}
-            className="FileUpload-btn-outline"
+            className="FileUpload-btn-secondary"
             title="Generate an 8,000-row sample tagged with Low Priority"
           >
             <span>+ 8K Rows [ Low ]</span>
@@ -230,7 +230,7 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
             type="button"
             disabled={isUploading}
             onClick={handleUploadSubmit}
-            className="FileUpload-btn-solid"
+            className="FileUpload-btn-primary"
           >
             <span>
               {isUploading

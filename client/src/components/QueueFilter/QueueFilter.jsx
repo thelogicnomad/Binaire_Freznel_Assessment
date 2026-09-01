@@ -3,7 +3,7 @@ import './QueueFilter.css';
 import { Search } from 'lucide-react';
 
 /**
- * Minimalist monochrome filter bar with pill tabs
+ * Greentiq filter tab bar and search input
  */
 export function QueueFilter({
   activeFilter,
@@ -14,7 +14,7 @@ export function QueueFilter({
 }) {
   return (
     <div className="QueueFilter-container">
-      {/* Tabs */}
+      {/* Tabs with var(--radius) */}
       <div className="QueueFilter-tabs-wrapper">
         <button
           type="button"
@@ -67,7 +67,7 @@ export function QueueFilter({
         </button>
       </div>
 
-      {/* Search Input */}
+      {/* Search Input with var(--input) border and var(--ring) focus */}
       <div className="QueueFilter-search-wrapper">
         <Search className="QueueFilter-search-icon" />
         <input

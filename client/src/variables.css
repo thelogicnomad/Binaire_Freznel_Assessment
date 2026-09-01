@@ -1,0 +1,42 @@
+/* Greentiq CSS Custom Property System */
+
+:root {
+  --background: lch(94.44% 0.5 282 / 1);
+  --foreground: lch(19.588% 1.25 282 / 1);
+  --card: lch(97.94% 0.5 282);
+  --card-foreground: lch(19.588% 1.25 282 / 1);
+  --popover: lch(90.94% 0.5 282 / 1);
+  --popover-foreground: lch(19.588% 1.25 282 / 1);
+  --primary: lch(48% 59.31 288.43);
+  --primary-foreground: lch(100% 29.655 288.43);
+  --secondary: lch(94.44% 0.5 282 / 1);
+  --secondary-foreground: lch(19.588% 1.25 282 / 1);
+  --muted: lch(92.44% 0.5 282 / 1);
+  --muted-foreground: lch(39.176% 1.25 282 / 1);
+  --accent: lch(94.44% 0.5 282 / 1);
+  --accent-foreground: lch(19.588% 1.25 282 / 1);
+  --destructive: lch(58% 73 29);
+  --destructive-foreground: #ffffff;
+  --border: lch(88.49% 0 282 / 1);
+  --input: lch(85.79% 0 282 / 1);
+  --ring: lch(53% 52.26 286.91);
+  --radius: 0.5rem;
+
+  --status-active-text: lch(42.969% 64.37 141.95);
+  --status-active-bg: lch(93.193% 6.051 148.602 / 1);
+  --status-prospect-text: lch(42.969% 70 267);
+  --status-prospect-bg: lch(94.802% 14.798 268.228 / 1);
+  --status-lead-text: lch(42.969% 90 85);
+  --status-lead-bg: lch(94.802% 7.462 80.086 / 1);
+  --status-inactive-text: lch(39.176% 1.25 282 / 1);
+  --status-inactive-bg: transparent;
+  --status-archived-text: lch(42.969% 73 29);
+  --status-archived-bg: lch(92.134% 7.526 15.947 / 1);
+
+  --overlay-hover: lch(0% 0 0 / 0.04);
+  --overlay-active: lch(0% 0 0 / 0.08);
+
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

@@ -20,7 +20,7 @@ export const STAGES = [
 ];
 
 /**
- * Monochrome editorial 6-step lifecycle tracker
+ * Greentiq 6-step lifecycle tracker with status tokens
  */
 export function StageTimeline({ currentStatus, progress = 0, workerId = null, error = null }) {
   const isFailed = currentStatus === 'Failed';
@@ -59,7 +59,9 @@ export function StageTimeline({ currentStatus, progress = 0, workerId = null, er
             labelClass = 'StageTimeline-label-passed';
             connectorClass = 'StageTimeline-connector-passed';
           } else if (isCurrent) {
-            circleClass = 'StageTimeline-circle-current';
+            circleClass = stage.key === 'File added to queue'
+              ? 'StageTimeline-circle-current-queued'
+              : 'StageTimeline-circle-current';
             labelClass = 'StageTimeline-label-current';
             connectorClass = 'StageTimeline-connector-active';
           }
@@ -91,13 +93,13 @@ export function StageTimeline({ currentStatus, progress = 0, workerId = null, er
               </span>
 
               {isCurrent && stage.key === 'Waiting for processing' && workerId && (
-                <span className="StageTimeline-chip">
+                <span className="StageTimeline-chip StageTimeline-chip-waiting">
                   [ {workerId.split(' ')[0]} ]
                 </span>
               )}
 
               {isCurrent && stage.key === 'Processing…' && (
-                <span className="StageTimeline-chip">
+                <span className="StageTimeline-chip StageTimeline-chip-processing">
                   [ {progress}% ]
                 </span>
               )}

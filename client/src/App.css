@@ -2,27 +2,28 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-page);
-  color: var(--text-black);
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .App-main {
   flex: 1;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 4rem 1.5rem;
+  padding: 2rem 1.5rem 4rem 1.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2.25rem;
 }
 
-/* Dark Navy Accent Hero Graphic Panel */
+/* Greentiq Hero Overview Card */
 .App-hero-panel {
-  background-color: var(--bg-accent-navy);
-  border-radius: var(--radius-card);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 2.5rem 2rem;
-  color: var(--text-white);
+  color: var(--card-foreground);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,7 +36,7 @@
   .App-hero-panel {
     flex-direction: row;
     align-items: center;
-    padding: 3rem 2.5rem;
+    padding: 2.75rem 2.5rem;
   }
 }
 
@@ -43,7 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  max-width: 34rem;
+  max-width: 36rem;
   position: relative;
   z-index: 10;
 }
@@ -52,8 +53,9 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #94a3b8;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .App-hero-heading {
@@ -61,18 +63,18 @@
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--card-foreground);
 }
 
 @media (min-width: 768px) {
   .App-hero-heading {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
 }
 
 .App-hero-description {
   font-size: 0.9375rem;
-  color: #cbd5e1;
+  color: var(--muted-foreground);
   line-height: 1.6;
 }
 
@@ -86,10 +88,10 @@
 .App-hero-wireframe-svg {
   width: 13rem;
   height: 10rem;
-  stroke: #ffffff;
+  stroke: var(--primary);
 }
 
-/* Editorial Section Divider Pattern: Rule + Label + Rule */
+/* Editorial Section Divider: Rule + Label + Rule */
 .App-section-divider {
   display: flex;
   align-items: center;
@@ -101,14 +103,14 @@
 .App-section-rule {
   flex: 1;
   height: 1px;
-  background-color: var(--border-black);
+  background-color: var(--border);
 }
 
 .App-section-label {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--foreground);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -121,12 +123,12 @@
 }
 
 .App-footer {
-  border-top: 1px solid var(--border-black);
-  background-color: var(--bg-page);
+  border-top: 1px solid var(--border);
+  background-color: var(--card);
   padding: 2.5rem 1.5rem;
   text-align: center;
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .App-footer-content {
@@ -139,11 +141,11 @@
 
 .App-footer-title {
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--card-foreground);
 }
 
 .App-footer-sub {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }

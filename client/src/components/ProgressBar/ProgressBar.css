@@ -11,7 +11,7 @@
 }
 
 .ProgressBar-label {
-  color: var(--text-black);
+  color: var(--foreground);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -21,22 +21,22 @@
 .ProgressBar-percentage {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--foreground);
 }
 
 .ProgressBar-track {
   width: 100%;
   height: 0.5rem;
-  background-color: #f3f4f6;
-  border: 1px solid var(--border-black);
-  border-radius: var(--radius-pill);
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
 .ProgressBar-fill {
   height: 100%;
-  background-color: var(--text-black);
-  border-radius: var(--radius-pill);
+  background-color: var(--primary);
+  border-radius: var(--radius);
   transition: width 0.3s ease;
 }
 
@@ -45,7 +45,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.6875rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   margin-top: 0.375rem;
 }

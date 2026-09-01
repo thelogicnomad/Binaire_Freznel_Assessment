@@ -3,7 +3,7 @@ import './StagedFileList.css';
 import { FileSpreadsheet, Trash2, ArrowRight } from 'lucide-react';
 
 /**
- * Minimalist monochrome list of staged files
+ * Greentiq staged files list
  */
 export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
   if (!files || files.length === 0) return null;

@@ -1,6 +1,6 @@
 .Header-root {
-  border-bottom: 1px solid var(--border-black);
-  background-color: var(--bg-page);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--card);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -46,10 +46,10 @@
 .Header-logo-box {
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
-  color: var(--text-black);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@
 .Header-title {
   font-size: 1.25rem;
   font-weight: 900;
-  color: var(--text-black);
+  color: var(--foreground);
   letter-spacing: -0.03em;
 }
 
@@ -83,12 +83,16 @@
   font-size: 0.6875rem;
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--primary);
+  background-color: var(--accent);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in lch, var(--primary) 20%, transparent);
 }
 
 .Header-subtitle {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .Header-actions-bar {
@@ -111,12 +115,12 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
   font-size: 0.75rem;
   font-family: var(--font-mono);
-  color: var(--text-black);
+  color: var(--secondary-foreground);
 }
 
 .Header-connection-pill {
@@ -124,37 +128,49 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
+  border-radius: var(--radius);
   font-size: 0.75rem;
   font-family: var(--font-mono);
-  color: var(--text-black);
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.Header-connection-connected {
+  background-color: var(--status-active-bg);
+  color: var(--status-active-text);
+  border-color: color-mix(in lch, var(--status-active-text) 20%, transparent);
+}
+
+.Header-connection-disconnected {
+  background-color: var(--status-archived-bg);
+  color: var(--status-archived-text);
+  border-color: color-mix(in lch, var(--status-archived-text) 20%, transparent);
 }
 
 .Header-client-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.875rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
   font-size: 0.75rem;
   font-family: var(--font-mono);
+  color: var(--secondary-foreground);
 }
 
 .Header-client-id {
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--foreground);
 }
 
 .Header-icon-btn {
   padding: 0.2rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   background: transparent;
   border: none;
-  color: var(--text-black);
+  color: var(--foreground);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -163,7 +179,12 @@
 }
 
 .Header-icon-btn:hover {
-  transform: scale(1.15);
+  background-color: var(--muted);
+  color: var(--primary);
+}
+
+.Header-icon-btn:focus-visible {
+  outline: 2px solid var(--ring);
 }
 
 .Header-btn-icon {

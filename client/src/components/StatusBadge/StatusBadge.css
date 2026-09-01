@@ -1,32 +1,81 @@
-.StatusBadge-tag {
+.StatusBadge-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-black);
-  background: transparent;
-  padding: 0;
   line-height: 1.2;
   white-space: nowrap;
   letter-spacing: -0.01em;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
 }
 
-.StatusBadge-brackets {
-  color: var(--text-muted);
-  font-weight: 400;
+/* Priority Badges */
+.StatusBadge-priority-high {
+  background-color: var(--status-lead-bg);
+  color: var(--status-lead-text);
+  border-color: color-mix(in lch, var(--status-lead-text) 20%, transparent);
 }
 
-.StatusBadge-high {
+.StatusBadge-priority-low {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border-color: var(--border);
+}
+
+/* Ownership Badges */
+.StatusBadge-owner-you {
+  background-color: var(--accent);
+  color: var(--primary);
+  border-color: color-mix(in lch, var(--primary) 25%, transparent);
   font-weight: 700;
-  color: var(--text-black);
 }
 
+.StatusBadge-owner-other {
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  border-color: var(--border);
+}
+
+/* Worker / PID Tag */
 .StatusBadge-worker {
-  color: var(--text-body);
+  background-color: var(--status-prospect-bg);
+  color: var(--status-prospect-text);
+  border-color: color-mix(in lch, var(--status-prospect-text) 20%, transparent);
 }
 
-.StatusBadge-you {
-  font-weight: 700;
+/* 6-Stage Lifecycle Status Badges */
+.StatusBadge-status-uploaded {
+  background-color: var(--status-inactive-bg);
+  color: var(--status-inactive-text);
+  border-color: var(--border);
+}
+
+.StatusBadge-status-queued {
+  background-color: var(--status-lead-bg);
+  color: var(--status-lead-text);
+  border-color: color-mix(in lch, var(--status-lead-text) 20%, transparent);
+}
+
+.StatusBadge-status-waiting,
+.StatusBadge-status-processing {
+  background-color: var(--status-prospect-bg);
+  color: var(--status-prospect-text);
+  border-color: color-mix(in lch, var(--status-prospect-text) 20%, transparent);
+}
+
+.StatusBadge-status-completed {
+  background-color: var(--status-active-bg);
+  color: var(--status-active-text);
+  border-color: color-mix(in lch, var(--status-active-text) 20%, transparent);
+}
+
+.StatusBadge-status-failed {
+  background-color: var(--status-archived-bg);
+  color: var(--status-archived-text);
+  border-color: color-mix(in lch, var(--status-archived-text) 20%, transparent);
 }

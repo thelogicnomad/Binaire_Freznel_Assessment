@@ -3,29 +3,29 @@ import './StatusBadge.css';
 import { formatClientId } from '../../utils/clientId';
 
 /**
- * Editorial bracket-style tag: [ High ] [ Low ] [ You ] [ Worker #1 ]
+ * Greentiq status & attribute badge component
  */
-export function StatusBadge({ type, label, clientId, workerId }) {
+export function StatusBadge({ type, label, clientId, workerId, status }) {
   if (type === 'priority-high') {
     return (
-      <span className="StatusBadge-tag StatusBadge-high">
-        <span className="StatusBadge-brackets">[</span> {label || 'High'} <span className="StatusBadge-brackets">]</span>
+      <span className="StatusBadge-badge StatusBadge-priority-high">
+        [ {label || 'High'} ]
       </span>
     );
   }
 
   if (type === 'priority-low') {
     return (
-      <span className="StatusBadge-tag">
-        <span className="StatusBadge-brackets">[</span> {label || 'Low'} <span className="StatusBadge-brackets">]</span>
+      <span className="StatusBadge-badge StatusBadge-priority-low">
+        [ {label || 'Low'} ]
       </span>
     );
   }
 
   if (type === 'owner-you') {
     return (
-      <span className="StatusBadge-tag StatusBadge-you">
-        <span className="StatusBadge-brackets">[</span> You <span className="StatusBadge-brackets">]</span>
+      <span className="StatusBadge-badge StatusBadge-owner-you">
+        [ You ]
       </span>
     );
   }
@@ -33,25 +33,40 @@ export function StatusBadge({ type, label, clientId, workerId }) {
   if (type === 'owner-other') {
     return (
       <span
-        className="StatusBadge-tag"
+        className="StatusBadge-badge StatusBadge-owner-other"
         title={`Submitted by client ${clientId}`}
       >
-        <span className="StatusBadge-brackets">[</span> {formatClientId(clientId)} <span className="StatusBadge-brackets">]</span>
+        [ {formatClientId(clientId)} ]
       </span>
     );
   }
 
   if (type === 'worker') {
     return (
-      <span className="StatusBadge-tag StatusBadge-worker">
-        <span className="StatusBadge-brackets">[</span> {workerId} <span className="StatusBadge-brackets">]</span>
+      <span className="StatusBadge-badge StatusBadge-worker">
+        [ {workerId} ]
+      </span>
+    );
+  }
+
+  if (type === 'stage-status') {
+    let statusClass = 'StatusBadge-status-uploaded';
+    if (status === 'File added to queue') statusClass = 'StatusBadge-status-queued';
+    else if (status === 'Waiting for processing') statusClass = 'StatusBadge-status-waiting';
+    else if (status === 'Processing…') statusClass = 'StatusBadge-status-processing';
+    else if (status === 'Completed') statusClass = 'StatusBadge-status-completed';
+    else if (status === 'Failed') statusClass = 'StatusBadge-status-failed';
+
+    return (
+      <span className={`StatusBadge-badge ${statusClass}`}>
+        [ {label || status} ]
       </span>
     );
   }
 
   return (
-    <span className="StatusBadge-tag">
-      <span className="StatusBadge-brackets">[</span> {label} <span className="StatusBadge-brackets">]</span>
+    <span className="StatusBadge-badge StatusBadge-priority-low">
+      [ {label} ]
     </span>
   );
 }

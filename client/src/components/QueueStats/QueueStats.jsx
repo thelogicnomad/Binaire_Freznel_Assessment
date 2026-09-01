@@ -3,7 +3,7 @@ import './QueueStats.css';
 import { Flame, Clock, Cpu, CheckCircle2 } from 'lucide-react';
 
 /**
- * Editorial monochrome system overview cards
+ * Greentiq summary cards for queue lanes, worker threads, and completed jobs
  */
 export function QueueStats({ stats, tasks }) {
   const completedTasks = tasks.filter((t) => t.status === 'Completed');
@@ -15,7 +15,7 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ High Priority Lane ]</span>
-          <Flame className="QueueStats-icon" />
+          <Flame className="QueueStats-icon" style={{ color: 'var(--status-lead-text)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">
@@ -45,14 +45,14 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Worker Thread Pool ]</span>
-          <Cpu className="QueueStats-icon" />
+          <Cpu className="QueueStats-icon" style={{ color: 'var(--status-prospect-text)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">
             <span className="QueueStats-number">
               {stats.activeWorkers} / {stats.totalWorkers}
             </span>
-            <span className="QueueStats-unit">active</span>
+            <span className="QueueStats-unit">threads active</span>
           </div>
           <div className="QueueStats-worker-bars">
             {stats.workers && stats.workers.length > 0 ? (
@@ -76,7 +76,7 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Completed Reductions ]</span>
-          <CheckCircle2 className="QueueStats-icon" />
+          <CheckCircle2 className="QueueStats-icon" style={{ color: 'var(--status-active-text)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">

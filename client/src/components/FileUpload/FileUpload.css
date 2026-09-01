@@ -1,7 +1,7 @@
 .FileUpload-card {
-  background-color: var(--bg-card);
-  border-radius: var(--radius-card);
-  border: 1px solid var(--border-black);
+  background-color: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
   padding: 1.5rem;
   position: relative;
 }
@@ -12,7 +12,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-black);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 1.25rem;
 }
 
@@ -31,7 +31,7 @@
 .FileUpload-title {
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--text-black);
+  color: var(--card-foreground);
   letter-spacing: -0.03em;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
 
 .FileUpload-subtitle {
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   margin-top: 0.25rem;
 }
 
@@ -51,26 +51,30 @@
   flex-wrap: wrap;
 }
 
-/* Capsule Outline Button */
-.FileUpload-btn-outline {
+/* Secondary Button with var(--radius) */
+.FileUpload-btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
-  color: var(--text-black);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
   transition: all 0.15s ease;
   white-space: nowrap;
 }
 
-.FileUpload-btn-outline:hover {
-  background-color: var(--text-black);
-  color: var(--text-white);
+.FileUpload-btn-secondary:hover {
+  background-color: color-mix(in lch, var(--secondary) 92%, var(--foreground));
+}
+
+.FileUpload-btn-secondary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
 }
 
 .FileUpload-btn-icon {
@@ -85,10 +89,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-card);
-  background-color: var(--bg-subtle);
-  border: 1px solid var(--border-black);
-  color: var(--text-black);
+  border-radius: var(--radius);
+  background-color: var(--status-archived-bg);
+  border: 1px solid color-mix(in lch, var(--status-archived-text) 20%, transparent);
+  color: var(--status-archived-text);
   font-size: 0.8125rem;
   font-family: var(--font-mono);
 }
@@ -105,27 +109,33 @@
   justify-content: flex-end;
 }
 
-/* Capsule Solid Button */
-.FileUpload-btn-solid {
+/* Primary Action Pill Button */
+.FileUpload-btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
   padding: 0.625rem 1.5rem;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background-color: var(--text-black);
-  border: 1px solid var(--border-black);
+  font-weight: 700;
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.FileUpload-btn-solid:hover:not(:disabled) {
-  background-color: #262626;
+.FileUpload-btn-primary:hover:not(:disabled) {
+  background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
+  border-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
 }
 
-.FileUpload-btn-solid:disabled {
-  opacity: 0.4;
+.FileUpload-btn-primary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.FileUpload-btn-primary:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }

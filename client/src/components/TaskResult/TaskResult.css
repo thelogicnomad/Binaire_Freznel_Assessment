@@ -1,8 +1,8 @@
 .TaskResult-card {
-  background-color: var(--bg-card);
-  border-radius: var(--radius-card);
+  background-color: var(--status-active-bg);
+  border-radius: var(--radius);
   padding: 1.25rem;
-  border: 1px solid var(--border-black);
+  border: 1px solid color-mix(in lch, var(--status-active-text) 25%, transparent);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,9 +24,10 @@
 
 .TaskResult-icon-box {
   padding: 0.625rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  color: var(--text-black);
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in lch, var(--status-active-text) 30%, transparent);
+  color: var(--status-active-text);
+  background-color: var(--card);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,14 +50,14 @@
   letter-spacing: 0.05em;
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--status-active-text);
 }
 
 .TaskResult-sum-value {
   font-size: 1.75rem;
   font-weight: 800;
   font-family: var(--font-mono);
-  color: var(--text-black);
+  color: var(--foreground);
   letter-spacing: -0.03em;
 }
 
@@ -66,8 +67,8 @@
   gap: 1rem;
   width: 100%;
   font-size: 0.8125rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border-light);
+  color: var(--muted-foreground);
+  border-top: 1px solid color-mix(in lch, var(--status-active-text) 20%, transparent);
   padding-top: 0.75rem;
 }
 
@@ -75,7 +76,7 @@
   .TaskResult-stats-grid {
     width: auto;
     border-top: none;
-    border-left: 1px solid var(--border-black);
+    border-left: 1px solid color-mix(in lch, var(--status-active-text) 20%, transparent);
     padding-top: 0;
     padding-left: 1.25rem;
   }
@@ -89,12 +90,13 @@
 .TaskResult-stat-label {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
-  color: var(--text-muted);
+  color: var(--status-active-text);
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .TaskResult-stat-value {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--foreground);
 }

@@ -3,7 +3,7 @@ import './CompletionBanner.css';
 import { Sparkles, X } from 'lucide-react';
 
 /**
- * Editorial toast banner for completed all-reduce reductions
+ * Greentiq toast banner for completed all-reduce reductions
  */
 export function CompletionBanner({ task, onDismiss }) {
   if (!task) return null;

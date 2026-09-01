@@ -3,7 +3,7 @@ import './DropZone.css';
 import { UploadCloud } from 'lucide-react';
 
 /**
- * Minimalist monochrome drop zone
+ * Greentiq drop zone component
  */
 export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, onDrop }) {
   const fileInputRef = useRef(null);
@@ -26,6 +26,12 @@ export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, on
       onDragLeave={onDragLeave}
       onDrop={onDrop}
       onClick={handleClick}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleClick();
+        }
+      }}
     >
       <input
         ref={fileInputRef}

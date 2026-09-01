@@ -2,7 +2,7 @@ import React from 'react';
 import './ProgressBar.css';
 
 /**
- * Monochrome progress bar with black fill and clean border track
+ * Greentiq progress bar with var(--primary) fill on var(--muted) track
  */
 export function ProgressBar({
   progress = 0,

@@ -1,12 +1,16 @@
 .TaskCard-container {
-  border-radius: var(--radius-card);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-card);
-  transition: all 0.2s ease;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  transition: all 0.15s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.TaskCard-container:hover {
+  background-color: color-mix(in lch, var(--card) 98%, var(--foreground));
 }
 
 .TaskCard-header-section {
@@ -14,7 +18,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  border-bottom: 1px solid var(--border-black);
+  border-bottom: 1px solid var(--border);
 }
 
 .TaskCard-body-section {
@@ -35,13 +39,13 @@
 .TaskCard-badges-group {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .TaskCard-timestamp {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
-  color: var(--text-muted);
+  color: var(--muted-foreground);
 }
 
 .TaskCard-file-header {
@@ -59,10 +63,10 @@
 
 .TaskCard-file-icon-box {
   padding: 0.5rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-black);
-  background-color: var(--bg-page);
-  color: var(--text-black);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  color: var(--foreground);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,27 +86,27 @@
 .TaskCard-file-name {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-black);
+  color: var(--card-foreground);
   letter-spacing: -0.02em;
   word-break: break-all;
 }
 
 .TaskCard-file-meta {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   margin-top: 0.125rem;
 }
 
 .TaskCard-timeline-wrapper {
-  background-color: var(--bg-card);
-  border-radius: var(--radius-card);
-  padding: 0.75rem 0.25rem;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.25rem;
 }
 
 .TaskCard-progress-panel {
-  background-color: var(--bg-subtle);
-  border-radius: var(--radius-card);
+  background-color: var(--secondary);
+  border-radius: var(--radius);
   padding: 1rem;
-  border: 1px solid var(--border-black);
+  border: 1px solid var(--border);
 }
