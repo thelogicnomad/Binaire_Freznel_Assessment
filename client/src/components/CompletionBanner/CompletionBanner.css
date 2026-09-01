@@ -1,18 +1,18 @@
-/* Fixed Bottom-Right Toast Notification */
+/* Fixed Top-Right Toast Notification */
 .CompletionBanner-toast-container {
   position: fixed;
-  bottom: 1.5rem;
+  top: 1.5rem;
   right: 1.5rem;
   z-index: 9999;
   max-width: 25rem;
   width: calc(100vw - 3rem);
-  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: toastSlideInTop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes toastSlideIn {
+@keyframes toastSlideInTop {
   from {
     opacity: 0;
-    transform: translateY(1rem) scale(0.96);
+    transform: translateY(-1rem) scale(0.96);
   }
   to {
     opacity: 1;
