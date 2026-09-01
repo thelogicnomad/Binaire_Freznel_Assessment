@@ -9,6 +9,8 @@ A multi-user, multi-file distributed priority queueing engine with a live animat
 - **Frontend (Vercel)**: [https://binaire-freznel-assessment-ebon.vercel.app/](https://binaire-freznel-assessment-ebon.vercel.app/)
 - **Backend (Render)**: [https://binaire-freznel-assessment-j98w.onrender.com](https://binaire-freznel-assessment-j98w.onrender.com)
 
+> The backend runs on Render's free tier, which spins down after 15 minutes without traffic. If you're opening this link cold, the first request can take 30-60 seconds to wake the server back up. That delay is expected, not a bug.
+
 ---
 
 ## Key features
