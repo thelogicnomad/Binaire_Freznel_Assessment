@@ -1,8 +1,6 @@
 .Header-root {
   border-bottom: 1px solid var(--border);
-  background-color: color-mix(in lch, var(--card) 88%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--card);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -12,73 +10,191 @@
 .Header-container {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 0.875rem 1.5rem;
+  padding: 1.125rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 /* Brand Section */
-.Header-brand {
+.Header-brand-section {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
 }
 
-.Header-logo-box {
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius);
-  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
-  color: #ffffff;
-  display: flex;
+.Header-binaire-logo {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 5px color-mix(in lch, var(--foreground) 12%, transparent);
+  gap: 0.625rem;
+  user-select: none;
+}
+
+/* Pixelated 01 Icon */
+.Header-pixel-icon {
+  width: 1.35rem;
+  height: 1.125rem;
+  color: var(--foreground);
+  shape-rendering: crispEdges;
   flex-shrink: 0;
 }
 
-.Header-logo-icon {
-  width: 1rem;
-  height: 1rem;
-  stroke-width: 2px;
+/* Bold BINAIRE Title */
+.Header-brand-title {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--foreground);
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-.Header-brand-info {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.Header-title {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--card-foreground);
-  letter-spacing: -0.03em;
-}
-
-.Header-badge {
-  font-size: 0.6875rem;
+.Header-brand-tag {
   font-family: var(--font-mono);
+  font-size: 0.6875rem;
   font-weight: 600;
   color: var(--muted-foreground);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.04em;
+  margin-left: 0.125rem;
 }
 
-/* Right-side Controls */
-.Header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
+/* Right Navigation: Minimal "Menu ☰" Button */
+.Header-menu-wrapper {
+  position: relative;
 }
 
-/* Live Status Indicator */
-.Header-status-badge {
+.Header-menu-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.55rem;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 0.35rem 0.625rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.Header-menu-btn:hover {
+  background-color: var(--secondary);
+  border-color: var(--border);
+}
+
+.Header-menu-btn-active {
+  background-color: var(--secondary);
+  border-color: var(--border);
+}
+
+.Header-menu-btn:focus-visible {
+  outline: 2px solid var(--ring);
+}
+
+.Header-menu-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+}
+
+/* Custom Minimal Hamburger Lines */
+.Header-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1rem;
+  height: 0.6875rem;
+}
+
+.Header-hamburger-line {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--foreground);
+  border-radius: 1px;
+}
+
+/* Minimal Editorial Dropdown Panel */
+.Header-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 19rem;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 30px -8px color-mix(in lch, var(--foreground) 16%, transparent);
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  z-index: 100;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.Header-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.Header-dropdown-title {
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.Header-dropdown-close {
+  padding: 0.15rem;
+  background: transparent;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+}
+
+.Header-dropdown-close:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.Header-dropdown-close-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  stroke-width: 1.5px;
+}
+
+.Header-dropdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.Header-dropdown-label {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+}
+
+/* Status Indicator */
+.Header-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
   border-radius: var(--radius);
   background-color: var(--secondary);
   border: 1px solid var(--border);
@@ -100,53 +216,33 @@
   background-color: var(--destructive);
 }
 
-.Header-status-text {
+.Header-status-value {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
   font-weight: 600;
   color: var(--foreground);
 }
 
-.Header-divider {
-  width: 1px;
-  height: 1.25rem;
-  background-color: var(--border);
-}
-
-/* Client Identity Tag */
-.Header-client-pill {
+/* Client Identity Group */
+.Header-client-group {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   border-radius: var(--radius);
   background-color: var(--secondary);
   border: 1px solid var(--border);
+}
+
+.Header-client-code {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
-}
-
-.Header-client-label {
-  color: var(--muted-foreground);
-}
-
-.Header-client-id {
   font-weight: 700;
   color: var(--foreground);
 }
 
-.Header-client-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.15rem;
-  margin-left: 0.25rem;
-  padding-left: 0.35rem;
-  border-left: 1px solid var(--border);
-}
-
-.Header-action-btn {
+.Header-control-btn {
   padding: 0.15rem;
-  border-radius: var(--radius);
   background: transparent;
   border: none;
   color: var(--muted-foreground);
@@ -154,24 +250,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius);
   transition: all 0.15s ease;
 }
 
-.Header-action-btn:hover {
+.Header-control-btn:hover {
   color: var(--foreground);
-  background-color: var(--muted);
 }
 
-.Header-action-btn:focus-visible {
-  outline: 2px solid var(--ring);
-}
-
-.Header-action-icon {
+.Header-control-icon {
   width: 0.75rem;
   height: 0.75rem;
   stroke-width: 1.5px;
 }
 
-.Header-action-icon-check {
+.Header-control-icon-check {
   color: var(--status-active-text);
+}
+
+.Header-dropdown-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.Header-footer-sub {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.Header-footer-tag {
+  font-size: 0.625rem;
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
 }
