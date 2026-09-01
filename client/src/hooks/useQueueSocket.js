@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { io } from 'socket.io-client';
-import confetti from 'canvas-confetti';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
 const API_URL = import.meta.env.VITE_API_URL || '';
@@ -105,18 +104,6 @@ export function useQueueSocket(clientId) {
     // Targeted completion event for this specific client
     socket.on('task:completed', (completedData) => {
       setLastCompletedTask(completedData);
-
-      // Trigger celebratory confetti effect
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 60,
-          origin: { y: 0.8 },
-          colors: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
-        });
-      } catch (e) {
-        // Safe fallback if canvas-confetti fails
-      }
     });
 
     socket.on('stats:update', (newStats) => {

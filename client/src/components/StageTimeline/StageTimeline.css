@@ -46,7 +46,7 @@
   height: 2px;
   background-color: var(--border);
   z-index: 0;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease;
 }
 
 .StageTimeline-connector-passed {
@@ -57,7 +57,6 @@
   background-color: var(--primary);
 }
 
-/* Black Gradient Progress Icon Boxes */
 .StageTimeline-circle {
   width: 2.25rem;
   height: 2.25rem;
@@ -67,25 +66,23 @@
   justify-content: center;
   position: relative;
   z-index: 10;
-  background: linear-gradient(145deg, lch(25% 1.5 282), lch(10% 0.5 282));
-  border: 1px solid lch(35% 1.5 282);
-  color: #ffffff;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px color-mix(in lch, var(--foreground) 20%, transparent);
+  transition: all 0.25s ease;
 }
 
-/* Passed / Completed: Rich Black Gradient with crisp white checkmark */
-.StageTimeline-circle-passed {
-  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
-  color: #ffffff;
-  border-color: lch(42% 2 282);
+/* 1. Upcoming / Inactive Stages: Initially neutral grey */
+.StageTimeline-circle-upcoming {
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  color: var(--muted-foreground);
+  opacity: 0.9;
+  box-shadow: none;
 }
 
-/* Active current step: Illuminated Black Gradient */
+/* 2. Active Current Stage: Dynamic black gradient with focus ring */
 .StageTimeline-circle-current {
   background: linear-gradient(145deg, lch(32% 3 288), lch(14% 1.5 282));
   color: #ffffff;
-  border-color: var(--ring);
+  border: 1px solid var(--ring);
   transform: scale(1.08);
   box-shadow: 0 0 0 2px var(--ring), 0 4px 10px color-mix(in lch, var(--primary) 25%, transparent);
 }
@@ -93,23 +90,23 @@
 .StageTimeline-circle-current-completed {
   background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
   color: #ffffff;
-  border-color: lch(42% 2 282);
+  border: 1px solid lch(40% 2 282);
 }
 
 .StageTimeline-circle-current-queued {
-  background: linear-gradient(145deg, lch(30% 2 282), lch(14% 1 282));
+  background: linear-gradient(145deg, lch(30% 2.5 282), lch(14% 1 282));
   color: #ffffff;
-  border-color: var(--ring);
+  border: 1px solid var(--ring);
   transform: scale(1.08);
   box-shadow: 0 0 0 2px var(--ring);
 }
 
-/* Upcoming steps: Subtle Dark Gradient with muted white icon */
-.StageTimeline-circle-upcoming {
-  background: linear-gradient(145deg, lch(22% 1 282), lch(9% 0.5 282));
-  border-color: lch(30% 1 282);
-  color: lch(70% 1 282);
-  opacity: 0.88;
+/* 3. Passed / Completed Stages: Turn into sleek black gradient with white checkmark */
+.StageTimeline-circle-passed {
+  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
+  color: #ffffff;
+  border: 1px solid lch(40% 2 282);
+  box-shadow: 0 2px 6px color-mix(in lch, var(--foreground) 15%, transparent);
 }
 
 .StageTimeline-icon {
@@ -137,6 +134,7 @@
   text-overflow: ellipsis;
   max-width: 100%;
   color: var(--muted-foreground);
+  transition: color 0.2s ease;
 }
 
 .StageTimeline-label-current {
