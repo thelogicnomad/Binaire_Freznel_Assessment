@@ -41,7 +41,6 @@ Binaire_Freznel_Assessment/
 ├── server/                    # Node.js Express + Socket.io + worker_threads
 │   ├── package.json
 │   ├── render.yaml            # Render deployment blueprint
-│   ├── .env.example
 │   ├── .env
 │   ├── src/
 │   │   ├── index.js           # Server bootstrap, CORS, and graceful shutdown
@@ -57,19 +56,12 @@ Binaire_Freznel_Assessment/
 │   │   │   └── SocketService.js # WebSocket broadcast & direct notification layer
 │   │   └── routes/
 │   │       └── upload.js      # Multer multipart upload route
-│   └── test/                  # Automated unit, concurrency, and E2E test suite
-│       ├── testQueue.js       # Priority lane & FIFO verification
-│       ├── testWorker.js      # All-reduce numeric summation & streaming test
-│       ├── testTimeout.js     # Hung worker termination & recovery test
-│       ├── testE2E.js         # Full API & Socket.io integration test
-│       └── runAllTests.js     # Test suite runner
 └── client/                    # React (Vite, JavaScript ES modules)
     ├── package.json
     ├── vite.config.js
     ├── vercel.json            # Vercel SPA routing configuration
     ├── tailwind.config.js
     ├── index.html
-    ├── .env.example
     ├── .env
     └── src/
         ├── main.jsx           # React DOM root
@@ -151,15 +143,7 @@ npm run install:all
 *(Or run `npm install` inside `/server` and `/client` individually).*
 
 ### 2. Configure Environment Variables
-Copy the `.env.example` files to `.env`:
-
-```bash
-# In /server
-cp server/.env.example server/.env
-
-# In /client
-cp client/.env.example client/.env
-```
+Create `.env` files in both `/server` and `/client`:
 
 Default `/server/.env`:
 ```ini
@@ -186,16 +170,6 @@ This launches:
 - **Client**: React (Vite) on [http://localhost:5173](http://localhost:5173)
 
 Open [http://localhost:5173](http://localhost:5173) in your browser. Open multiple tabs or incognito windows to simulate multiple users.
-
----
-
-## Running Automated Tests
-
-Run the comprehensive test suite verifying priority queues, numeric parsing accuracy, timeout handling, and end-to-end WebSocket integration:
-
-```bash
-npm run test:server
-```
 
 ---
 
