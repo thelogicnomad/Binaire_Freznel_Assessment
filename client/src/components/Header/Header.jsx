@@ -4,7 +4,7 @@ import { Layers, Copy, Check, RefreshCw } from 'lucide-react';
 import { formatClientId } from '../../utils/clientId';
 
 /**
- * Greentiq navigation header
+ * Minimal and aesthetic navigation header
  */
 export function Header({ clientId, onResetClientId, isConnected }) {
   const [copied, setCopied] = useState(false);
@@ -18,60 +18,63 @@ export function Header({ clientId, onResetClientId, isConnected }) {
   return (
     <header className="Header-root">
       <div className="Header-container">
-        {/* Brand & System Title */}
-        <div className="Header-brand-wrapper">
-          <div className="Header-brand">
-            <div className="Header-logo-box">
-              <Layers className="Header-logo-icon" />
-            </div>
-            <div className="Header-brand-text">
-              <div className="Header-title-row">
-                <h1 className="Header-title">CSV Queue Engine</h1>
-                <span className="Header-tag">[ All-Reduce ]</span>
-              </div>
-              <p className="Header-subtitle">Multi-User Priority Scheduling & Worker Thread Pool</p>
-            </div>
+        {/* Minimal Brand Identity */}
+        <div className="Header-brand">
+          <div className="Header-logo-box">
+            <Layers className="Header-logo-icon" />
+          </div>
+          <div className="Header-brand-info">
+            <span className="Header-title">CSV Queue Engine</span>
+            <span className="Header-badge">all-reduce</span>
           </div>
         </div>
 
-        {/* Client Identity & Connection Bar */}
-        <div className="Header-actions-bar">
-          {/* Connection Status Bracket Pill */}
-          <div
-            className={`Header-connection-pill ${
-              isConnected
-                ? 'Header-connection-connected'
-                : 'Header-connection-disconnected'
-            }`}
-          >
-            <span>[ Socket: {isConnected ? 'Connected' : 'Offline'} ]</span>
+        {/* Minimal Actions & Status Bar */}
+        <div className="Header-actions">
+          {/* Subtle Live Status Indicator */}
+          <div className="Header-status-badge">
+            <span
+              className={`Header-status-dot ${
+                isConnected
+                  ? 'Header-status-dot-online'
+                  : 'Header-status-dot-offline'
+              }`}
+            />
+            <span className="Header-status-text">
+              {isConnected ? 'Live' : 'Offline'}
+            </span>
           </div>
 
-          {/* Persistent Client ID Tag with Copy & Reset */}
-          <div className="Header-client-tag">
-            <span>[ ID:</span>
+          <div className="Header-divider" />
+
+          {/* Sleek Client Identity Tag */}
+          <div className="Header-client-pill">
+            <span className="Header-client-label">client:</span>
             <span className="Header-client-id">{formatClientId(clientId)}</span>
-            <span>]</span>
-            <button
-              type="button"
-              onClick={handleCopyId}
-              title="Copy Client UUID"
-              className="Header-icon-btn"
-            >
-              {copied ? (
-                <Check className="Header-btn-icon" />
-              ) : (
-                <Copy className="Header-btn-icon" />
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={onResetClientId}
-              title="Simulate New Client (Generates new UUID)"
-              className="Header-icon-btn"
-            >
-              <RefreshCw className="Header-btn-icon" />
-            </button>
+            <div className="Header-client-actions">
+              <button
+                type="button"
+                onClick={handleCopyId}
+                title="Copy Client ID"
+                className="Header-action-btn"
+                aria-label="Copy Client ID"
+              >
+                {copied ? (
+                  <Check className="Header-action-icon Header-action-icon-check" />
+                ) : (
+                  <Copy className="Header-action-icon" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={onResetClientId}
+                title="Generate New Client ID"
+                className="Header-action-btn"
+                aria-label="Reset Client ID"
+              >
+                <RefreshCw className="Header-action-icon" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

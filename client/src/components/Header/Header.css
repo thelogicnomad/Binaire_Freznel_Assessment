@@ -1,151 +1,133 @@
 .Header-root {
   border-bottom: 1px solid var(--border);
-  background-color: var(--card);
+  background-color: color-mix(in lch, var(--card) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
+  transition: all 0.2s ease;
 }
 
 .Header-container {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
 
-@media (min-width: 768px) {
-  .Header-container {
-    flex-direction: row;
-  }
-}
-
-.Header-brand-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .Header-brand-wrapper {
-    width: auto;
-    justify-content: flex-start;
-  }
-}
-
+/* Brand Section */
 .Header-brand {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
-  position: relative;
+  gap: 0.75rem;
 }
 
 .Header-logo-box {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--primary);
+  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 5px color-mix(in lch, var(--foreground) 12%, transparent);
+  flex-shrink: 0;
 }
 
 .Header-logo-icon {
-  width: 1.125rem;
-  height: 1.125rem;
-  stroke-width: 1.5px;
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2px;
 }
 
-.Header-brand-text {
+.Header-brand-info {
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-.Header-title-row {
+.Header-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--card-foreground);
+  letter-spacing: -0.03em;
+}
+
+.Header-badge {
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--muted-foreground);
+  letter-spacing: -0.01em;
+}
+
+/* Right-side Controls */
+.Header-actions {
   display: flex;
   align-items: center;
   gap: 0.625rem;
 }
 
-.Header-title {
-  font-size: 1.25rem;
-  font-weight: 900;
-  color: var(--foreground);
-  letter-spacing: -0.03em;
+/* Live Status Indicator */
+.Header-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius);
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
 }
 
-.Header-tag {
+.Header-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.Header-status-dot-online {
+  background-color: var(--status-active-text);
+  box-shadow: 0 0 0 2px color-mix(in lch, var(--status-active-text) 30%, transparent);
+}
+
+.Header-status-dot-offline {
+  background-color: var(--destructive);
+}
+
+.Header-status-text {
   font-size: 0.6875rem;
   font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--primary);
-  background-color: var(--accent);
-  padding: 0.125rem 0.5rem;
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in lch, var(--primary) 20%, transparent);
+  font-weight: 600;
+  color: var(--foreground);
 }
 
-.Header-subtitle {
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
+.Header-divider {
+  width: 1px;
+  height: 1.25rem;
+  background-color: var(--border);
 }
 
-.Header-actions-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .Header-actions-bar {
-    width: auto;
-  }
-}
-
-.Header-connection-pill {
+/* Client Identity Tag */
+.Header-client-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.35rem 0.75rem;
+  padding: 0.25rem 0.6rem;
   border-radius: var(--radius);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  border: 1px solid transparent;
-}
-
-.Header-connection-connected {
-  background-color: var(--status-active-bg);
-  color: var(--status-active-text);
-  border-color: color-mix(in lch, var(--status-active-text) 20%, transparent);
-}
-
-.Header-connection-disconnected {
-  background-color: var(--status-archived-bg);
-  color: var(--status-archived-text);
-  border-color: color-mix(in lch, var(--status-archived-text) 20%, transparent);
-}
-
-.Header-client-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
   background-color: var(--secondary);
-  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  font-size: 0.6875rem;
   font-family: var(--font-mono);
-  color: var(--secondary-foreground);
+}
+
+.Header-client-label {
+  color: var(--muted-foreground);
 }
 
 .Header-client-id {
@@ -153,12 +135,21 @@
   color: var(--foreground);
 }
 
-.Header-icon-btn {
-  padding: 0.2rem;
+.Header-client-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-left: 0.25rem;
+  padding-left: 0.35rem;
+  border-left: 1px solid var(--border);
+}
+
+.Header-action-btn {
+  padding: 0.15rem;
   border-radius: var(--radius);
   background: transparent;
   border: none;
-  color: var(--foreground);
+  color: var(--muted-foreground);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -166,17 +157,21 @@
   transition: all 0.15s ease;
 }
 
-.Header-icon-btn:hover {
+.Header-action-btn:hover {
+  color: var(--foreground);
   background-color: var(--muted);
-  color: var(--primary);
 }
 
-.Header-icon-btn:focus-visible {
+.Header-action-btn:focus-visible {
   outline: 2px solid var(--ring);
 }
 
-.Header-btn-icon {
-  width: 0.8125rem;
-  height: 0.8125rem;
+.Header-action-icon {
+  width: 0.75rem;
+  height: 0.75rem;
   stroke-width: 1.5px;
+}
+
+.Header-action-icon-check {
+  color: var(--status-active-text);
 }
