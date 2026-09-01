@@ -1,4 +1,5 @@
 /* Fixed Top-Right Toast Notification */
+.Toast-container,
 .CompletionBanner-toast-container {
   position: fixed;
   top: 1.5rem;
@@ -20,6 +21,7 @@
   }
 }
 
+.Toast-card,
 .CompletionBanner-card {
   background-color: var(--card);
   border: 1px solid var(--border);
@@ -31,6 +33,11 @@
   flex-direction: column;
 }
 
+.Toast-card-delete {
+  border-color: color-mix(in lch, var(--destructive) 35%, transparent);
+}
+
+.Toast-body,
 .CompletionBanner-body {
   padding: 1rem 1.25rem;
   display: flex;
@@ -38,12 +45,10 @@
   gap: 0.875rem;
 }
 
+.Toast-icon-box,
 .CompletionBanner-icon-box {
   padding: 0.45rem;
   border-radius: var(--radius);
-  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
-  color: #ffffff;
-  border: 1px solid lch(40% 2 282);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,12 +56,26 @@
   margin-top: 0.125rem;
 }
 
+.Toast-icon-box-success {
+  background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
+  color: #ffffff;
+  border: 1px solid lch(40% 2 282);
+}
+
+.Toast-icon-box-delete {
+  background-color: var(--status-archived-bg);
+  color: var(--destructive);
+  border: 1px solid color-mix(in lch, var(--destructive) 30%, transparent);
+}
+
+.Toast-icon,
 .CompletionBanner-icon {
   width: 1.125rem;
   height: 1.125rem;
   stroke-width: 2px;
 }
 
+.Toast-text,
 .CompletionBanner-text {
   flex: 1;
   display: flex;
@@ -65,6 +84,7 @@
   min-width: 0;
 }
 
+.Toast-header-row,
 .CompletionBanner-header-row {
   display: flex;
   align-items: center;
@@ -72,6 +92,7 @@
   gap: 0.5rem;
 }
 
+.Toast-title,
 .CompletionBanner-title {
   font-size: 0.875rem;
   font-weight: 800;
@@ -79,6 +100,7 @@
   letter-spacing: -0.02em;
 }
 
+.Toast-dismiss-btn,
 .CompletionBanner-dismiss-btn {
   padding: 0.2rem;
   border-radius: var(--radius);
@@ -93,21 +115,25 @@
   flex-shrink: 0;
 }
 
+.Toast-dismiss-btn:hover,
 .CompletionBanner-dismiss-btn:hover {
   color: var(--foreground);
   background-color: var(--muted);
 }
 
+.Toast-dismiss-btn:focus-visible,
 .CompletionBanner-dismiss-btn:focus-visible {
   outline: 2px solid var(--ring);
 }
 
+.Toast-dismiss-icon,
 .CompletionBanner-dismiss-icon {
   width: 0.75rem;
   height: 0.75rem;
   stroke-width: 1.75px;
 }
 
+.Toast-filename,
 .CompletionBanner-filename {
   font-size: 0.75rem;
   font-family: var(--font-mono);
@@ -117,6 +143,13 @@
   text-overflow: ellipsis;
 }
 
+.Toast-message {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+}
+
+.Toast-sum-row,
 .CompletionBanner-sum-row {
   display: flex;
   align-items: baseline;
@@ -127,12 +160,14 @@
   border-top: 1px solid var(--border);
 }
 
+.Toast-sum-label,
 .CompletionBanner-sum-label {
   font-size: 0.75rem;
   color: var(--muted-foreground);
   font-family: var(--font-mono);
 }
 
+.Toast-sum-value,
 .CompletionBanner-sum-value {
   font-size: 0.9375rem;
   font-weight: 800;
@@ -140,6 +175,7 @@
   color: var(--foreground);
 }
 
+.Toast-meta-sub,
 .CompletionBanner-meta-sub {
   font-size: 0.6875rem;
   color: var(--muted-foreground);
@@ -147,6 +183,7 @@
 }
 
 /* Auto-dismiss Countdown Progress Bar */
+.Toast-countdown-track,
 .CompletionBanner-countdown-track {
   width: 100%;
   height: 3px;
@@ -154,9 +191,16 @@
   overflow: hidden;
 }
 
+.Toast-countdown-bar-success,
 .CompletionBanner-countdown-bar {
   height: 100%;
   background: var(--primary);
+  animation: countdown 5s linear forwards;
+}
+
+.Toast-countdown-bar-delete {
+  height: 100%;
+  background: var(--destructive);
   animation: countdown 5s linear forwards;
 }
 

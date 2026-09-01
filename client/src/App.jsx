@@ -15,8 +15,8 @@ export default function App() {
     isConnected,
     tasks,
     stats,
-    lastCompletedTask,
-    clearLastCompleted,
+    activeToast,
+    clearToast,
     addOptimisticTasks,
     resolveOptimisticTasks,
     removeTask,
@@ -35,13 +35,12 @@ export default function App() {
         clientId={clientId}
         onResetClientId={handleResetClientId}
         isConnected={isConnected}
-        stats={stats}
       />
 
-      {/* Completion Toast Banner */}
+      {/* Floating Top-Right Toast Notification (for completions, deletions, and queue actions) */}
       <CompletionBanner
-        task={lastCompletedTask}
-        onDismiss={clearLastCompleted}
+        toast={activeToast}
+        onDismiss={clearToast}
       />
 
       {/* Main Content Area */}

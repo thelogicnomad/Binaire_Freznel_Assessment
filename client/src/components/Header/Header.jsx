@@ -6,7 +6,7 @@ import { formatClientId } from '../../utils/clientId';
 /**
  * Greentiq navigation header with Info Toggletip Popover
  */
-export function Header({ clientId, onResetClientId, isConnected, stats }) {
+export function Header({ clientId, onResetClientId, isConnected }) {
   const [copied, setCopied] = useState(false);
   const [showArchInfo, setShowArchInfo] = useState(false);
 
@@ -55,13 +55,8 @@ export function Header({ clientId, onResetClientId, isConnected, stats }) {
           </div>
         </div>
 
-        {/* Client Identity & Stats Bar */}
+        {/* Client Identity & Connection Bar */}
         <div className="Header-actions-bar">
-          {/* Worker thread capacity pill */}
-          <div className="Header-workers-pill">
-            <span>[ Workers: {stats.activeWorkers}/{stats.totalWorkers} Active ]</span>
-          </div>
-
           {/* Connection Status Bracket Pill */}
           <div
             className={`Header-connection-pill ${

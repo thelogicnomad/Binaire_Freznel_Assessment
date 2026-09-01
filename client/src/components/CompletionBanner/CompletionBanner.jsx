@@ -1,14 +1,23 @@
 import React, { useEffect } from 'react';
 import './CompletionBanner.css';
-import { CheckCircle2, X } from 'lucide-react';
+import { CheckCircle2, Trash2, X } from 'lucide-react';
 
 /**
- * Greentiq floating toast notification for completed all-reduce reductions.
- * Features 5-second auto-dismiss countdown with manual close option.
+ * Greentiq floating toast notification for completions, deletions, and queue actions.
+ * Positioned fixed at top-right with 5-second auto-dismiss countdown.
  */
-export function CompletionBanner({ task, onDismiss }) {
+export function CompletionBanner({ task, toast, onDismiss }) {
+  const currentToast = toast || (task ? {
+    type: 'completed',
+    title: 'All-Reduce Completed',
+    filename: task.filename,
+    result: task.result,
+    rows: task.rows,
+    durationMs: task.durationMs,
+  } : null);
+
   useEffect(() => {
-    if (!task) return;
+    if (!currentToast) return;
 
     // Automatically dismiss toast after 5 seconds
     const timer = setTimeout(() => {
@@ -16,60 +25,82 @@ export function CompletionBanner({ task, onDismiss }) {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [task, onDismiss]);
+  }, [currentToast, onDismiss]);
 
-  if (!task) return null;
+  if (!currentToast) return null;
+
+  const isDelete = currentToast.type === 'deleted' || currentToast.type === 'cleared';
 
   return (
     <div
-      aria-label="Task completion toast notification"
-      className="CompletionBanner-toast-container"
+      aria-label="Toast notification"
+      className="Toast-container"
       role="status"
     >
-      <div className="CompletionBanner-card">
-        <div className="CompletionBanner-body">
-          <div className="CompletionBanner-icon-box">
-            <CheckCircle2 className="CompletionBanner-icon" />
+      <div className={`Toast-card ${isDelete ? 'Toast-card-delete' : 'Toast-card-success'}`}>
+        <div className="Toast-body">
+          <div className={`Toast-icon-box ${isDelete ? 'Toast-icon-box-delete' : 'Toast-icon-box-success'}`}>
+            {isDelete ? (
+              <Trash2 className="Toast-icon" />
+            ) : (
+              <CheckCircle2 className="Toast-icon" />
+            )}
           </div>
 
-          <div className="CompletionBanner-text">
-            <div className="CompletionBanner-header-row">
-              <span className="CompletionBanner-title">All-Reduce Completed</span>
+          <div className="Toast-text">
+            <div className="Toast-header-row">
+              <span className="Toast-title">
+                {currentToast.title || (isDelete ? 'Task Removed' : 'All-Reduce Completed')}
+              </span>
               <button
                 type="button"
                 onClick={onDismiss}
-                className="CompletionBanner-dismiss-btn"
+                className="Toast-dismiss-btn"
                 title="Dismiss notification"
                 aria-label="Close notification"
               >
-                <X className="CompletionBanner-dismiss-icon" />
+                <X className="Toast-dismiss-icon" />
               </button>
             </div>
 
-            <span className="CompletionBanner-filename">
-              [ {task.filename} ]
-            </span>
-
-            <div className="CompletionBanner-sum-row">
-              <span className="CompletionBanner-sum-label">Reduction Sum</span>
-              <span className="CompletionBanner-sum-value">
-                {Number(task.result).toLocaleString('en-US', {
-                  maximumFractionDigits: 4,
-                })}
+            {currentToast.filename && (
+              <span className="Toast-filename">
+                [ {currentToast.filename} ]
               </span>
-            </div>
+            )}
 
-            <span className="CompletionBanner-meta-sub">
-              {task.rows?.toLocaleString()} rows parsed in {task.durationMs}ms
-            </span>
+            {currentToast.message && (
+              <span className="Toast-message">
+                {currentToast.message}
+              </span>
+            )}
+
+            {currentToast.result !== undefined && (
+              <div className="Toast-sum-row">
+                <span className="Toast-sum-label">Reduction Sum</span>
+                <span className="Toast-sum-value">
+                  {Number(currentToast.result).toLocaleString('en-US', {
+                    maximumFractionDigits: 4,
+                  })}
+                </span>
+              </div>
+            )}
+
+            {currentToast.rows !== undefined && (
+              <span className="Toast-meta-sub">
+                {currentToast.rows.toLocaleString()} rows parsed {currentToast.durationMs !== undefined ? `in ${currentToast.durationMs}ms` : ''}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Animated 5s Countdown Bar */}
-        <div className="CompletionBanner-countdown-track">
-          <div className="CompletionBanner-countdown-bar" />
+        <div className="Toast-countdown-track">
+          <div className={`Toast-countdown-bar ${isDelete ? 'Toast-countdown-bar-delete' : 'Toast-countdown-bar-success'}`} />
         </div>
       </div>
     </div>
   );
 }
+
+export const ToastNotification = CompletionBanner;

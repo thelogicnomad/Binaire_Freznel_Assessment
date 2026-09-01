@@ -5,10 +5,10 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * Custom hook managing WebSocket connection, live queue state, and task lifecycle actions.
+ * Custom hook managing WebSocket connection, live queue state, task lifecycle actions, and toast notifications.
  *
  * @param {string} clientId - Current persistent client ID
- * @returns {Object} socket state, tasks, stats, and task management actions
+ * @returns {Object} socket state, tasks, stats, activeToast, and task management actions
  */
 export function useQueueSocket(clientId) {
   const [isConnected, setIsConnected] = useState(false);
@@ -22,9 +22,11 @@ export function useQueueSocket(clientId) {
     totalWorkers: 4,
     workers: [],
   });
-  const [lastCompletedTask, setLastCompletedTask] = useState(null);
+  const [activeToast, setActiveToast] = useState(null);
 
   const socketRef = useRef(null);
+  const tasksRef = useRef(tasks);
+  tasksRef.current = tasks;
 
   useEffect(() => {
     // Determine socket endpoint
@@ -57,7 +59,6 @@ export function useQueueSocket(clientId) {
     socket.on('queue:snapshot', (data) => {
       if (data && Array.isArray(data.tasks)) {
         setTasks((prevTasks) => {
-          // Merge optimistic tasks that are still in-flight
           const uploadingTasks = prevTasks.filter((t) => t.status === 'File uploading');
           const serverTaskIds = new Set(data.tasks.map((t) => t.id));
           const stillUploading = uploadingTasks.filter((t) => !serverTaskIds.has(t.id));
@@ -103,7 +104,15 @@ export function useQueueSocket(clientId) {
 
     // Targeted completion event for this specific client
     socket.on('task:completed', (completedData) => {
-      setLastCompletedTask(completedData);
+      setActiveToast({
+        id: Date.now(),
+        type: 'completed',
+        title: 'All-Reduce Completed',
+        filename: completedData.filename,
+        result: completedData.result,
+        rows: completedData.rows,
+        durationMs: completedData.durationMs,
+      });
     });
 
     socket.on('stats:update', (newStats) => {
@@ -136,11 +145,23 @@ export function useQueueSocket(clientId) {
   }, []);
 
   /**
-   * Remove a single task by ID (cancel if in queue or delete from dashboard)
+   * Remove a single task by ID and trigger deletion toast
    */
   const removeTask = useCallback(async (taskId) => {
+    const target = tasksRef.current.find((t) => t.id === taskId);
+    const filename = target?.originalName || 'Task';
+
     // Optimistically remove from local state
     setTasks((prev) => prev.filter((t) => t.id !== taskId));
+
+    // Show deletion toast
+    setActiveToast({
+      id: Date.now(),
+      type: 'deleted',
+      title: 'Task Removed',
+      filename,
+      message: 'Task removed from queue and deleted from server.',
+    });
 
     if (!taskId.startsWith('temp-')) {
       try {
@@ -153,11 +174,21 @@ export function useQueueSocket(clientId) {
   }, [clientId]);
 
   /**
-   * Clear all tasks submitted by current client (waiting, processing, completed, failed)
+   * Clear all tasks submitted by current client and trigger clear toast
    */
   const clearAllTasks = useCallback(async () => {
+    const count = tasksRef.current.filter((t) => t.clientId === clientId).length;
+
     // Optimistically remove all tasks belonging to current client
     setTasks((prev) => prev.filter((t) => t.clientId !== clientId));
+
+    // Show clear all toast
+    setActiveToast({
+      id: Date.now(),
+      type: 'cleared',
+      title: 'All Tasks Cleared',
+      message: `Successfully cleared ${count} task${count !== 1 ? 's' : ''} from your queue.`,
+    });
 
     try {
       const endpoint = `${API_URL}/api/tasks/clear`;
@@ -175,8 +206,8 @@ export function useQueueSocket(clientId) {
     isConnected,
     tasks,
     stats,
-    lastCompletedTask,
-    clearLastCompleted: () => setLastCompletedTask(null),
+    activeToast,
+    clearToast: () => setActiveToast(null),
     addOptimisticTasks,
     resolveOptimisticTasks,
     removeTask,
