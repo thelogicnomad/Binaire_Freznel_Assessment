@@ -87,7 +87,7 @@
 
 .QueueStats-aggregate-sum {
   font-family: var(--font-mono);
-  color: var(--status-active-text);
+  color: var(--foreground);
   font-weight: 700;
 }
 

@@ -50,7 +50,7 @@
 }
 
 .StageTimeline-connector-passed {
-  background-color: var(--status-active-text);
+  background-color: var(--border);
 }
 
 .StageTimeline-connector-active {
@@ -72,13 +72,14 @@
   transition: all 0.2s ease;
 }
 
-/* Stage 1-6 Circle Styles mapped to Greentiq status tokens */
+/* Neutral subtle passed steps */
 .StageTimeline-circle-passed {
-  background-color: var(--status-active-bg);
-  color: var(--status-active-text);
-  border-color: color-mix(in lch, var(--status-active-text) 30%, transparent);
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border-color: var(--border);
 }
 
+/* Active current step */
 .StageTimeline-circle-current {
   background-color: var(--status-prospect-bg);
   color: var(--status-prospect-text);
@@ -87,9 +88,9 @@
 }
 
 .StageTimeline-circle-current-completed {
-  background-color: var(--status-active-bg);
-  color: var(--status-active-text);
-  border-color: color-mix(in lch, var(--status-active-text) 30%, transparent);
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border-color: var(--border);
 }
 
 .StageTimeline-circle-current-queued {
@@ -137,8 +138,8 @@
 }
 
 .StageTimeline-label-passed {
-  color: var(--status-active-text);
-  font-weight: 600;
+  color: var(--muted-foreground);
+  font-weight: 500;
 }
 
 .StageTimeline-chip {
