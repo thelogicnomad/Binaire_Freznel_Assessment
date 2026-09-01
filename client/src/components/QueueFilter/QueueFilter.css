@@ -41,12 +41,16 @@
   outline-offset: 1px;
 }
 
+/* High-contrast solid monochrome active tab */
 .QueueFilter-tab-active {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
+  background-color: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+  font-weight: 700;
+  box-shadow: 0 1px 3px color-mix(in lch, var(--foreground) 20%, transparent);
 }
 
 .QueueFilter-tab-active:hover {
-  background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
+  background-color: color-mix(in lch, var(--foreground) 90%, transparent);
+  color: var(--background);
 }
