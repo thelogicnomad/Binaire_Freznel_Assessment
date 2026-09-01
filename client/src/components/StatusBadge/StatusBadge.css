@@ -3,8 +3,8 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.25rem 0.625rem;
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.2;
@@ -15,63 +15,63 @@
 }
 
 .StatusBadge-priority-high {
-  background-color: var(--status-lead-bg);
-  color: var(--status-lead-text);
-  border-color: color-mix(in lch, var(--status-lead-text) 20%, transparent);
+  background-color: lch(94.802% 7.462 80.086 / 1);
+  color: lch(42.969% 90 85);
+  border-color: color-mix(in lch, lch(42.969% 90 85) 20%, transparent);
 }
 
 .StatusBadge-priority-low {
-  background-color: var(--muted);
-  color: var(--muted-foreground);
-  border-color: var(--border);
+  background-color: lch(92.44% 0.5 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
+  border-color: lch(88.49% 0 282 / 1);
 }
 
 .StatusBadge-owner-you {
-  background-color: var(--accent);
-  color: var(--primary);
-  border-color: color-mix(in lch, var(--primary) 25%, transparent);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(48% 59.31 288.43);
+  border-color: color-mix(in lch, lch(48% 59.31 288.43) 25%, transparent);
   font-weight: 700;
 }
 
 .StatusBadge-owner-other {
-  background-color: var(--secondary);
-  color: var(--muted-foreground);
-  border-color: var(--border);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
+  border-color: lch(88.49% 0 282 / 1);
 }
 
 .StatusBadge-worker {
-  background-color: var(--status-prospect-bg);
-  color: var(--status-prospect-text);
-  border-color: color-mix(in lch, var(--status-prospect-text) 20%, transparent);
+  background-color: lch(94.802% 14.798 268.228 / 1);
+  color: lch(42.969% 70 267);
+  border-color: color-mix(in lch, lch(42.969% 70 267) 20%, transparent);
 }
 
 .StatusBadge-status-uploaded {
-  background-color: var(--status-inactive-bg);
-  color: var(--status-inactive-text);
-  border-color: var(--border);
+  background-color: transparent;
+  color: lch(39.176% 1.25 282 / 1);
+  border-color: lch(88.49% 0 282 / 1);
 }
 
 .StatusBadge-status-queued {
-  background-color: var(--status-lead-bg);
-  color: var(--status-lead-text);
-  border-color: color-mix(in lch, var(--status-lead-text) 20%, transparent);
+  background-color: lch(94.802% 7.462 80.086 / 1);
+  color: lch(42.969% 90 85);
+  border-color: color-mix(in lch, lch(42.969% 90 85) 20%, transparent);
 }
 
 .StatusBadge-status-waiting,
 .StatusBadge-status-processing {
-  background-color: var(--status-prospect-bg);
-  color: var(--status-prospect-text);
-  border-color: color-mix(in lch, var(--status-prospect-text) 20%, transparent);
+  background-color: lch(94.802% 14.798 268.228 / 1);
+  color: lch(42.969% 70 267);
+  border-color: color-mix(in lch, lch(42.969% 70 267) 20%, transparent);
 }
 
 .StatusBadge-status-completed {
-  background-color: var(--status-active-bg);
-  color: var(--status-active-text);
-  border-color: color-mix(in lch, var(--status-active-text) 20%, transparent);
+  background-color: lch(93.193% 6.051 148.602 / 1);
+  color: lch(42.969% 64.37 141.95);
+  border-color: color-mix(in lch, lch(42.969% 64.37 141.95) 20%, transparent);
 }
 
 .StatusBadge-status-failed {
-  background-color: var(--status-archived-bg);
-  color: var(--status-archived-text);
-  border-color: color-mix(in lch, var(--status-archived-text) 20%, transparent);
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  color: lch(42.969% 73 29);
+  border-color: color-mix(in lch, lch(42.969% 73 29) 20%, transparent);
 }

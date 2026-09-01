@@ -1,7 +1,7 @@
 .QueueFilter-container {
-  background-color: var(--card);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  background-color: lch(97.94% 0.5 282);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
   padding: 0.875rem 1.25rem;
   display: flex;
   align-items: center;
@@ -20,36 +20,36 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.4rem 0.85rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   cursor: pointer;
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
   transition: all 0.15s ease;
   white-space: nowrap;
 }
 
 .QueueFilter-tab-btn:hover {
-  background-color: color-mix(in lch, var(--secondary) 92%, var(--foreground));
+  background-color: color-mix(in lch, lch(94.44% 0.5 282 / 1) 92%, lch(19.588% 1.25 282 / 1));
 }
 
 .QueueFilter-tab-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
   outline-offset: 1px;
 }
 
 .QueueFilter-tab-active {
-  background-color: var(--foreground);
-  color: var(--background);
-  border-color: var(--foreground);
+  background-color: lch(19.588% 1.25 282 / 1);
+  color: lch(94.44% 0.5 282 / 1);
+  border-color: lch(19.588% 1.25 282 / 1);
   font-weight: 700;
-  box-shadow: 0 1px 3px color-mix(in lch, var(--foreground) 20%, transparent);
+  box-shadow: 0 1px 3px color-mix(in lch, lch(19.588% 1.25 282 / 1) 20%, transparent);
 }
 
 .QueueFilter-tab-active:hover {
-  background-color: color-mix(in lch, var(--foreground) 90%, transparent);
-  color: var(--background);
+  background-color: color-mix(in lch, lch(19.588% 1.25 282 / 1) 90%, transparent);
+  color: lch(94.44% 0.5 282 / 1);
 }

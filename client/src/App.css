@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .App-main {
@@ -28,14 +28,14 @@
 .App-section-rule {
   flex: 1;
   height: 1px;
-  background-color: var(--border);
+  background-color: lch(88.49% 0 282 / 1);
 }
 
 .App-section-label {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -48,12 +48,12 @@
 }
 
 .App-footer {
-  border-top: 1px solid var(--border);
-  background-color: var(--card);
+  border-top: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(97.94% 0.5 282);
   padding: 2.5rem 1.5rem;
   text-align: center;
   font-size: 0.8125rem;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
 }
 
 .App-footer-content {
@@ -66,11 +66,11 @@
 
 .App-footer-title {
   font-weight: 700;
-  color: var(--card-foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .App-footer-sub {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
 }

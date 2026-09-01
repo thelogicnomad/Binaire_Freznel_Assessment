@@ -1,7 +1,7 @@
 .FileUpload-card {
-  background-color: var(--card);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  background-color: lch(97.94% 0.5 282);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
   padding: 1.5rem;
   position: relative;
 }
@@ -11,7 +11,7 @@
   flex-direction: column;
   gap: 0.25rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid lch(88.49% 0 282 / 1);
   margin-bottom: 1.25rem;
 }
 
@@ -23,7 +23,7 @@
 .FileUpload-title {
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--card-foreground);
+  color: lch(19.588% 1.25 282 / 1);
   letter-spacing: -0.03em;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@
 
 .FileUpload-subtitle {
   font-size: 0.8125rem;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   margin-top: 0.25rem;
 }
 
@@ -42,12 +42,12 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  background-color: var(--status-archived-bg);
-  border: 1px solid color-mix(in lch, var(--status-archived-text) 20%, transparent);
-  color: var(--status-archived-text);
+  border-radius: 0.5rem;
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  border: 1px solid color-mix(in lch, lch(42.969% 73 29) 20%, transparent);
+  color: lch(42.969% 73 29);
   font-size: 0.8125rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .FileUpload-error-icon {
@@ -73,21 +73,21 @@
   border-radius: 999px;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--primary-foreground);
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
+  color: lch(100% 29.655 288.43);
+  background-color: lch(48% 59.31 288.43);
+  border: 1px solid lch(48% 59.31 288.43);
   cursor: pointer;
   transition: all 0.15s ease;
   min-width: 16rem;
 }
 
 .FileUpload-btn-primary:hover:not(:disabled) {
-  background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
-  border-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
+  background-color: color-mix(in lch, lch(48% 59.31 288.43) 85%, lch(19.588% 1.25 282 / 1));
+  border-color: color-mix(in lch, lch(48% 59.31 288.43) 85%, lch(19.588% 1.25 282 / 1));
 }
 
 .FileUpload-btn-primary:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
   outline-offset: 2px;
 }
 

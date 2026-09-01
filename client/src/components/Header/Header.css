@@ -1,6 +1,6 @@
 .Header-root {
-  border-bottom: 1px solid var(--border);
-  background-color: var(--card);
+  border-bottom: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(97.94% 0.5 282);
   position: sticky;
   top: 0;
   z-index: 50;
@@ -45,10 +45,10 @@
 }
 
 .Header-brand-tag {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -86,13 +86,13 @@
 }
 
 .Header-menu-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
 }
 
 .Header-menu-text {
   font-size: 1.15rem;
   font-weight: 600;
-  font-family: var(--font-sans);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   letter-spacing: -0.01em;
   color: #000000;
 }
@@ -118,10 +118,10 @@
   top: calc(100% + 0.5rem);
   right: 0;
   width: 19rem;
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 16px 30px -8px color-mix(in lch, var(--foreground) 16%, transparent);
+  background-color: lch(97.94% 0.5 282);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  border-radius: 0.5rem;
+  box-shadow: 0 16px 30px -8px color-mix(in lch, lch(19.588% 1.25 282 / 1) 16%, transparent);
   padding: 1rem 1.15rem;
   display: flex;
   flex-direction: column;
@@ -135,14 +135,14 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid lch(88.49% 0 282 / 1);
 }
 
 .Header-dropdown-title {
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 700;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -151,18 +151,18 @@
   padding: 0.15rem;
   background: transparent;
   border: none;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   transition: all 0.15s ease;
 }
 
 .Header-dropdown-close:hover {
-  color: var(--foreground);
-  background-color: var(--muted);
+  color: lch(19.588% 1.25 282 / 1);
+  background-color: lch(92.44% 0.5 282 / 1);
 }
 
 .Header-dropdown-close-icon {
@@ -180,8 +180,8 @@
 
 .Header-dropdown-label {
   font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
 }
 
 .Header-status-indicator {
@@ -189,9 +189,9 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.2rem 0.5rem;
-  border-radius: var(--radius);
-  background-color: var(--secondary);
-  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: lch(94.44% 0.5 282 / 1);
+  border: 1px solid lch(88.49% 0 282 / 1);
 }
 
 .Header-status-dot {
@@ -202,19 +202,19 @@
 }
 
 .Header-status-dot-online {
-  background-color: var(--status-active-text);
-  box-shadow: 0 0 0 2px color-mix(in lch, var(--status-active-text) 30%, transparent);
+  background-color: lch(42.969% 64.37 141.95);
+  box-shadow: 0 0 0 2px color-mix(in lch, lch(42.969% 64.37 141.95) 30%, transparent);
 }
 
 .Header-status-dot-offline {
-  background-color: var(--destructive);
+  background-color: lch(58% 73 29);
 }
 
 .Header-status-value {
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 600;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .Header-client-group {
@@ -222,33 +222,33 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.2rem 0.5rem;
-  border-radius: var(--radius);
-  background-color: var(--secondary);
-  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: lch(94.44% 0.5 282 / 1);
+  border: 1px solid lch(88.49% 0 282 / 1);
 }
 
 .Header-client-code {
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 700;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .Header-control-btn {
   padding: 0.15rem;
   background: transparent;
   border: none;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   transition: all 0.15s ease;
 }
 
 .Header-control-btn:hover {
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .Header-control-icon {
@@ -258,7 +258,7 @@
 }
 
 .Header-control-icon-check {
-  color: var(--status-active-text);
+  color: lch(42.969% 64.37 141.95);
 }
 
 .Header-dropdown-footer {
@@ -266,17 +266,17 @@
   flex-direction: column;
   gap: 0.15rem;
   padding-top: 0.5rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid lch(88.49% 0 282 / 1);
 }
 
 .Header-footer-sub {
   font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .Header-footer-tag {
   font-size: 0.625rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
 }

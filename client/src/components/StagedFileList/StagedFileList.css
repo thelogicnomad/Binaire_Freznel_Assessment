@@ -10,8 +10,8 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
   padding: 0 0.25rem;
 }
 
@@ -29,15 +29,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  background-color: var(--card);
-  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: lch(97.94% 0.5 282);
+  border: 1px solid lch(88.49% 0 282 / 1);
   font-size: 0.8125rem;
   transition: background-color 0.15s ease;
 }
 
 .StagedFileList-item:hover {
-  background-color: color-mix(in lch, var(--card) 97%, var(--foreground));
+  background-color: color-mix(in lch, lch(97.94% 0.5 282) 97%, lch(19.588% 1.25 282 / 1));
 }
 
 .StagedFileList-file-info {
@@ -50,13 +50,13 @@
 .StagedFileList-file-icon {
   width: 1rem;
   height: 1rem;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
   flex-shrink: 0;
   stroke-width: 1.5px;
 }
 
 .StagedFileList-file-name {
-  color: var(--card-foreground);
+  color: lch(19.588% 1.25 282 / 1);
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -65,8 +65,8 @@
 }
 
 .StagedFileList-file-size {
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
+  color: lch(39.176% 1.25 282 / 1);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
   flex-shrink: 0;
 }
@@ -83,34 +83,34 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
   transition: all 0.15s ease;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .StagedFileList-priority-btn:hover {
-  background-color: color-mix(in lch, var(--secondary) 92%, var(--foreground));
+  background-color: color-mix(in lch, lch(94.44% 0.5 282 / 1) 92%, lch(19.588% 1.25 282 / 1));
 }
 
 .StagedFileList-priority-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
   outline-offset: 1px;
 }
 
 .StagedFileList-priority-high {
-  background-color: var(--status-lead-bg);
-  color: var(--status-lead-text);
-  border-color: color-mix(in lch, var(--status-lead-text) 20%, transparent);
+  background-color: lch(94.802% 7.462 80.086 / 1);
+  color: lch(42.969% 90 85);
+  border-color: color-mix(in lch, lch(42.969% 90 85) 20%, transparent);
 }
 
 .StagedFileList-priority-high:hover {
-  background-color: color-mix(in lch, var(--status-lead-bg) 90%, var(--status-lead-text));
+  background-color: color-mix(in lch, lch(94.802% 7.462 80.086 / 1) 90%, lch(42.969% 90 85));
 }
 
 .StagedFileList-remove-btn {
@@ -118,22 +118,22 @@
   align-items: center;
   justify-content: center;
   padding: 0.35rem 0.5rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .StagedFileList-remove-btn:hover {
-  color: var(--destructive);
-  background-color: var(--status-archived-bg);
-  border-color: color-mix(in lch, var(--destructive) 20%, transparent);
+  color: lch(58% 73 29);
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  border-color: color-mix(in lch, lch(58% 73 29) 20%, transparent);
 }
 
 .StagedFileList-remove-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
 }
 
 .StagedFileList-btn-icon {

@@ -18,7 +18,7 @@ export function QueueList({ tasks, currentClientId, totalTasks = 0, onRemoveTask
           <circle cx="14" cy="18" r="2" fill="currentColor" />
           <line x1="28" y1="32" x2="48" y2="32" stroke="currentColor" strokeWidth="1.5" />
           <line x1="28" y1="40" x2="40" y2="40" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="1.5" fill="var(--card)" />
+          <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="1.5" fill="lch(97.94% 0.5 282)" />
           <path d="M46 50L49 53L55 47" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 

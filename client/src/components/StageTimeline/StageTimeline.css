@@ -8,12 +8,12 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  background-color: var(--status-archived-bg);
-  border: 1px solid color-mix(in lch, var(--status-archived-text) 20%, transparent);
-  color: var(--status-archived-text);
+  border-radius: 0.5rem;
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  border: 1px solid color-mix(in lch, lch(42.969% 73 29) 20%, transparent);
+  color: lch(42.969% 73 29);
   font-size: 0.8125rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .StageTimeline-failed-icon {
@@ -44,7 +44,7 @@
   left: 50%;
   width: 100%;
   height: 2px;
-  background-color: var(--border);
+  background-color: lch(88.49% 0 282 / 1);
   z-index: 0;
   transition: background-color 0.25s ease;
 }
@@ -54,13 +54,13 @@
 }
 
 .StageTimeline-connector-active {
-  background-color: var(--primary);
+  background-color: lch(48% 59.31 288.43);
 }
 
 .StageTimeline-circle {
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,9 +70,9 @@
 }
 
 .StageTimeline-circle-upcoming {
-  background-color: var(--secondary);
-  border: 1px solid var(--border);
-  color: var(--muted-foreground);
+  background-color: lch(94.44% 0.5 282 / 1);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
   opacity: 0.9;
   box-shadow: none;
 }
@@ -80,9 +80,9 @@
 .StageTimeline-circle-current {
   background: linear-gradient(145deg, lch(32% 3 288), lch(14% 1.5 282));
   color: #ffffff;
-  border: 1px solid var(--ring);
+  border: 1px solid lch(53% 52.26 286.91);
   transform: scale(1.08);
-  box-shadow: 0 0 0 2px var(--ring), 0 4px 10px color-mix(in lch, var(--primary) 25%, transparent);
+  box-shadow: 0 0 0 2px lch(53% 52.26 286.91), 0 4px 10px color-mix(in lch, lch(48% 59.31 288.43) 25%, transparent);
 }
 
 .StageTimeline-circle-current-completed {
@@ -94,16 +94,16 @@
 .StageTimeline-circle-current-queued {
   background: linear-gradient(145deg, lch(30% 2.5 282), lch(14% 1 282));
   color: #ffffff;
-  border: 1px solid var(--ring);
+  border: 1px solid lch(53% 52.26 286.91);
   transform: scale(1.08);
-  box-shadow: 0 0 0 2px var(--ring);
+  box-shadow: 0 0 0 2px lch(53% 52.26 286.91);
 }
 
 .StageTimeline-circle-passed {
   background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
   color: #ffffff;
   border: 1px solid lch(40% 2 282);
-  box-shadow: 0 2px 6px color-mix(in lch, var(--foreground) 15%, transparent);
+  box-shadow: 0 2px 6px color-mix(in lch, lch(19.588% 1.25 282 / 1) 15%, transparent);
 }
 
 .StageTimeline-icon {
@@ -123,40 +123,40 @@
 .StageTimeline-label {
   margin-top: 0.5rem;
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 500;
   letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   transition: color 0.2s ease;
 }
 
 .StageTimeline-label-current {
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
   font-weight: 700;
 }
 
 .StageTimeline-label-passed {
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
   font-weight: 600;
 }
 
 .StageTimeline-chip {
   margin-top: 0.25rem;
   font-size: 0.625rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 600;
   padding: 0.125rem 0.375rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   letter-spacing: -0.02em;
 }
 
 .StageTimeline-chip-waiting,
 .StageTimeline-chip-processing {
-  background-color: var(--status-prospect-bg);
-  color: var(--status-prospect-text);
-  border: 1px solid color-mix(in lch, var(--status-prospect-text) 20%, transparent);
+  background-color: lch(94.802% 14.798 268.228 / 1);
+  color: lch(42.969% 70 267);
+  border: 1px solid color-mix(in lch, lch(42.969% 70 267) 20%, transparent);
 }

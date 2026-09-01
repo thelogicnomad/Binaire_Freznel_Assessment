@@ -11,7 +11,7 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ High Priority Lane ]</span>
-          <Flame className="QueueStats-icon" style={{ color: 'var(--status-lead-text)' }} />
+          <Flame className="QueueStats-icon" style={{ color: 'lch(42.969% 90 85)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">
@@ -39,7 +39,7 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Worker Thread Pool ]</span>
-          <Cpu className="QueueStats-icon" style={{ color: 'var(--status-prospect-text)' }} />
+          <Cpu className="QueueStats-icon" style={{ color: 'lch(42.969% 70 267)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">
@@ -69,7 +69,7 @@ export function QueueStats({ stats, tasks }) {
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Completed Reductions ]</span>
-          <CheckCircle2 className="QueueStats-icon" style={{ color: 'var(--status-active-text)' }} />
+          <CheckCircle2 className="QueueStats-icon" style={{ color: 'lch(42.969% 64.37 141.95)' }} />
         </div>
         <div className="QueueStats-card-body">
           <div className="QueueStats-metric-group">

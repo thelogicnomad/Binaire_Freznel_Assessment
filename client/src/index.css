@@ -1,4 +1,3 @@
-@import './variables.css';
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,14 +6,14 @@
 }
 
 html {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -22,7 +21,7 @@ body {
 }
 
 code, pre, .font-mono {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 ::-webkit-scrollbar {
@@ -30,19 +29,19 @@ code, pre, .font-mono {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--muted);
+  background: lch(92.44% 0.5 282 / 1);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--input);
-  border-radius: var(--radius);
+  background: lch(85.79% 0 282 / 1);
+  border-radius: 0.5rem;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
+  background: lch(39.176% 1.25 282 / 1);
 }
 
 ::selection {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: lch(48% 59.31 288.43);
+  color: lch(100% 29.655 288.43);
 }
 
 @keyframes fadeIn {

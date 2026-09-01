@@ -1,22 +1,22 @@
 .DropZone-container {
-  border: 1px dashed var(--input);
-  border-radius: var(--radius);
+  border: 1px dashed lch(85.79% 0 282 / 1);
+  border-radius: 0.5rem;
   padding: 2.25rem 1.5rem;
   text-align: center;
   cursor: pointer;
-  background-color: var(--card);
+  background-color: lch(97.94% 0.5 282);
   transition: all 0.15s ease;
   user-select: none;
 }
 
 .DropZone-container:hover {
-  background-color: color-mix(in lch, var(--card) 96%, var(--foreground));
-  border-color: var(--border);
+  background-color: color-mix(in lch, lch(97.94% 0.5 282) 96%, lch(19.588% 1.25 282 / 1));
+  border-color: lch(88.49% 0 282 / 1);
 }
 
 .DropZone-dragging {
-  background-color: var(--secondary);
-  border-color: var(--ring);
+  background-color: lch(94.44% 0.5 282 / 1);
+  border-color: lch(53% 52.26 286.91);
   border-style: solid;
 }
 
@@ -30,10 +30,10 @@
 
 .DropZone-icon-wrapper {
   padding: 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  color: var(--primary);
-  background-color: var(--background);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  color: lch(48% 59.31 288.43);
+  background-color: lch(94.44% 0.5 282 / 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,11 +48,11 @@
 .DropZone-text-primary {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .DropZone-browse-link {
-  color: var(--primary);
+  color: lch(48% 59.31 288.43);
   text-decoration: underline;
   font-weight: 700;
   cursor: pointer;
@@ -60,7 +60,7 @@
 
 .DropZone-text-secondary {
   font-size: 0.8125rem;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   margin-top: 0.25rem;
 }
 

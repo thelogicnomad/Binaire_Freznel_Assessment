@@ -16,25 +16,25 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.2rem 0.5rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--muted-foreground);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .QueueDashboard-clear-btn:hover {
-  color: var(--destructive);
-  background-color: var(--status-archived-bg);
-  border-color: color-mix(in lch, var(--destructive) 30%, transparent);
+  color: lch(58% 73 29);
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  border-color: color-mix(in lch, lch(58% 73 29) 30%, transparent);
 }
 
 .QueueDashboard-clear-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
 }
 
 .QueueDashboard-clear-icon {
@@ -46,7 +46,7 @@
 .QueueDashboard-modal-backdrop {
   position: fixed;
   inset: 0;
-  background-color: color-mix(in lch, var(--foreground) 35%, transparent);
+  background-color: color-mix(in lch, lch(19.588% 1.25 282 / 1) 35%, transparent);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -56,16 +56,16 @@
 }
 
 .QueueDashboard-modal-card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background-color: lch(97.94% 0.5 282);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  border-radius: 0.5rem;
   max-width: 28rem;
   width: 100%;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  box-shadow: 0 20px 30px -10px color-mix(in lch, var(--foreground) 20%, transparent);
+  box-shadow: 0 20px 30px -10px color-mix(in lch, lch(19.588% 1.25 282 / 1) 20%, transparent);
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -74,7 +74,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid lch(88.49% 0 282 / 1);
   padding-bottom: 0.875rem;
 }
 
@@ -86,9 +86,9 @@
 
 .QueueDashboard-modal-icon-box {
   padding: 0.4rem;
-  border-radius: var(--radius);
-  background-color: var(--status-archived-bg);
-  color: var(--destructive);
+  border-radius: 0.5rem;
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  color: lch(58% 73 29);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,16 +103,16 @@
 .QueueDashboard-modal-title {
   font-size: 1.05rem;
   font-weight: 800;
-  color: var(--card-foreground);
+  color: lch(19.588% 1.25 282 / 1);
   letter-spacing: -0.02em;
 }
 
 .QueueDashboard-modal-close-btn {
   padding: 0.25rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--muted-foreground);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -121,13 +121,13 @@
 }
 
 .QueueDashboard-modal-close-btn:hover {
-  color: var(--foreground);
-  background-color: var(--muted);
+  color: lch(19.588% 1.25 282 / 1);
+  background-color: lch(92.44% 0.5 282 / 1);
 }
 
 .QueueDashboard-modal-body {
   font-size: 0.875rem;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
   line-height: 1.5;
 }
 
@@ -136,7 +136,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 0.75rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid lch(88.49% 0 282 / 1);
   padding-top: 1rem;
 }
 
@@ -145,19 +145,19 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
   font-size: 0.8125rem;
   font-weight: 600;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .QueueDashboard-modal-btn-cancel:hover {
-  background-color: color-mix(in lch, var(--secondary) 92%, var(--foreground));
+  background-color: color-mix(in lch, lch(94.44% 0.5 282 / 1) 92%, lch(19.588% 1.25 282 / 1));
 }
 
 .QueueDashboard-modal-btn-confirm {
@@ -165,22 +165,22 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.5rem 1.15rem;
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in lch, var(--destructive) 40%, transparent);
-  background-color: var(--destructive);
-  color: var(--destructive-foreground);
+  border-radius: 0.5rem;
+  border: 1px solid color-mix(in lch, lch(58% 73 29) 40%, transparent);
+  background-color: lch(58% 73 29);
+  color: #ffffff;
   font-size: 0.8125rem;
   font-weight: 700;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .QueueDashboard-modal-btn-confirm:hover {
-  background-color: color-mix(in lch, var(--destructive) 85%, black);
+  background-color: color-mix(in lch, lch(58% 73 29) 85%, black);
 }
 
 .QueueDashboard-modal-btn-confirm:focus-visible,
 .QueueDashboard-modal-btn-cancel:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
 }

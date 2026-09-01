@@ -22,10 +22,10 @@
 
 .Toast-card,
 .CompletionBanner-card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 16px 32px -8px color-mix(in lch, var(--foreground) 18%, transparent);
+  background-color: lch(97.94% 0.5 282);
+  border: 1px solid lch(88.49% 0 282 / 1);
+  border-radius: 0.5rem;
+  box-shadow: 0 16px 32px -8px color-mix(in lch, lch(19.588% 1.25 282 / 1) 18%, transparent);
   overflow: hidden;
   position: relative;
   display: flex;
@@ -33,7 +33,7 @@
 }
 
 .Toast-card-delete {
-  border-color: color-mix(in lch, var(--destructive) 35%, transparent);
+  border-color: color-mix(in lch, lch(58% 73 29) 35%, transparent);
 }
 
 .Toast-body,
@@ -47,7 +47,7 @@
 .Toast-icon-box,
 .CompletionBanner-icon-box {
   padding: 0.45rem;
-  border-radius: var(--radius);
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,9 +62,9 @@
 }
 
 .Toast-icon-box-delete {
-  background-color: var(--status-archived-bg);
-  color: var(--destructive);
-  border: 1px solid color-mix(in lch, var(--destructive) 30%, transparent);
+  background-color: lch(92.134% 7.526 15.947 / 1);
+  color: lch(58% 73 29);
+  border: 1px solid color-mix(in lch, lch(58% 73 29) 30%, transparent);
 }
 
 .Toast-icon,
@@ -95,17 +95,17 @@
 .CompletionBanner-title {
   font-size: 0.875rem;
   font-weight: 800;
-  color: var(--card-foreground);
+  color: lch(19.588% 1.25 282 / 1);
   letter-spacing: -0.02em;
 }
 
 .Toast-dismiss-btn,
 .CompletionBanner-dismiss-btn {
   padding: 0.2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--muted-foreground);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  background-color: lch(94.44% 0.5 282 / 1);
+  color: lch(39.176% 1.25 282 / 1);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -116,13 +116,13 @@
 
 .Toast-dismiss-btn:hover,
 .CompletionBanner-dismiss-btn:hover {
-  color: var(--foreground);
-  background-color: var(--muted);
+  color: lch(19.588% 1.25 282 / 1);
+  background-color: lch(92.44% 0.5 282 / 1);
 }
 
 .Toast-dismiss-btn:focus-visible,
 .CompletionBanner-dismiss-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid lch(53% 52.26 286.91);
 }
 
 .Toast-dismiss-icon,
@@ -135,8 +135,8 @@
 .Toast-filename,
 .CompletionBanner-filename {
   font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -144,8 +144,8 @@
 
 .Toast-message {
   font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
 }
 
 .Toast-sum-row,
@@ -156,49 +156,49 @@
   gap: 0.5rem;
   margin-top: 0.25rem;
   padding-top: 0.35rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid lch(88.49% 0 282 / 1);
 }
 
 .Toast-sum-label,
 .CompletionBanner-sum-label {
   font-size: 0.75rem;
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
+  color: lch(39.176% 1.25 282 / 1);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .Toast-sum-value,
 .CompletionBanner-sum-value {
   font-size: 0.9375rem;
   font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(19.588% 1.25 282 / 1);
 }
 
 .Toast-meta-sub,
 .CompletionBanner-meta-sub {
   font-size: 0.6875rem;
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
+  color: lch(39.176% 1.25 282 / 1);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .Toast-countdown-track,
 .CompletionBanner-countdown-track {
   width: 100%;
   height: 3px;
-  background-color: var(--muted);
+  background-color: lch(92.44% 0.5 282 / 1);
   overflow: hidden;
 }
 
 .Toast-countdown-bar-success,
 .CompletionBanner-countdown-bar {
   height: 100%;
-  background: var(--primary);
+  background: lch(48% 59.31 288.43);
   animation: countdown 5s linear forwards;
 }
 
 .Toast-countdown-bar-delete {
   height: 100%;
-  background: var(--destructive);
+  background: lch(58% 73 29);
   animation: countdown 5s linear forwards;
 }
 

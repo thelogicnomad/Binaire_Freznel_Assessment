@@ -1,8 +1,8 @@
 .TaskResult-card {
-  background-color: var(--secondary);
-  border-radius: var(--radius);
+  background-color: lch(94.44% 0.5 282 / 1);
+  border-radius: 0.5rem;
   padding: 1.25rem;
-  border: 1px solid var(--border);
+  border: 1px solid lch(88.49% 0 282 / 1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,10 +24,10 @@
 
 .TaskResult-icon-box {
   padding: 0.625rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  background-color: var(--card);
+  border-radius: 0.5rem;
+  border: 1px solid lch(88.49% 0 282 / 1);
+  color: lch(19.588% 1.25 282 / 1);
+  background-color: lch(97.94% 0.5 282);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,16 +48,16 @@
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 700;
-  color: var(--muted-foreground);
+  color: lch(39.176% 1.25 282 / 1);
 }
 
 .TaskResult-sum-value {
   font-size: 1.75rem;
   font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(19.588% 1.25 282 / 1);
   letter-spacing: -0.03em;
 }
 
@@ -67,8 +67,8 @@
   gap: 1rem;
   width: 100%;
   font-size: 0.8125rem;
-  color: var(--muted-foreground);
-  border-top: 1px solid var(--border);
+  color: lch(39.176% 1.25 282 / 1);
+  border-top: 1px solid lch(88.49% 0 282 / 1);
   padding-top: 0.75rem;
 }
 
@@ -76,7 +76,7 @@
   .TaskResult-stats-grid {
     width: auto;
     border-top: none;
-    border-left: 1px solid var(--border);
+    border-left: 1px solid lch(88.49% 0 282 / 1);
     padding-top: 0;
     padding-left: 1.25rem;
   }
@@ -89,14 +89,14 @@
 
 .TaskResult-stat-label {
   font-size: 0.6875rem;
-  font-family: var(--font-mono);
-  color: var(--muted-foreground);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: lch(39.176% 1.25 282 / 1);
   text-transform: uppercase;
   font-weight: 600;
 }
 
 .TaskResult-stat-value {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-weight: 700;
-  color: var(--foreground);
+  color: lch(19.588% 1.25 282 / 1);
 }
