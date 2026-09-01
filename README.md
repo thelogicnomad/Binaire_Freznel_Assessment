@@ -6,8 +6,8 @@ A multi-user, multi-file distributed priority queueing engine and live animated 
 
 ## Live Deployments
 
-- **Frontend (Vercel)**: [https://binaire-freznel-assessment.vercel.app](https://binaire-freznel-assessment.vercel.app) *(Deploy URL placeholder)*
-- **Backend (Render / Railway)**: [https://csv-queue-server.onrender.com](https://csv-queue-server.onrender.com) *(Deploy URL placeholder)*
+- **Frontend (Vercel)**: [https://binaire-freznel-assessment-ebon.vercel.app/](https://binaire-freznel-assessment-ebon.vercel.app/)
+- **Backend (Render)**: [https://binaire-freznel-assessment-j98w.onrender.com](https://binaire-freznel-assessment-j98w.onrender.com)
 
 ---
 
@@ -187,7 +187,7 @@ The backend requires a persistent Node.js process to maintain Socket.io WebSocke
    - **Start Command**: `npm start`
 4. Configure Environment Variables in Render:
    - `PORT`: `5001` (or Render's default `$PORT`)
-   - `CLIENT_URL`: `https://your-frontend.vercel.app,http://localhost:5173`
+   - `CLIENT_URL`: `https://binaire-freznel-assessment-ebon.vercel.app,http://localhost:5173`
    - `WORKER_POOL_SIZE`: `4`
    - `TASK_TIMEOUT_MS`: `30000`
 
@@ -199,6 +199,6 @@ The backend requires a persistent Node.js process to maintain Socket.io WebSocke
 2. Set the **Root Directory** to `client`.
 3. Set **Framework Preset** to `Vite`.
 4. Configure Environment Variables in Vercel:
-   - `VITE_API_URL`: `https://your-render-backend.onrender.com`
-   - `VITE_SOCKET_URL`: `https://your-render-backend.onrender.com`
+   - `VITE_API_URL`: `https://binaire-freznel-assessment-j98w.onrender.com`
+   - `VITE_SOCKET_URL`: `https://binaire-freznel-assessment-j98w.onrender.com`
 5. Deploy.

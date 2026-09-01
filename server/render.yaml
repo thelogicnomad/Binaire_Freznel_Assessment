@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: csv-queue-server
+    name: binaire-freznel-assessment
     env: node
     plan: starter
     rootDir: server
@@ -12,7 +12,7 @@ services:
       - key: PORT
         value: 5001
       - key: CLIENT_URL
-        sync: false
+        value: https://binaire-freznel-assessment-ebon.vercel.app,http://localhost:5173
       - key: WORKER_POOL_SIZE
         value: 4
       - key: TASK_TIMEOUT_MS
