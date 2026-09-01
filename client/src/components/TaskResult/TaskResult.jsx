@@ -10,7 +10,7 @@ function formatNumber(num) {
 }
 
 /**
- * Display banner for final calculated all-reduce sum
+ * High-contrast editorial result display for all-reduce numeric sum
  */
 export function TaskResult({ result, rows = 0, columns = 0, numericCount = 0 }) {
   return (
@@ -20,7 +20,7 @@ export function TaskResult({ result, rows = 0, columns = 0, numericCount = 0 }) 
           <Calculator className="TaskResult-calc-icon" />
         </div>
         <div className="TaskResult-text-group">
-          <span className="TaskResult-heading">All-Reduce Final Sum</span>
+          <span className="TaskResult-heading">[ All-Reduce Final Sum ]</span>
           <div className="TaskResult-sum-value">{formatNumber(result)}</div>
         </div>
       </div>
@@ -35,7 +35,7 @@ export function TaskResult({ result, rows = 0, columns = 0, numericCount = 0 }) 
           <span className="TaskResult-stat-value">{columns || '-'}</span>
         </div>
         <div className="TaskResult-stat-item">
-          <span className="TaskResult-stat-label">Values</span>
+          <span className="TaskResult-stat-label">Numeric Values</span>
           <span className="TaskResult-stat-value">{numericCount.toLocaleString()}</span>
         </div>
       </div>

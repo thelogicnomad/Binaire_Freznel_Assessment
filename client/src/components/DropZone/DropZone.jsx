@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import './DropZone.css';
-import { FileSpreadsheet } from 'lucide-react';
+import { UploadCloud } from 'lucide-react';
 
 /**
- * Drag and drop upload zone component
+ * Minimalist monochrome drop zone
  */
 export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, onDrop }) {
   const fileInputRef = useRef(null);
@@ -37,15 +37,15 @@ export function DropZone({ onFilesAdded, isDragging, onDragOver, onDragLeave, on
       />
       <div className="DropZone-content">
         <div className="DropZone-icon-wrapper">
-          <FileSpreadsheet className="DropZone-icon" />
+          <UploadCloud className="DropZone-icon" />
         </div>
         <div>
           <span className="DropZone-text-primary">
-            Drag & drop CSV files here, or{' '}
-            <span className="DropZone-browse-link">browse</span>
+            Drag and drop CSV files here, or{' '}
+            <span className="DropZone-browse-link">browse files</span>
           </span>
           <p className="DropZone-text-secondary">
-            Supports any row/column shape • Floats, integers, negatives, and scientific notation
+            Any row/column shape • Floats, integers, negatives, scientific notation
           </p>
         </div>
       </div>

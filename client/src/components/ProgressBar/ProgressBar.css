@@ -11,51 +11,33 @@
 }
 
 .ProgressBar-label {
-  color: #93c5fd;
-  font-weight: 500;
+  color: var(--text-black);
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.375rem;
 }
 
-.ProgressBar-indicator-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-blue);
-  animation: pulse 1.5s infinite;
-}
-
 .ProgressBar-percentage {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: #bfdbfe;
+  color: var(--text-black);
 }
 
 .ProgressBar-track {
   width: 100%;
   height: 0.5rem;
-  background-color: rgba(30, 41, 59, 0.8);
-  border-radius: var(--radius-full);
+  background-color: #f3f4f6;
+  border: 1px solid var(--border-black);
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
 .ProgressBar-fill {
   height: 100%;
-  border-radius: var(--radius-full);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.ProgressBar-fill-blue {
-  background: linear-gradient(90deg, var(--color-blue), var(--color-indigo));
-}
-
-.ProgressBar-fill-emerald {
-  background: linear-gradient(90deg, var(--color-emerald), var(--color-teal));
-}
-
-.ProgressBar-fill-amber {
-  background: linear-gradient(90deg, var(--color-amber), #ea580c);
+  background-color: var(--text-black);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
 }
 
 .ProgressBar-sublabels {
@@ -65,5 +47,5 @@
   font-size: 0.6875rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  margin-top: 0.5rem;
+  margin-top: 0.375rem;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import './QueueFilter.css';
-import { Layers, User, Cpu, Flame, CheckCircle2, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 /**
- * Filter tabs and search bar for the queue dashboard
+ * Minimalist monochrome filter bar with pill tabs
  */
 export function QueueFilter({
   activeFilter,
@@ -20,55 +20,50 @@ export function QueueFilter({
           type="button"
           onClick={() => onFilterChange('all')}
           className={`QueueFilter-tab-btn ${
-            activeFilter === 'all' ? 'QueueFilter-tab-active-all' : ''
+            activeFilter === 'all' ? 'QueueFilter-tab-active' : ''
           }`}
         >
-          <Layers className="QueueFilter-tab-icon" />
-          All Tasks ({counts.total})
+          [ All Tasks: {counts.total} ]
         </button>
 
         <button
           type="button"
           onClick={() => onFilterChange('mine')}
           className={`QueueFilter-tab-btn ${
-            activeFilter === 'mine' ? 'QueueFilter-tab-active-mine' : ''
+            activeFilter === 'mine' ? 'QueueFilter-tab-active' : ''
           }`}
         >
-          <User className="QueueFilter-tab-icon" />
-          My Uploads ({counts.mine})
+          [ My Uploads: {counts.mine} ]
         </button>
 
         <button
           type="button"
           onClick={() => onFilterChange('active')}
           className={`QueueFilter-tab-btn ${
-            activeFilter === 'active' ? 'QueueFilter-tab-active-active' : ''
+            activeFilter === 'active' ? 'QueueFilter-tab-active' : ''
           }`}
         >
-          <Cpu className="QueueFilter-tab-icon" />
-          In Flight ({counts.active})
+          [ In Flight: {counts.active} ]
         </button>
 
         <button
           type="button"
           onClick={() => onFilterChange('high')}
           className={`QueueFilter-tab-btn ${
-            activeFilter === 'high' ? 'QueueFilter-tab-active-high' : ''
+            activeFilter === 'high' ? 'QueueFilter-tab-active' : ''
           }`}
         >
-          <Flame className="QueueFilter-tab-icon" />
-          High Priority ({counts.high})
+          [ High Priority: {counts.high} ]
         </button>
 
         <button
           type="button"
           onClick={() => onFilterChange('completed')}
           className={`QueueFilter-tab-btn ${
-            activeFilter === 'completed' ? 'QueueFilter-tab-active-completed' : ''
+            activeFilter === 'completed' ? 'QueueFilter-tab-active' : ''
           }`}
         >
-          <CheckCircle2 className="QueueFilter-tab-icon" />
-          Completed
+          [ Completed ]
         </button>
       </div>
 
@@ -79,7 +74,7 @@ export function QueueFilter({
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search by file or client..."
+          placeholder="Filter by file or client ID..."
           className="QueueFilter-search-input"
         />
       </div>

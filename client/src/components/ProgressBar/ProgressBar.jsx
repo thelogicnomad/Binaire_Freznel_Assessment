@@ -2,13 +2,12 @@ import React from 'react';
 import './ProgressBar.css';
 
 /**
- * Reusable animated progress bar
+ * Monochrome progress bar with black fill and clean border track
  */
 export function ProgressBar({
   progress = 0,
   label,
   showPercentage = true,
-  variant = 'blue',
   sublabelLeft,
   sublabelRight,
 }) {
@@ -20,19 +19,18 @@ export function ProgressBar({
         <div className="ProgressBar-header">
           {label && (
             <span className="ProgressBar-label">
-              <span className="ProgressBar-indicator-dot" />
               {label}
             </span>
           )}
           {showPercentage && (
-            <span className="ProgressBar-percentage">{safeProgress}%</span>
+            <span className="ProgressBar-percentage">[ {safeProgress}% ]</span>
           )}
         </div>
       )}
 
       <div className="ProgressBar-track">
         <div
-          className={`ProgressBar-fill ProgressBar-fill-${variant}`}
+          className="ProgressBar-fill"
           style={{ width: `${safeProgress}%` }}
         />
       </div>

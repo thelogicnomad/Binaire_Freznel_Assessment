@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './FileUpload.css';
-import { UploadCloud, Sparkles, Plus, Send, AlertCircle } from 'lucide-react';
+import { ArrowRight, AlertCircle } from 'lucide-react';
 import { DropZone } from '../DropZone/DropZone';
 import { StagedFileList } from '../StagedFileList/StagedFileList';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * File upload manager with drag-and-drop, sample generator, and priority queue submission
+ * Editorial file upload container with capsule arrow buttons
  */
 export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadError }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -174,11 +174,10 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
       <div className="FileUpload-header">
         <div className="FileUpload-title-group">
           <h2 className="FileUpload-title">
-            <UploadCloud className="FileUpload-title-icon" />
             Upload CSV Files
           </h2>
           <p className="FileUpload-subtitle">
-            Multi-file upload with individual priority selection (All-reduce numeric summation)
+            Tag files with High or Low priority for parallel worker thread reduction
           </p>
         </div>
 
@@ -186,20 +185,20 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
           <button
             type="button"
             onClick={() => generateSampleCsv('high_priority_fast')}
-            className="FileUpload-sample-btn FileUpload-sample-high"
+            className="FileUpload-btn-outline"
             title="Generate a 25-row sample tagged with High Priority"
           >
-            <Sparkles className="FileUpload-btn-icon" style={{ color: '#f59e0b' }} />
-            + Sample (High)
+            <span>+ Sample [ High ]</span>
+            <ArrowRight className="FileUpload-btn-icon" />
           </button>
           <button
             type="button"
             onClick={() => generateSampleCsv('large_dataset')}
-            className="FileUpload-sample-btn FileUpload-sample-low"
+            className="FileUpload-btn-outline"
             title="Generate an 8,000-row sample tagged with Low Priority"
           >
-            <Plus className="FileUpload-btn-icon" />
-            + 8K Rows (Low)
+            <span>+ 8K Rows [ Low ]</span>
+            <ArrowRight className="FileUpload-btn-icon" />
           </button>
         </div>
       </div>
@@ -231,12 +230,14 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
             type="button"
             disabled={isUploading}
             onClick={handleUploadSubmit}
-            className="FileUpload-submit-btn"
+            className="FileUpload-btn-solid"
           >
-            <Send className="FileUpload-btn-icon" />
-            {isUploading
-              ? 'Uploading to Queue...'
-              : `Upload & Enqueue ${selectedFiles.length} File${selectedFiles.length > 1 ? 's' : ''}`}
+            <span>
+              {isUploading
+                ? 'Uploading to Queue...'
+                : `Upload & Enqueue ${selectedFiles.length} File${selectedFiles.length > 1 ? 's' : ''}`}
+            </span>
+            <ArrowRight className="FileUpload-btn-icon" />
           </button>
         </div>
       )}

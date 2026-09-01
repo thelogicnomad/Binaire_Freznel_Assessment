@@ -6,8 +6,8 @@ import {
   ListOrdered,
   Hourglass,
   Cpu,
-  CheckCircle2,
-  AlertOctagon,
+  Check,
+  AlertCircle,
 } from 'lucide-react';
 
 export const STAGES = [
@@ -16,11 +16,11 @@ export const STAGES = [
   { key: 'File added to queue', label: '3. Enqueued', icon: ListOrdered },
   { key: 'Waiting for processing', label: '4. Waiting', icon: Hourglass },
   { key: 'Processing…', label: '5. Processing', icon: Cpu },
-  { key: 'Completed', label: '6. Completed', icon: CheckCircle2 },
+  { key: 'Completed', label: '6. Completed', icon: Check },
 ];
 
 /**
- * Visual 6-step lifecycle tracker with icons and state animations
+ * Monochrome editorial 6-step lifecycle tracker
  */
 export function StageTimeline({ currentStatus, progress = 0, workerId = null, error = null }) {
   const isFailed = currentStatus === 'Failed';
@@ -36,11 +36,8 @@ export function StageTimeline({ currentStatus, progress = 0, workerId = null, er
   if (isFailed) {
     return (
       <div className="StageTimeline-failed-box">
-        <AlertOctagon className="StageTimeline-failed-icon" />
-        <span className="StageTimeline-failed-title">Processing Failed:</span>
-        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {error || 'An unexpected worker error occurred.'}
-        </span>
+        <AlertCircle className="StageTimeline-failed-icon" />
+        <span><strong>[ Error ]:</strong> {error || 'Worker execution failed'}</span>
       </div>
     );
   }
@@ -75,7 +72,7 @@ export function StageTimeline({ currentStatus, progress = 0, workerId = null, er
 
               <div className={`StageTimeline-circle ${circleClass}`}>
                 {isPassed && stage.key !== 'Completed' ? (
-                  <CheckCircle2 className="StageTimeline-icon" style={{ color: 'var(--color-emerald)' }} />
+                  <Check className="StageTimeline-icon" />
                 ) : (
                   <Icon
                     className={`StageTimeline-icon ${
@@ -94,14 +91,14 @@ export function StageTimeline({ currentStatus, progress = 0, workerId = null, er
               </span>
 
               {isCurrent && stage.key === 'Waiting for processing' && workerId && (
-                <span className="StageTimeline-worker-chip">
-                  {workerId.split(' ')[0]}
+                <span className="StageTimeline-chip">
+                  [ {workerId.split(' ')[0]} ]
                 </span>
               )}
 
               {isCurrent && stage.key === 'Processing…' && (
-                <span className="StageTimeline-progress-chip">
-                  {progress}%
+                <span className="StageTimeline-chip">
+                  [ {progress}% ]
                 </span>
               )}
             </div>

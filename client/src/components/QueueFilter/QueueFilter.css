@@ -1,13 +1,12 @@
 .QueueFilter-container {
   background-color: var(--bg-card);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-card);
-  padding: 1rem;
-  backdrop-filter: blur(12px);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-black);
+  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -21,63 +20,38 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.375rem;
-  overflow-x: auto;
+  gap: 0.5rem;
 }
 
 .QueueFilter-tab-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--radius-md);
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
   font-size: 0.75rem;
   font-weight: 600;
+  font-family: var(--font-mono);
   cursor: pointer;
-  border: 1px solid transparent;
-  background-color: rgba(30, 41, 59, 0.8);
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
+  border: 1px solid var(--border-black);
+  background-color: var(--bg-page);
+  color: var(--text-black);
+  transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .QueueFilter-tab-btn:hover {
-  color: var(--text-primary);
-  background-color: rgba(51, 65, 85, 0.8);
+  background-color: var(--text-black);
+  color: var(--text-white);
 }
 
-.QueueFilter-tab-active-all {
-  background-color: var(--color-blue);
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+.QueueFilter-tab-active {
+  background-color: var(--text-black);
+  color: var(--text-white);
 }
 
-.QueueFilter-tab-active-mine {
-  background-color: var(--color-emerald);
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3);
-}
-
-.QueueFilter-tab-active-active {
-  background-color: var(--color-indigo);
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(99, 102, 241, 0.3);
-}
-
-.QueueFilter-tab-active-high {
-  background-color: #d97706;
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.3);
-}
-
-.QueueFilter-tab-active-completed {
-  background-color: #0d9488;
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(13, 148, 136, 0.3);
-}
-
-.QueueFilter-tab-icon {
-  width: 0.875rem;
-  height: 0.875rem;
+.QueueFilter-tab-active:hover {
+  background-color: #262626;
 }
 
 .QueueFilter-search-wrapper {
@@ -87,41 +61,43 @@
 
 @media (min-width: 768px) {
   .QueueFilter-search-wrapper {
-    width: 16rem;
+    width: 18rem;
     flex-shrink: 0;
   }
 }
 
 .QueueFilter-search-icon {
   position: absolute;
-  left: 0.75rem;
+  left: 0.875rem;
   top: 50%;
   transform: translateY(-50%);
   width: 1rem;
   height: 1rem;
   color: var(--text-muted);
   pointer-events: none;
+  stroke-width: 1.5px;
 }
 
 .QueueFilter-search-input {
   width: 100%;
-  padding-left: 2.25rem;
-  padding-right: 0.75rem;
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
-  border-radius: var(--radius-md);
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-subtle);
-  font-size: 0.75rem;
-  color: var(--text-primary);
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-black);
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  color: var(--text-black);
   outline: none;
-  transition: border-color 0.2s ease;
 }
 
 .QueueFilter-search-input:focus {
-  border-color: var(--color-blue);
+  box-shadow: 0 0 0 1px var(--border-black);
 }
 
 .QueueFilter-search-input::placeholder {
   color: var(--text-muted);
+  font-family: var(--font-mono);
 }

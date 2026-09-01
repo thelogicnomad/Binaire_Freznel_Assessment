@@ -1,60 +1,32 @@
-.StatusBadge-badge {
+.StatusBadge-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
+  gap: 0.25rem;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
-  line-height: 1;
+  color: var(--text-black);
+  background: transparent;
+  padding: 0;
+  line-height: 1.2;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+}
+
+.StatusBadge-brackets {
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .StatusBadge-high {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(234, 88, 12, 0.2));
-  color: #fcd34d;
-  border: 1px solid var(--color-amber-border);
-  box-shadow: 0 1px 3px rgba(245, 158, 11, 0.15);
-}
-
-.StatusBadge-low {
-  background: rgba(30, 41, 59, 0.7);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-  font-weight: 500;
-}
-
-.StatusBadge-owner-you {
-  background: rgba(6, 78, 59, 0.6);
-  color: #6ee7b7;
-  border: 1px solid var(--color-emerald-border);
-}
-
-.StatusBadge-owner-other {
-  background: rgba(30, 41, 59, 0.5);
-  color: var(--text-muted);
-  border: 1px solid rgba(51, 65, 85, 0.4);
+  font-weight: 700;
+  color: var(--text-black);
 }
 
 .StatusBadge-worker {
-  background: rgba(30, 58, 138, 0.5);
-  color: #93c5fd;
-  border: 1px solid var(--color-blue-border);
-  font-family: var(--font-mono);
-  font-weight: 500;
+  color: var(--text-body);
 }
 
-.StatusBadge-icon {
-  width: 0.875rem;
-  height: 0.875rem;
-  flex-shrink: 0;
-}
-
-.StatusBadge-icon-flame {
-  fill: #f59e0b;
-}
-
-.StatusBadge-icon-pulse {
-  animation: pulse 2s infinite;
+.StatusBadge-you {
+  font-weight: 700;
 }

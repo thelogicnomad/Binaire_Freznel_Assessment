@@ -1,46 +1,27 @@
 .TaskCard-container {
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-card);
-  padding: 1rem 1.25rem;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-black);
   background-color: var(--bg-card);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
 }
 
-.TaskCard-high-priority {
-  border-color: rgba(245, 158, 11, 0.35);
-  background-color: rgba(15, 23, 42, 0.7);
+.TaskCard-header-section {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border-black);
 }
 
-.TaskCard-processing {
-  border-color: var(--color-blue-border);
-  background-color: rgba(15, 23, 42, 0.9);
-  animation: subtle-glow 2.5s infinite ease-in-out;
-}
-
-.TaskCard-completed {
-  border-color: var(--color-emerald-border);
-  background-color: rgba(15, 23, 42, 0.9);
-  box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.2);
-}
-
-.TaskCard-failed {
-  border-color: var(--color-rose-border);
-  background-color: rgba(15, 23, 42, 0.8);
-}
-
-.TaskCard-glow-accent {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8rem;
-  height: 8rem;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
-  pointer-events: none;
+.TaskCard-body-section {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .TaskCard-top-bar {
@@ -54,7 +35,7 @@
 .TaskCard-badges-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .TaskCard-timestamp {
@@ -65,7 +46,7 @@
 
 .TaskCard-file-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
 }
@@ -77,31 +58,20 @@
 }
 
 .TaskCard-file-icon-box {
-  padding: 0.625rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  background-color: rgba(30, 41, 59, 0.8);
-  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-black);
+  background-color: var(--bg-page);
+  color: var(--text-black);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.TaskCard-file-icon-completed {
-  background-color: var(--color-emerald-bg);
-  border-color: var(--color-emerald-border);
-  color: var(--color-emerald);
-}
-
-.TaskCard-file-icon-processing {
-  background-color: var(--color-blue-bg);
-  border-color: var(--color-blue-border);
-  color: var(--color-blue);
-}
-
 .TaskCard-file-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  stroke-width: 1.5px;
 }
 
 .TaskCard-file-details {
@@ -110,10 +80,10 @@
 }
 
 .TaskCard-file-name {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.015em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-black);
+  letter-spacing: -0.02em;
   word-break: break-all;
 }
 
@@ -125,15 +95,14 @@
 }
 
 .TaskCard-timeline-wrapper {
-  background-color: var(--bg-card-inner);
-  border-radius: var(--radius-lg);
-  padding: 0.75rem;
-  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 0.75rem 0.25rem;
 }
 
 .TaskCard-progress-panel {
-  background-color: rgba(2, 6, 23, 0.6);
-  border-radius: var(--radius-lg);
-  padding: 0.75rem;
-  border: 1px solid rgba(30, 58, 138, 0.4);
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-card);
+  padding: 1rem;
+  border: 1px solid var(--border-black);
 }

@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <div className="App-container">
-      {/* Persistent Navigation Header */}
+      {/* Editorial Header */}
       <Header
         clientId={clientId}
         onResetClientId={handleResetClientId}
@@ -36,7 +36,7 @@ export default function App() {
         stats={stats}
       />
 
-      {/* Completion Celebration Notification Banner */}
+      {/* Completion Toast Banner */}
       <CompletionBanner
         task={lastCompletedTask}
         onDismiss={clearLastCompleted}
@@ -44,42 +44,102 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="App-main">
-        {/* System Overview Stats Bar */}
-        <QueueStats stats={stats} tasks={tasks} />
-
-        {/* Upload Zone */}
-        <FileUpload
-          clientId={clientId}
-          onUploadStart={(optimistic) => addOptimisticTasks(optimistic)}
-          onUploadSuccess={(tempIds, serverTasks) => resolveOptimisticTasks(tempIds, serverTasks)}
-          onUploadError={(tempIds, err) => {
-            console.error('Upload Error:', err);
-          }}
-        />
-
-        {/* Global Live Queue Dashboard */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <div className="App-section-header">
-            <div>
-              <h2 className="App-section-title">Real-Time Queue Dashboard</h2>
-              <p className="App-section-subtitle">
-                Live broadcast of all tasks across all connected users
-              </p>
-            </div>
+        {/* Dark Navy Graphic Accent Hero Panel */}
+        <div className="App-hero-panel">
+          <div className="App-hero-content">
+            <span className="App-hero-eyebrow">[ Distributed Architecture ]</span>
+            <h2 className="App-hero-heading">
+              Parallel All-Reduce Reduction Engine
+            </h2>
+            <p className="App-hero-description">
+              Upload multiple CSV files with High or Low priority tags. Jobs are scheduled into strict priority FIFO lanes and reduced across dedicated Node.js worker threads in real time.
+            </p>
           </div>
 
+          {/* Minimalist Geometric Wireframe Graphic */}
+          <div className="App-hero-wireframe-wrapper">
+            <svg
+              className="App-hero-wireframe-svg"
+              viewBox="0 0 200 140"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Grid Lines */}
+              <line x1="20" y1="20" x2="180" y2="20" stroke="#ffffff" strokeWidth="1" strokeDasharray="4 4" opacity="0.4" />
+              <line x1="20" y1="70" x2="180" y2="70" stroke="#ffffff" strokeWidth="1" strokeDasharray="4 4" opacity="0.4" />
+              <line x1="20" y1="120" x2="180" y2="120" stroke="#ffffff" strokeWidth="1" strokeDasharray="4 4" opacity="0.4" />
+
+              {/* Node Hierarchy */}
+              <rect x="25" y="55" width="30" height="30" rx="4" stroke="#ffffff" strokeWidth="1.5" />
+              <circle cx="40" cy="70" r="4" fill="#ffffff" />
+              
+              {/* Connector lines to worker pool */}
+              <path d="M55 70H85M85 70L115 35M85 70L115 70M85 70L115 105" stroke="#ffffff" strokeWidth="1.5" />
+
+              {/* Worker Nodes */}
+              <rect x="115" y="20" width="28" height="28" rx="4" stroke="#ffffff" strokeWidth="1.5" />
+              <text x="123" y="38" fill="#ffffff" fontSize="10" fontFamily="monospace">W1</text>
+
+              <rect x="115" y="56" width="28" height="28" rx="4" stroke="#ffffff" strokeWidth="1.5" />
+              <text x="123" y="74" fill="#ffffff" fontSize="10" fontFamily="monospace">W2</text>
+
+              <rect x="115" y="92" width="28" height="28" rx="4" stroke="#ffffff" strokeWidth="1.5" />
+              <text x="123" y="110" fill="#ffffff" fontSize="10" fontFamily="monospace">WN</text>
+
+              {/* Aggregation reducer */}
+              <path d="M143 34L165 70M143 70H165M143 106L165 70" stroke="#ffffff" strokeWidth="1.5" strokeDasharray="2 2" />
+              <circle cx="175" cy="70" r="10" stroke="#ffffff" strokeWidth="1.5" fill="#0A1128" />
+              <path d="M171 70H179M175 66V74" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Section 1: System Metrics */}
+        <div className="App-section-wrapper">
+          <div className="App-section-divider">
+            <div className="App-section-rule" />
+            <span className="App-section-label">[ System Capacity & Queue Lanes ]</span>
+            <div className="App-section-rule" />
+          </div>
+          <QueueStats stats={stats} tasks={tasks} />
+        </div>
+
+        {/* Section 2: Upload Zone */}
+        <div className="App-section-wrapper">
+          <div className="App-section-divider">
+            <div className="App-section-rule" />
+            <span className="App-section-label">[ Ingest & Priority Dispatch ]</span>
+            <div className="App-section-rule" />
+          </div>
+          <FileUpload
+            clientId={clientId}
+            onUploadStart={(optimistic) => addOptimisticTasks(optimistic)}
+            onUploadSuccess={(tempIds, serverTasks) => resolveOptimisticTasks(tempIds, serverTasks)}
+            onUploadError={(tempIds, err) => {
+              console.error('Upload Error:', err);
+            }}
+          />
+        </div>
+
+        {/* Section 3: Live Dashboard */}
+        <div className="App-section-wrapper">
+          <div className="App-section-divider">
+            <div className="App-section-rule" />
+            <span className="App-section-label">[ Real-Time Queue Monitor ]</span>
+            <div className="App-section-rule" />
+          </div>
           <QueueDashboard tasks={tasks} currentClientId={clientId} />
-        </section>
+        </div>
       </main>
 
-      {/* Technical Footer */}
+      {/* Editorial Footer */}
       <footer className="App-footer">
         <div className="App-footer-content">
-          <p className="App-footer-highlight">
-            CSV Multi-User Queue Engine & Worker Threads All-Reduce
+          <p className="App-footer-title">
+            CSV Multi-User Queue Engine — Parallel All-Reduce
           </p>
-          <p>
-            Powered by Node.js <code className="App-footer-code">worker_threads</code>, Express, Socket.io, and React Vite
+          <p className="App-footer-sub">
+            [ Node.js worker_threads • Express • Socket.io • React Vite ]
           </p>
         </div>
       </footer>

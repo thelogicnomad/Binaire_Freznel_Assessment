@@ -1,35 +1,31 @@
 import React from 'react';
 import './StatusBadge.css';
-import { Flame, Clock, User, Cpu } from 'lucide-react';
 import { formatClientId } from '../../utils/clientId';
 
 /**
- * Reusable status and attribute badge
+ * Editorial bracket-style tag: [ High ] [ Low ] [ You ] [ Worker #1 ]
  */
 export function StatusBadge({ type, label, clientId, workerId }) {
   if (type === 'priority-high') {
     return (
-      <span className="StatusBadge-badge StatusBadge-high">
-        <Flame className="StatusBadge-icon StatusBadge-icon-flame" />
-        {label || 'HIGH PRIORITY'}
+      <span className="StatusBadge-tag StatusBadge-high">
+        <span className="StatusBadge-brackets">[</span> {label || 'High'} <span className="StatusBadge-brackets">]</span>
       </span>
     );
   }
 
   if (type === 'priority-low') {
     return (
-      <span className="StatusBadge-badge StatusBadge-low">
-        <Clock className="StatusBadge-icon" />
-        {label || 'LOW PRIORITY'}
+      <span className="StatusBadge-tag">
+        <span className="StatusBadge-brackets">[</span> {label || 'Low'} <span className="StatusBadge-brackets">]</span>
       </span>
     );
   }
 
   if (type === 'owner-you') {
     return (
-      <span className="StatusBadge-badge StatusBadge-owner-you">
-        <User className="StatusBadge-icon" />
-        You
+      <span className="StatusBadge-tag StatusBadge-you">
+        <span className="StatusBadge-brackets">[</span> You <span className="StatusBadge-brackets">]</span>
       </span>
     );
   }
@@ -37,27 +33,25 @@ export function StatusBadge({ type, label, clientId, workerId }) {
   if (type === 'owner-other') {
     return (
       <span
-        className="StatusBadge-badge StatusBadge-owner-other"
+        className="StatusBadge-tag"
         title={`Submitted by client ${clientId}`}
       >
-        <User className="StatusBadge-icon" />
-        {formatClientId(clientId)}
+        <span className="StatusBadge-brackets">[</span> {formatClientId(clientId)} <span className="StatusBadge-brackets">]</span>
       </span>
     );
   }
 
   if (type === 'worker') {
     return (
-      <span className="StatusBadge-badge StatusBadge-worker">
-        <Cpu className="StatusBadge-icon StatusBadge-icon-pulse" />
-        {workerId}
+      <span className="StatusBadge-tag StatusBadge-worker">
+        <span className="StatusBadge-brackets">[</span> {workerId} <span className="StatusBadge-brackets">]</span>
       </span>
     );
   }
 
   return (
-    <span className="StatusBadge-badge StatusBadge-low">
-      {label}
+    <span className="StatusBadge-tag">
+      <span className="StatusBadge-brackets">[</span> {label} <span className="StatusBadge-brackets">]</span>
     </span>
   );
 }

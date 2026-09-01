@@ -1,9 +1,9 @@
 import React from 'react';
 import './StagedFileList.css';
-import { FileSpreadsheet, Trash2, Flame, Clock } from 'lucide-react';
+import { FileSpreadsheet, Trash2, ArrowRight } from 'lucide-react';
 
 /**
- * List of staged files pending upload
+ * Minimalist monochrome list of staged files
  */
 export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
   if (!files || files.length === 0) return null;
@@ -11,8 +11,8 @@ export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
   return (
     <div className="StagedFileList-container">
       <div className="StagedFileList-header">
-        <span>Staged Files ({files.length})</span>
-        <span>Configure Priority</span>
+        <span>[ Staged Files: {files.length} ]</span>
+        <span>Priority Setting</span>
       </div>
 
       <div className="StagedFileList-list">
@@ -33,23 +33,12 @@ export function StagedFileList({ files, onTogglePriority, onRemoveFile }) {
                 type="button"
                 onClick={() => onTogglePriority(item.id)}
                 className={`StagedFileList-priority-btn ${
-                  item.priority === 'high'
-                    ? 'StagedFileList-priority-high'
-                    : 'StagedFileList-priority-low'
+                  item.priority === 'high' ? 'StagedFileList-priority-high' : ''
                 }`}
-                title={`Click to switch to ${item.priority === 'high' ? 'Low' : 'High'} priority`}
+                title={`Toggle priority (Currently ${item.priority.toUpperCase()})`}
               >
-                {item.priority === 'high' ? (
-                  <>
-                    <Flame className="StagedFileList-btn-icon" style={{ fill: '#f59e0b', color: '#f59e0b' }} />
-                    <span>High</span>
-                  </>
-                ) : (
-                  <>
-                    <Clock className="StagedFileList-btn-icon" />
-                    <span>Low</span>
-                  </>
-                )}
+                <span>[ {item.priority === 'high' ? 'High Priority' : 'Low Priority'} ]</span>
+                <ArrowRight className="StagedFileList-btn-icon" />
               </button>
 
               <button

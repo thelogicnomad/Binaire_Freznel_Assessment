@@ -1,12 +1,12 @@
 .TaskResult-card {
-  background: linear-gradient(135deg, rgba(6, 78, 59, 0.5), rgba(19, 78, 74, 0.3));
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  border: 1px solid var(--color-emerald-border);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  border: 1px solid var(--border-black);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 640px) {
@@ -19,15 +19,14 @@
 .TaskResult-main {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.875rem;
 }
 
 .TaskResult-icon-box {
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
-  background-color: var(--color-emerald-bg);
-  color: #6ee7b7;
-  border: 1px solid var(--color-emerald-border);
+  padding: 0.625rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-black);
+  color: var(--text-black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +35,7 @@
 .TaskResult-calc-icon {
   width: 1.5rem;
   height: 1.5rem;
+  stroke-width: 1.5px;
 }
 
 .TaskResult-text-group {
@@ -47,36 +47,37 @@
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--color-emerald);
+  color: var(--text-muted);
 }
 
 .TaskResult-sum-value {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 800;
   font-family: var(--font-mono);
-  color: #ffffff;
-  letter-spacing: -0.025em;
+  color: var(--text-black);
+  letter-spacing: -0.03em;
 }
 
 .TaskResult-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 1rem;
   width: 100%;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  border-top: 1px solid rgba(6, 78, 59, 0.6);
-  padding-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-light);
+  padding-top: 0.75rem;
 }
 
 @media (min-width: 640px) {
   .TaskResult-stats-grid {
     width: auto;
     border-top: none;
-    border-left: 1px solid rgba(6, 78, 59, 0.6);
+    border-left: 1px solid var(--border-black);
     padding-top: 0;
-    padding-left: 1rem;
+    padding-left: 1.25rem;
   }
 }
 
@@ -86,13 +87,14 @@
 }
 
 .TaskResult-stat-label {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
   color: var(--text-muted);
   text-transform: uppercase;
 }
 
 .TaskResult-stat-value {
   font-family: var(--font-mono);
-  font-weight: 600;
-  color: #a7f3d0;
+  font-weight: 700;
+  color: var(--text-black);
 }

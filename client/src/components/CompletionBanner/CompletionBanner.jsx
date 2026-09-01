@@ -3,7 +3,7 @@ import './CompletionBanner.css';
 import { Sparkles, X } from 'lucide-react';
 
 /**
- * Global celebration banner when a user's task completes
+ * Editorial toast banner for completed all-reduce reductions
  */
 export function CompletionBanner({ task, onDismiss }) {
   if (!task) return null;
@@ -17,17 +17,17 @@ export function CompletionBanner({ task, onDismiss }) {
           </div>
           <div className="CompletionBanner-text">
             <div className="CompletionBanner-title-row">
-              <h2 className="CompletionBanner-title">Reduction Complete!</h2>
-              <span className="CompletionBanner-filename">({task.filename})</span>
+              <h2 className="CompletionBanner-title">All-Reduce Reduction Complete</h2>
+              <span className="CompletionBanner-filename">[ {task.filename} ]</span>
             </div>
             <p className="CompletionBanner-details">
-              Sum calculated:{' '}
+              Total Sum:{' '}
               <strong className="CompletionBanner-sum-highlight">
                 {Number(task.result).toLocaleString('en-US', {
                   maximumFractionDigits: 4,
                 })}
               </strong>{' '}
-              across {task.rows?.toLocaleString()} rows in {task.durationMs}ms.
+              • {task.rows?.toLocaleString()} rows parsed in {task.durationMs}ms.
             </p>
           </div>
         </div>

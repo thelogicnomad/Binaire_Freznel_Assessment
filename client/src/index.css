@@ -1,58 +1,30 @@
-/* Minimal base stylesheet & CSS custom properties (No utility framework) */
+/* Monochrome Editorial Design System */
 
 :root {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Background Palette */
-  --bg-body: #020617;
-  --bg-header: rgba(15, 23, 42, 0.8);
-  --bg-card: rgba(15, 23, 42, 0.65);
-  --bg-card-hover: rgba(30, 41, 59, 0.6);
-  --bg-card-inner: rgba(2, 6, 23, 0.55);
-  --bg-input: rgba(2, 6, 23, 0.7);
+  /* Surfaces & Canvas */
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #f9fafb;
+  --bg-accent-navy: #0A1128; /* Dark navy: reserved exclusively for graphic/illustrative panels */
 
-  /* Border Palette */
-  --border-subtle: rgba(51, 65, 85, 0.6);
-  --border-card: rgba(51, 65, 85, 0.7);
-  --border-focus: rgba(59, 130, 246, 0.6);
+  /* Borders */
+  --border-black: #000000;
+  --border-light: #e5e7eb;
+  --border-hairline: #d1d5db;
 
-  /* Text Palette */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  /* Typography */
+  --text-black: #000000;
+  --text-body: #111827;
+  --text-muted: #6b7280;
+  --text-white: #ffffff;
 
-  /* Semantic Theme Accents */
-  --color-blue: #3b82f6;
-  --color-blue-hover: #2563eb;
-  --color-blue-bg: rgba(59, 130, 246, 0.12);
-  --color-blue-border: rgba(59, 130, 246, 0.35);
-
-  --color-amber: #f59e0b;
-  --color-amber-bg: rgba(245, 158, 11, 0.12);
-  --color-amber-border: rgba(245, 158, 11, 0.4);
-
-  --color-emerald: #10b981;
-  --color-emerald-bg: rgba(16, 185, 129, 0.12);
-  --color-emerald-border: rgba(16, 185, 129, 0.4);
-
-  --color-indigo: #6366f1;
-  --color-indigo-bg: rgba(99, 102, 241, 0.15);
-  --color-indigo-border: rgba(99, 102, 241, 0.4);
-
-  --color-rose: #f43f5e;
-  --color-rose-bg: rgba(244, 63, 94, 0.12);
-  --color-rose-border: rgba(244, 63, 94, 0.4);
-
-  --color-teal: #14b8a6;
-  --color-teal-bg: rgba(20, 184, 166, 0.12);
-  --color-teal-border: rgba(20, 184, 166, 0.35);
-
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --radius-full: 9999px;
+  /* Radii */
+  --radius-pill: 999px;
+  --radius-card: 14px;
+  --radius-sm: 4px;
 }
 
 *, *::before, *::after {
@@ -61,12 +33,17 @@
   padding: 0;
 }
 
+html {
+  background-color: var(--bg-page);
+  color: var(--text-black);
+}
+
 body {
-  background-color: var(--bg-body);
-  color: var(--text-primary);
+  background-color: var(--bg-page);
+  color: var(--text-black);
   font-family: var(--font-sans);
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -81,22 +58,22 @@ code, pre, .font-mono {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #f3f4f6;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.8);
-  border-radius: var(--radius-full);
+  background: #9ca3af;
+  border-radius: var(--radius-pill);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(71, 85, 105, 1);
+  background: #4b5563;
 }
 
 ::selection {
-  background: var(--color-blue);
+  background: #000000;
   color: #ffffff;
 }
 
-/* Animations */
+/* Keyframe animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
@@ -109,19 +86,10 @@ code, pre, .font-mono {
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  50% { opacity: 0.3; }
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(-10%); }
   50% { transform: translateY(0); }
-}
-
-@keyframes subtle-glow {
-  0%, 100% {
-    box-shadow: 0 0 15px -3px rgba(59, 130, 246, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 25px 2px rgba(59, 130, 246, 0.35);
-  }
 }
