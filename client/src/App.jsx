@@ -42,7 +42,6 @@ export default function App() {
       />
 
       <main className="App-main">
-        {/* System metrics */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />
@@ -52,7 +51,6 @@ export default function App() {
           <QueueStats stats={stats} tasks={tasks} />
         </div>
 
-        {/* Upload area */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />
@@ -69,7 +67,6 @@ export default function App() {
           />
         </div>
 
-        {/* Queue monitor */}
         <div className="App-section-wrapper">
           <div className="App-section-divider">
             <div className="App-section-rule" />

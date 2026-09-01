@@ -56,7 +56,6 @@
   flex-shrink: 0;
 }
 
-/* Centered Upload Action Button Wrapper */
 .FileUpload-submit-wrapper {
   margin-top: 1.25rem;
   display: flex;
@@ -65,7 +64,6 @@
   width: 100%;
 }
 
-/* Primary Action Pill Button */
 .FileUpload-btn-primary {
   display: inline-flex;
   align-items: center;

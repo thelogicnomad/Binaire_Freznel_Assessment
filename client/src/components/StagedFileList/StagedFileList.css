@@ -78,7 +78,6 @@
   flex-shrink: 0;
 }
 
-/* Secondary Button for Priority Toggle with var(--radius) */
 .StagedFileList-priority-btn {
   display: inline-flex;
   align-items: center;

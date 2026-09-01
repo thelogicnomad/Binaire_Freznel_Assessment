@@ -37,7 +37,6 @@ export function Header({ clientId, onResetClientId, isConnected }) {
   return (
     <header className="Header-root">
       <div className="Header-container">
-        {/* Left: Binaire Logo SVG */}
         <div className="Header-left-corner">
           <svg
             className="Header-binaire-svg"
@@ -121,12 +120,10 @@ export function Header({ clientId, onResetClientId, isConnected }) {
           </svg>
         </div>
 
-        {/* Center: CSV QUEUE Tag */}
         <div className="Header-center-section">
           <span className="Header-brand-tag">[ CSV QUEUE ]</span>
         </div>
 
-        {/* Right: Menu */}
         <div className="Header-right-corner">
           <div className="Header-menu-wrapper" ref={menuRef}>
             <button

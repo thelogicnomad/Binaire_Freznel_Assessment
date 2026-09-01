@@ -1,6 +1,5 @@
 import { TaskStatus, TaskPriority } from './Task.js';
 
-// two-lane priority queue: high lane always drains first, FIFO per lane
 export class TaskQueue {
   #high = [];
   #low = [];
@@ -31,7 +30,6 @@ export class TaskQueue {
   }
 
   dequeue() {
-    // drain high priority first
     if (this.#high.length > 0) {
       return this.#high.shift();
     }
@@ -64,7 +62,6 @@ export class TaskQueue {
   }
 
   getAllQueuedTasks() {
-    // shallow clone
     return [...this.#high, ...this.#low];
   }
 

@@ -41,7 +41,6 @@
   outline-offset: 1px;
 }
 
-/* High-contrast solid monochrome active tab */
 .QueueFilter-tab-active {
   background-color: var(--foreground);
   color: var(--background);

@@ -8,7 +8,6 @@ export function QueueStats({ stats, tasks }) {
 
   return (
     <div className="QueueStats-grid">
-      {/* High Priority Lane Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ High Priority Lane ]</span>
@@ -23,7 +22,6 @@ export function QueueStats({ stats, tasks }) {
         </div>
       </div>
 
-      {/* Low Priority Lane Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Low Priority Lane ]</span>
@@ -38,7 +36,6 @@ export function QueueStats({ stats, tasks }) {
         </div>
       </div>
 
-      {/* Worker Pool Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Worker Thread Pool ]</span>
@@ -69,7 +66,6 @@ export function QueueStats({ stats, tasks }) {
         </div>
       </div>
 
-      {/* Completed Tasks Card */}
       <div className="QueueStats-card">
         <div className="QueueStats-card-header">
           <span className="QueueStats-card-title">[ Completed Reductions ]</span>

@@ -4,7 +4,6 @@
   gap: 1rem;
 }
 
-/* Action bar placed above and outside the filter container */
 .QueueDashboard-top-action-bar {
   display: flex;
   align-items: center;
@@ -12,7 +11,6 @@
   margin-bottom: -0.35rem;
 }
 
-/* Exact same compact size and styling as .TaskCard-remove-btn */
 .QueueDashboard-clear-btn {
   display: inline-flex;
   align-items: center;
@@ -45,7 +43,6 @@
   stroke-width: 1.5px;
 }
 
-/* Confirmation Dialog Modal */
 .QueueDashboard-modal-backdrop {
   position: fixed;
   inset: 0;

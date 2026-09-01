@@ -1,9 +1,8 @@
-// manages active client socket connections and broadcasts events
 export class SocketService {
   constructor(io) {
     this.io = io;
-    this.clientSockets = new Map(); // clientId -> Set<socketId>
-    this.socketToClient = new Map(); // socketId -> clientId
+    this.clientSockets = new Map();
+    this.socketToClient = new Map();
     this.scheduler = null;
 
     this._bindEvents();
@@ -26,7 +25,6 @@ export class SocketService {
         }
       });
 
-      // send initial queue snapshot on connect
       if (this.scheduler) {
         socket.emit('queue:snapshot', this.scheduler.getSnapshot());
       }

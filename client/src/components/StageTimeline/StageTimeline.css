@@ -69,7 +69,6 @@
   transition: all 0.25s ease;
 }
 
-/* 1. Upcoming / Inactive Stages: Initially neutral grey */
 .StageTimeline-circle-upcoming {
   background-color: var(--secondary);
   border: 1px solid var(--border);
@@ -78,7 +77,6 @@
   box-shadow: none;
 }
 
-/* 2. Active Current Stage: Dynamic black gradient with focus ring */
 .StageTimeline-circle-current {
   background: linear-gradient(145deg, lch(32% 3 288), lch(14% 1.5 282));
   color: #ffffff;
@@ -101,7 +99,6 @@
   box-shadow: 0 0 0 2px var(--ring);
 }
 
-/* 3. Passed / Completed Stages: Turn into sleek black gradient with white checkmark */
 .StageTimeline-circle-passed {
   background: linear-gradient(145deg, lch(28% 2 282), lch(12% 1 282));
   color: #ffffff;

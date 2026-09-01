@@ -6,13 +6,11 @@ if (!parentPort) {
   throw new Error('csvWorker must be run as a worker thread.');
 }
 
-// parses cell into number, handles commas and currency symbols
 function parseNumericCell(val) {
   if (val === null || val === undefined) return null;
   let str = String(val).trim();
   if (!str) return null;
 
-  // quick check for currency prefixes
   if (str.startsWith('$') || str.startsWith('€') || str.startsWith('£')) {
     str = str.slice(1).trim();
   }
@@ -22,7 +20,6 @@ function parseNumericCell(val) {
     return num;
   }
 
-  // check if formatted with thousands comma
   if (str.indexOf(',') !== -1) {
     const clean = str.replace(/,/g, '');
     const num2 = Number(clean);
@@ -60,7 +57,6 @@ async function processCsv({ taskId, filePath, fileSize }) {
     bytesRead += chunk.length;
   });
 
-  // headers: false so headerless csvs don't lose row 1
   const parser = stream.pipe(csvParser({ headers: false }));
 
   parser.on('data', (row) => {
@@ -78,7 +74,6 @@ async function processCsv({ taskId, filePath, fileSize }) {
       }
     }
 
-    // throttle socket updates
     const now = Date.now();
     const pct = Math.min(98, Math.round((bytesRead / totalBytes) * 100));
     if ((pct > lastPct && now - lastReport >= 40) || pct >= 98) {
@@ -98,7 +93,6 @@ async function processCsv({ taskId, filePath, fileSize }) {
 
   parser.on('end', () => {
     const dur = Date.now() - t0;
-    // avoid IEEE-754 binary floating drift
     const finalSum = Number(totalSum.toFixed(4));
 
     parentPort.postMessage({

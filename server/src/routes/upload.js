@@ -26,7 +26,7 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
   const upload = multer({
     storage,
     limits: {
-      fileSize: 100 * 1024 * 1024, // 100mb
+      fileSize: 100 * 1024 * 1024,
     },
     fileFilter: (_req, file, cb) => {
       const ext = path.extname(file.originalname).toLowerCase();
@@ -46,7 +46,6 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
 
       const cId = req.body.clientId || 'anonymous-client';
 
-      // parse priorities JSON or array
       let priorities = [];
       if (req.body.priorities) {
         try {

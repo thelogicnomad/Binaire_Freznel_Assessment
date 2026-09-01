@@ -51,7 +51,6 @@ export function useQueueSocket(clientId) {
     const handleQueueSync = (data) => {
       if (data && Array.isArray(data.tasks)) {
         setTasks((prevTasks) => {
-          // preserve any in-flight uploads not yet on server
           const uploading = prevTasks.filter(t => t.status === 'File uploading');
           const serverIds = new Set(data.tasks.map(t => t.id));
           const stillUploading = uploading.filter(t => !serverIds.has(t.id));
@@ -82,7 +81,6 @@ export function useQueueSocket(clientId) {
       );
     });
 
-    // targeted notification for this client
     socket.on('task:completed', (completedData) => {
       setActiveToast({
         id: Date.now(),
@@ -122,7 +120,6 @@ export function useQueueSocket(clientId) {
     const target = tasksRef.current.find(t => t.id === taskId);
     const filename = target?.originalName || 'Task';
 
-    // optimistic delete
     setTasks(prev => prev.filter(t => t.id !== taskId));
 
     setActiveToast({

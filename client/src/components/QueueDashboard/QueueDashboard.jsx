@@ -79,7 +79,6 @@ export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAl
         onRemoveTask={onRemoveTask}
       />
 
-      {/* Confirmation Dialog */}
       {isConfirmOpen && (
         <div
           className="QueueDashboard-modal-backdrop"

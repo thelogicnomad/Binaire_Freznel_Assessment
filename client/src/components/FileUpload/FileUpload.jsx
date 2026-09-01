@@ -69,7 +69,6 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
     setIsUploading(true);
     setUploadError(null);
 
-    // optimistic list before response
     const optimisticTasks = selectedFiles.map((item) => ({
       id: `temp-${item.id}`,
       clientId,

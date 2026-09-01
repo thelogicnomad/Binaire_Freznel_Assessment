@@ -14,7 +14,6 @@
   transition: all 0.15s ease;
 }
 
-/* Priority Badges */
 .StatusBadge-priority-high {
   background-color: var(--status-lead-bg);
   color: var(--status-lead-text);
@@ -27,7 +26,6 @@
   border-color: var(--border);
 }
 
-/* Ownership Badges */
 .StatusBadge-owner-you {
   background-color: var(--accent);
   color: var(--primary);
@@ -41,14 +39,12 @@
   border-color: var(--border);
 }
 
-/* Worker / PID Tag */
 .StatusBadge-worker {
   background-color: var(--status-prospect-bg);
   color: var(--status-prospect-text);
   border-color: color-mix(in lch, var(--status-prospect-text) 20%, transparent);
 }
 
-/* 6-Stage Lifecycle Status Badges */
 .StatusBadge-status-uploaded {
   background-color: var(--status-inactive-bg);
   color: var(--status-inactive-text);

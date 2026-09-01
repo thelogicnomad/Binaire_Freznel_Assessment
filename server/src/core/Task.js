@@ -34,22 +34,19 @@ export class Task {
     this.filePath = filePath;
     this.fileSize = fileSize;
     
-    // priority lane flag
     const p = String(priority).toLowerCase();
     this.priority = (p === 'high') ? TaskPriority.HIGH : TaskPriority.LOW;
     
     this.status = TaskStatus.UPLOADED;
     this.progress = 0;
     
-    // stats parsed by worker
     this.rows = 0;
     this.columns = 0;
     this.numericCount = 0;
-    this.result = null; // total sum
+    this.result = null;
     this.assignedWorkerId = null;
     this.error = null;
     
-    // lifecycle dates
     this.createdAt = new Date().toISOString();
     this.enqueuedAt = null;
     this.startedAt = null;

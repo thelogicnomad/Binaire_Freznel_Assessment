@@ -27,9 +27,7 @@ class WorkerSlot {
       try {
         this.worker.removeAllListeners();
         this.worker.terminate();
-      } catch (e) {
-        // ignore cleanup error on old worker
-      }
+      } catch (e) {}
     }
 
     this.worker = new Worker(this.scriptPath);
@@ -46,7 +44,6 @@ class WorkerSlot {
     });
 
     this.worker.on('exit', (code) => {
-      // code !== 0 means worker crashed while working
       if (code !== 0 && this.isBusy) {
         this.onError(
           this,
@@ -65,7 +62,6 @@ class WorkerSlot {
     this.isBusy = true;
     this.currentTaskId = task.id;
 
-    // kill worker if it hangs longer than timeoutMs
     this.timeoutTimer = setTimeout(() => {
       const err = new Error(
         `Task timed out after ${this.timeoutMs}ms. Worker thread terminated.`
@@ -103,7 +99,6 @@ class WorkerSlot {
   }
 }
 
-// manages a fixed pool of worker threads
 export class WorkerPool extends EventEmitter {
   constructor(opts = {}) {
     super();
@@ -169,7 +164,6 @@ export class WorkerPool extends EventEmitter {
     const failedTaskId = slot.currentTaskId;
     slot.clearTask();
 
-    // respawn so slot is clean for next job
     slot.spawnWorker();
 
     if (failedTaskId) {

@@ -17,7 +17,6 @@
   gap: 2.25rem;
 }
 
-/* Editorial Section Divider: Rule + Label + Rule */
 .App-section-divider {
   display: flex;
   align-items: center;

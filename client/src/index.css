@@ -1,7 +1,5 @@
 @import './variables.css';
 
-/* Minimal Base Stylesheet with Greentiq Design Tokens */
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -27,7 +25,6 @@ code, pre, .font-mono {
   font-family: var(--font-mono);
 }
 
-/* Global scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -48,7 +45,6 @@ code, pre, .font-mono {
   color: var(--primary-foreground);
 }
 
-/* Keyframe animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }

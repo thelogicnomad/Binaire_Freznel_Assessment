@@ -4,7 +4,6 @@
   gap: 1rem;
 }
 
-/* Empty Queue State Card */
 .QueueList-empty-card {
   background-color: var(--card);
   border: 1px solid var(--border);

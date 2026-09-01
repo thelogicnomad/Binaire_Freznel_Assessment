@@ -2,7 +2,6 @@ import EventEmitter from 'events';
 import fs from 'fs';
 import { TaskStatus } from './Task.js';
 
-// orchestrates queueing, worker dispatching, and socket broadcasts
 export class Scheduler extends EventEmitter {
   constructor({ taskQueue, workerPool, socketService = null }) {
     super();
@@ -10,7 +9,6 @@ export class Scheduler extends EventEmitter {
     this.workerPool = workerPool;
     this.socketService = socketService;
 
-    // taskId -> Task mapping
     this.tasks = new Map();
     this.taskOrder = [];
 
@@ -83,7 +81,6 @@ export class Scheduler extends EventEmitter {
     this.taskQueue.enqueue(task);
     this._notifyQueueChanged();
 
-    // schedule immediately in next tick
     setImmediate(() => this.schedule());
   }
 
@@ -99,7 +96,6 @@ export class Scheduler extends EventEmitter {
     this.tasks.delete(taskId);
     this.taskOrder = this.taskOrder.filter(id => id !== taskId);
 
-    // remove file from disk
     if (task.filePath && fs.existsSync(task.filePath)) {
       try {
         fs.unlinkSync(task.filePath);
@@ -148,7 +144,6 @@ export class Scheduler extends EventEmitter {
 
       this._notifyQueueChanged();
 
-      // short delay to show 'Waiting for processing' stage in UI
       setTimeout(() => {
         if (!this.tasks.has(nextTask.id)) {
           return;

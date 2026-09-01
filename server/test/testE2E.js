@@ -24,7 +24,6 @@ if (!fs.existsSync(uploadsDir)) {
 
 console.log('--- Running End-to-End API and Socket Integration Test ---');
 
-// 1. Setup Server
 const app = express();
 const httpServer = http.createServer(app);
 const ioServer = new SocketIOServer(httpServer, {
@@ -43,7 +42,6 @@ socketService.setScheduler(scheduler);
 
 app.use('/api', createUploadRouter({ scheduler, uploadsDir }));
 
-// 2. Start server and run client interactions
 async function runE2E() {
   await new Promise((resolve) => httpServer.listen(TEST_PORT, '127.0.0.1', resolve));
   console.log(`✓ Test server listening on http://127.0.0.1:${TEST_PORT}`);
@@ -72,13 +70,11 @@ async function runE2E() {
   await new Promise((resolve) => socketClient.on('connect', resolve));
   console.log('✓ Socket.io client successfully connected and registered');
 
-  // Create test CSV files
   const file1 = path.join(uploadsDir, 'test1.csv');
   const file2 = path.join(uploadsDir, 'test2.csv');
-  fs.writeFileSync(file1, 'A,B\n10,20\n30,40'); // sum = 100
-  fs.writeFileSync(file2, 'X,Y\n5,15\n25,35'); // sum = 80
+  fs.writeFileSync(file1, 'A,B\n10,20\n30,40');
+  fs.writeFileSync(file2, 'X,Y\n5,15\n25,35');
 
-  // Upload files using native fetch with FormData (Node 18+)
   const formData = new FormData();
   formData.append('clientId', clientId);
   formData.append('priorities', JSON.stringify(['low', 'high']));
@@ -98,7 +94,6 @@ async function runE2E() {
   assert.strictEqual(uploadJson.tasks.length, 2, 'Should create 2 tasks');
   console.log('✓ Upload endpoint successfully received 2 files and created tasks');
 
-  // Wait for both tasks to complete
   await new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error(`Timeout waiting for tasks to complete. Completed count: ${completedEvents.length}`));
@@ -115,17 +110,14 @@ async function runE2E() {
 
   console.log(`✓ Both tasks completed. Results: ${JSON.stringify(completedEvents)}`);
 
-  // Verify sums
   const sumValues = completedEvents.map((c) => c.result);
   assert(sumValues.includes(100), 'Result should include 100');
   assert(sumValues.includes(80), 'Result should include 80');
 
-  // Verify observed lifecycle stages
   console.log('Stages observed during execution:', Array.from(stagesObserved));
   assert(stagesObserved.has('File added to queue') || stagesObserved.has('Waiting for processing'));
   assert(stagesObserved.has('Completed'));
 
-  // Clean up
   socketClient.disconnect();
   await workerPool.terminateAll();
   await new Promise((resolve) => httpServer.close(resolve));

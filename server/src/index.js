@@ -17,7 +17,6 @@ if (!fs.existsSync(config.uploadsDir)) {
 const app = express();
 const server = http.createServer(app);
 
-// dynamic cors handler
 const corsOptions = {
   origin: (orig, cb) => {
     if (!orig) return cb(null, true);
@@ -44,7 +43,6 @@ const io = new SocketIOServer(server, {
   pingTimeout: 5000,
 });
 
-// setup queue and worker pool
 const queue = new TaskQueue();
 const pool = new WorkerPool({
   size: config.workerPoolSize,
@@ -76,7 +74,6 @@ app.get('/', (_req, res) => {
   });
 });
 
-// api routes
 app.use('/api', createUploadRouter({ scheduler, uploadsDir: config.uploadsDir }));
 
 let shuttingDown = false;

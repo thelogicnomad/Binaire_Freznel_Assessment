@@ -15,7 +15,6 @@ export function CompletionBanner({ task, toast, onDismiss }) {
   useEffect(() => {
     if (!currentToast) return;
 
-    // auto-dismiss after 5s
     const timer = setTimeout(() => {
       if (onDismiss) onDismiss();
     }, 5000);
@@ -90,7 +89,6 @@ export function CompletionBanner({ task, toast, onDismiss }) {
           </div>
         </div>
 
-        {/* 5s Countdown Bar */}
         <div className="Toast-countdown-track">
           <div className={`Toast-countdown-bar ${isDelete ? 'Toast-countdown-bar-delete' : 'Toast-countdown-bar-success'}`} />
         </div>

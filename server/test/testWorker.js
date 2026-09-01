@@ -13,7 +13,6 @@ if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir, { recursive: true });
 }
 
-// Create Test File 1: Mixed headers, floats, negative numbers, thousands separators, text
 const file1Content = `Name,Age,Balance,Status,Score,Note
 Alice,28,1250.50,active,95.5,Good
 Bob,34,-250.25,pending,,Needs review
@@ -23,13 +22,11 @@ const file1Path = path.join(tempDir, 'mixed.csv');
 fs.writeFileSync(file1Path, file1Content);
 const expectedSum1 = 2791.00;
 
-// Create Test File 2: No header, purely numbers in 3x2 grid
 const file2Content = `10,20,30\n40,50,60`;
 const file2Path = path.join(tempDir, 'no_header.csv');
 fs.writeFileSync(file2Path, file2Content);
 const expectedSum2 = 210;
 
-// Create Test File 3: Large file with 10,000 rows to verify streaming progress
 const file3Path = path.join(tempDir, 'large.csv');
 const rows = [];
 rows.push('id,val1,val2,val3');
@@ -53,7 +50,7 @@ const workerPool = new WorkerPool({
 
 async function runWorkerTest() {
   let progressCount = 0;
-  workerPool.on('task:progress', (data) => {
+  workerPool.on('task:progress', () => {
     progressCount++;
   });
 
@@ -85,7 +82,6 @@ async function runWorkerTest() {
   };
 
   try {
-    // Test 1: Mixed file
     const task1 = new Task({
       clientId: 'test-client',
       filename: 'mixed.csv',
@@ -96,7 +92,6 @@ async function runWorkerTest() {
     assert.strictEqual(res1.result, expectedSum1, `Expected sum ${expectedSum1}, got ${res1.result}`);
     console.log(`✓ Test 1 Passed: Mixed shape CSV correctly summed to ${res1.result}`);
 
-    // Test 2: No header file
     const task2 = new Task({
       clientId: 'test-client',
       filename: 'no_header.csv',
@@ -107,7 +102,6 @@ async function runWorkerTest() {
     assert.strictEqual(res2.result, expectedSum2, `Expected sum ${expectedSum2}, got ${res2.result}`);
     console.log(`✓ Test 2 Passed: Headerless numeric CSV correctly summed to ${res2.result}`);
 
-    // Test 3: Large streaming file
     const task3 = new Task({
       clientId: 'test-client',
       filename: 'large.csv',
@@ -121,7 +115,6 @@ async function runWorkerTest() {
 
   } finally {
     await workerPool.terminateAll();
-    // Clean up temporary test files
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
 

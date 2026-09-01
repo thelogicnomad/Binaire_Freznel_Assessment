@@ -54,7 +54,6 @@
   color: var(--muted-foreground);
 }
 
-/* Remove / Cancel Task Button */
 .TaskCard-remove-btn {
   display: inline-flex;
   align-items: center;
