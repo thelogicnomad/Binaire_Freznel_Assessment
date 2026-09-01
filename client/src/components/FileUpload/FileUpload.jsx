@@ -7,7 +7,7 @@ import { StagedFileList } from '../StagedFileList/StagedFileList';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * Greentiq file upload manager with primary pill button and secondary controls
+ * Greentiq file upload manager with primary pill button and staged file management
  */
 export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadError }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -66,39 +66,6 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
 
   const handleRemoveFile = (id) => {
     setSelectedFiles((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const generateSampleCsv = (type = 'standard') => {
-    let content = '';
-    let filename = '';
-
-    if (type === 'high_priority_fast') {
-      filename = `fast_sample_${Math.floor(Math.random() * 1000)}.csv`;
-      content = 'Item,Quantity,UnitCost,TaxRate,Discount\n';
-      for (let i = 1; i <= 25; i++) {
-        content += `Item_${i},${i * 2},${(i * 14.5).toFixed(2)},0.08,-${(i * 0.5).toFixed(2)}\n`;
-      }
-    } else {
-      filename = `large_dataset_${Math.floor(Math.random() * 1000)}.csv`;
-      content = 'Index,SensorA,SensorB,Adjustment,Status,Note\n';
-      for (let i = 1; i <= 8000; i++) {
-        content += `${i},${(Math.random() * 500).toFixed(4)},${(Math.random() * 250).toFixed(2)},${i % 5 === 0 ? -12.5 : 3.75},valid,ok\n`;
-      }
-    }
-
-    const blob = new Blob([content], { type: 'text/csv' });
-    const sampleFile = new File([blob], filename, { type: 'text/csv' });
-
-    setSelectedFiles((prev) => [
-      ...prev,
-      {
-        file: sampleFile,
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-        name: filename,
-        size: sampleFile.size,
-        priority: type === 'high_priority_fast' ? 'high' : 'low',
-      },
-    ]);
   };
 
   const handleUploadSubmit = async () => {
@@ -179,27 +146,6 @@ export function FileUpload({ clientId, onUploadStart, onUploadSuccess, onUploadE
           <p className="FileUpload-subtitle">
             Tag files with High or Low priority for parallel worker thread reduction
           </p>
-        </div>
-
-        <div className="FileUpload-samples-group">
-          <button
-            type="button"
-            onClick={() => generateSampleCsv('high_priority_fast')}
-            className="FileUpload-btn-secondary"
-            title="Generate a 25-row sample tagged with High Priority"
-          >
-            <span>+ Sample [ High ]</span>
-            <ArrowRight className="FileUpload-btn-icon" />
-          </button>
-          <button
-            type="button"
-            onClick={() => generateSampleCsv('large_dataset')}
-            className="FileUpload-btn-secondary"
-            title="Generate an 8,000-row sample tagged with Low Priority"
-          >
-            <span>+ 8K Rows [ Low ]</span>
-            <ArrowRight className="FileUpload-btn-icon" />
-          </button>
         </div>
       </div>
 
