@@ -1,37 +1,29 @@
 # Multi-User CSV Queueing System
 
-A multi-user, multi-file distributed priority queueing engine and live animated dashboard built with **Node.js (Express + Socket.io + `worker_threads`)** and **React (Vite, JavaScript)**.
+A multi-user, multi-file distributed priority queueing engine with a live animated dashboard, built on **Node.js (Express + Socket.io + `worker_threads`)** for the backend and **React (Vite, JavaScript)** for the frontend.
 
 ---
 
-## Live Deployments
+## Live deployments
 
 - **Frontend (Vercel)**: [https://binaire-freznel-assessment-ebon.vercel.app/](https://binaire-freznel-assessment-ebon.vercel.app/)
 - **Backend (Render)**: [https://binaire-freznel-assessment-j98w.onrender.com](https://binaire-freznel-assessment-j98w.onrender.com)
 
 ---
 
-## Key Features
+## Key features
 
-- **Multi-User Simulation**: Persistent client ID (UUID) stored in `localStorage` per browser session. Opening multiple tabs or browsers simulates distinct users submitting jobs concurrently.
-- **Multi-File & Priority Lane Scheduling**: Batch uploads with per-file priority selection (**High** vs. **Low**).
-  - High-priority lane is served strictly ahead of the low-priority lane.
-  - Strict **FIFO** (First-In, First-Out) arrival order is preserved within identical priority lanes.
-- **All-Reduce Worker Threads**: CSV parsing and numeric summation run in a fixed-size pool of Node.js `worker_threads` (never blocking the main event loop). Supports varying shapes, floats, integers, negative numbers, thousands commas, and scientific notation while ignoring headers and text.
-- **Live Real-Time Dashboards**: Complete queue state broadcast to all connected clients over **Socket.io** without polling.
-- **6-Stage Lifecycle Animation**:
-  1. `File uploading` (in-flight client-side upload)
-  2. `File uploaded` (received by server)
-  3. `File added to queue` (enqueued into high/low priority lane)
-  4. `Waiting for processing` (worker assigned, worker ID displayed)
-  5. `Processing…` (live streaming completion percentage and row counts)
-  6. `Completed` (final summed all-reduce result displayed)
-- **Targeted Result Notifications**: Direct completion events sent to the specific submitting client with celebratory UI effects.
-- **Robust Failure & Timeout Recovery**: Hung or crashing workers are terminated, failed tasks are surfaced on the dashboard, and replacement workers are spawned automatically.
+- **Multi-user simulation**: each browser session gets a persistent UUID in `localStorage`, so opening a few tabs or browsers is enough to simulate different users submitting jobs at the same time.
+- **Multi-file and priority-lane scheduling**: batch uploads let you set a priority, high or low, per file. High-priority jobs are always served first, and within a lane, arrival order (strict FIFO) is preserved.
+- **All-reduce worker threads**: CSV parsing and summation run in a fixed pool of Node `worker_threads`, so the main event loop never blocks on them. Handles varying row shapes, floats, integers, negative numbers, thousands separators, and scientific notation, and skips headers and non-numeric text.
+- **Live dashboards**: the full queue state broadcasts to every connected client over Socket.io. No polling.
+- **Six-stage lifecycle animation**: `file uploading` -> `file uploaded` -> `added to queue` -> `waiting for processing` (worker ID shown) -> `processing` (live percentage and row counts) -> `completed` (final summed result).
+- **Targeted notifications**: whoever submitted a job gets a direct completion event with its own celebratory UI, rather than a broadcast everyone sees.
+- **Failure and timeout recovery**: workers that hang or crash get terminated, the failed task shows up on the dashboard, and a replacement worker spins up automatically.
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 Binaire_Freznel_Assessment/
@@ -82,67 +74,47 @@ Binaire_Freznel_Assessment/
 
 ---
 
-## Concurrency and Deadlock Analysis
+## Concurrency and deadlock analysis
 
 ### 1. Which types of deadlocks are possible in this system?
 
-In concurrent queueing and thread-pool architectures, several deadlock and pseudo-deadlock conditions are theoretically possible:
+**Resource starvation / pool exhaustion (worker slot depletion).** If a worker thread hits a malformed input that sends it into an infinite loop, catastrophic regex backtracking, or an I/O hang with no timeout, that thread is stuck for good. With a fixed pool of N workers (four, here), four hanging tasks are enough to exhaust every slot. It isn't a formal Coffman circular-wait deadlock, but to the scheduler it looks the same: it's waiting on a `worker:free` event that's never coming, so every task from every user just queues up indefinitely.
 
-1. **Resource Starvation / Pool Exhaustion Pseudo-Deadlock (Worker Slot Depletion)**:
-   - *Mechanism*: If a worker thread encounters a malformed input causing an infinite loop, catastrophic regex backtracking, or unhandled I/O hang without a timeout, that worker thread is permanently blocked.
-   - *Impact*: In a fixed pool of $N$ workers (e.g. 4 threads), if 4 hanging tasks are submitted, all worker slots become permanently exhausted.
-   - *System State*: While not a formal Coffman circular-wait deadlock, to the queue scheduler it is functionally indistinguishable: the scheduler waits indefinitely for a `worker:free` event that will never arrive, causing all subsequent tasks from all users to queue indefinitely.
+**Main event loop starvation (cooperative multitasking deadlock).** Node runs a single-threaded event loop for HTTP requests, WebSocket heartbeats, and the scheduler's own triggers. If CSV parsing, heavy string manipulation, or synchronous file I/O (`fs.readFileSync` on a large file) ran on that same thread, the loop would block. Once it's blocked, the scheduler stops hearing back from workers, HTTP connections start timing out, and Socket.io's ping/pong packets stop getting through, which drops every connected client at once.
 
-2. **Main Event Loop Starvation (Cooperative Multitasking Deadlock)**:
-   - *Mechanism*: Node.js utilizes a single-threaded event loop for handling HTTP requests, WebSocket heartbeats, and scheduler triggers. If file parsing, heavy string manipulations, or synchronous file I/O (`fs.readFileSync` on large CSVs) were executed on the main thread, the event loop would block.
-   - *Impact*: When the event loop is blocked, the scheduler cannot receive messages from workers (`on('message')`), HTTP connections time out, and Socket.io ping/pong packets drop. This causes all connected clients to disconnect simultaneously.
+**Priority inversion / low-priority lane starvation.** If high-priority jobs keep arriving faster than the worker pool can clear them, the low-priority lane just sits there untouched until the backlog eases up.
 
-3. **Priority Inversion / Low-Priority Lane Starvation**:
-   - *Mechanism*: If high-priority jobs are continuously enqueued at a rate exceeding the worker pool's throughput, low-priority tasks in the low lane remain queued indefinitely without being dequeued.
-
-4. **Circular-Wait Deadlocks (Coffman Condition)**:
-   - *Why it is impossible at the job level*: Classic deadlocks require four conditions: *Mutual Exclusion*, *Hold and Wait*, *No Preemption*, and *Circular Wait*. Because every CSV numeric reduction is **embarrassingly parallel and fully independent** (Task $A$ never waits for the result or lock of Task $B$), cyclic dependencies cannot form between jobs.
-
----
+**Circular-wait deadlocks (the classic Coffman kind) can't actually happen here.** They need four conditions at once: mutual exclusion, hold-and-wait, no preemption, and circular wait. Every CSV reduction in this system is embarrassingly parallel (task A never waits on a lock or result held by task B), so there's no cycle for them to form around.
 
 ### 2. How would they affect user productivity?
 
-- **Complete System Freeze**: If worker threads hang without safety timeouts, the entire system stops processing tasks for all connected users. A single user uploading a corrupt file would bring down processing for all other users.
-- **Loss of Real-Time Visibility**: When the main event loop or socket broadcast stalls, dashboards stop updating, progress bars freeze, and users cannot tell if their files are processing or failed. This leads to duplicate uploads and frustration.
-- **Workflow Abandonment**: If low-priority tasks starve indefinitely during peak hours, users are forced to cancel and re-submit all tasks as "High Priority" (priority inflation), nullifying the priority system.
+- **Complete freeze**: without a timeout safety net, one worker hanging on a corrupt file stops processing for every connected user, not just the one who uploaded it.
+- **Losing visibility**: when the event loop or the socket broadcast stalls, dashboards stop updating and progress bars just sit there. Users can't tell if their file is still processing or silently dead, which tends to produce duplicate uploads and understandable frustration.
+- **Giving up on the queue**: if low-priority tasks stall out during busy periods, people start marking everything "high priority" just to get it processed, which quietly defeats the point of having a priority system at all.
+
+### 3. Design mitigations implemented in this system
+
+1. **Per-task hard timeouts, with auto-recovery.** `WorkerPool` sets a safety timer (30 seconds by default) on every task it hands out. If a worker doesn't finish in time, `worker.terminate()` is called immediately, the task moves to a `Failed` state with a real error message, and a fresh worker spins up to take its place and pick up whatever's next.
+2. **No CPU or I/O work on the main thread.** File reading, tokenizing, float parsing, and summation all happen inside `csvWorker.js`, isolated in its own worker thread. The main thread only ever passes metadata and fires events; it never touches the actual file content.
+3. **Lock-free, single-threaded queue management.** Because JavaScript's queue mutations (`TaskQueue`) run on a single thread, state updates are atomic by default. There's no multi-mutex lock ordering to get wrong, so that whole class of deadlock doesn't apply here.
+4. **Pre-allocated slot reservation.** Workers are reserved synchronously during the scheduler's loop pass, so a race condition can't dispatch two tasks to the same slot.
 
 ---
 
-### 3. Design Mitigations Implemented in This System
-
-1. **Per-Task Hard Timeouts (`TASK_TIMEOUT_MS`) with Auto-Recovery**:
-   - `WorkerPool` sets a safety timer (default 30 seconds) on every assigned task.
-   - If a worker hangs or exceeds the threshold, `worker.terminate()` is called immediately.
-   - The task is transitioned to the `Failed` state with a descriptive error.
-   - A clean replacement worker thread is spawned into the pool, and `worker:free` is emitted to resume processing waiting tasks.
-2. **Zero CPU/IO Work on the Main Thread**:
-   - All file reading, CSV tokenization, float parsing, and summation are delegated entirely to `csvWorker.js` inside dedicated `worker_threads`. The main thread only passes metadata and dispatches events.
-3. **Lock-Free Single-Threaded Queue Management**:
-   - By leveraging Node's single-threaded JavaScript execution for queue mutations (`TaskQueue`), state updates are naturally atomic, eliminating the risk of multi-mutex lock-ordering deadlocks.
-4. **Pre-Allocation Slot Reservation (`reserve`)**:
-   - Workers are reserved synchronously during the scheduler loop pass to eliminate race conditions where multiple tasks could be dispatched to the same worker slot.
-
----
-
-## Getting Started (Local Development)
+## Getting started (local development)
 
 ### Prerequisites
 - Node.js (v18.0.0 or higher, tested on Node v22)
 - npm (v9.0.0 or higher)
 
-### 1. Install All Dependencies
+### 1. Install all dependencies
 From the repository root:
 ```bash
 npm run install:all
 ```
 *(Or run `npm install` inside `/server` and `/client` individually).*
 
-### 2. Configure Environment Variables
+### 2. Configure environment variables
 Create `.env` files in both `/server` and `/client`:
 
 Default `/server/.env`:
@@ -159,7 +131,7 @@ VITE_API_URL=http://localhost:5001
 VITE_SOCKET_URL=http://localhost:5001
 ```
 
-### 3. Run Both Applications Concurrently
+### 3. Run both applications concurrently
 From the repository root:
 ```bash
 npm run dev
@@ -173,11 +145,11 @@ Open [http://localhost:5173](http://localhost:5173) in your browser. Open multip
 
 ---
 
-## Deployment Guide
+## Deployment guide
 
-### Deploying the Backend (`/server`) to Render
+### Deploying the backend (`/server`) to Render
 
-The backend requires a persistent Node.js process to maintain Socket.io WebSocket connections and `worker_threads`.
+The backend needs a persistent Node.js process to keep Socket.io connections and `worker_threads` alive.
 
 1. Create a new **Web Service** on [Render](https://render.com).
 2. Connect this GitHub repository (`Binaire_Freznel_Assessment`).
@@ -185,7 +157,7 @@ The backend requires a persistent Node.js process to maintain Socket.io WebSocke
    - **Root Directory**: `server`
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
-4. Configure Environment Variables in Render:
+4. Configure environment variables in Render:
    - `PORT`: `5001` (or Render's default `$PORT`)
    - `CLIENT_URL`: `https://binaire-freznel-assessment-ebon.vercel.app,http://localhost:5173`
    - `WORKER_POOL_SIZE`: `4`
@@ -193,12 +165,12 @@ The backend requires a persistent Node.js process to maintain Socket.io WebSocke
 
 ---
 
-### Deploying the Frontend (`/client`) to Vercel
+### Deploying the frontend (`/client`) to Vercel
 
 1. Import the repository into [Vercel](https://vercel.com).
 2. Set the **Root Directory** to `client`.
 3. Set **Framework Preset** to `Vite`.
-4. Configure Environment Variables in Vercel:
+4. Configure environment variables in Vercel:
    - `VITE_API_URL`: `https://binaire-freznel-assessment-j98w.onrender.com`
    - `VITE_SOCKET_URL`: `https://binaire-freznel-assessment-j98w.onrender.com`
 5. Deploy.
