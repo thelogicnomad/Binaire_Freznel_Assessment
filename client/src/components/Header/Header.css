@@ -91,38 +91,6 @@
   border: 1px solid color-mix(in lch, var(--primary) 20%, transparent);
 }
 
-/* Info Toggletip Trigger Button */
-.Header-info-trigger-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--foreground);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  padding: 0;
-}
-
-.Header-info-trigger-btn:hover {
-  background-color: var(--accent);
-  color: var(--primary);
-  border-color: var(--ring);
-}
-
-.Header-info-trigger-btn:focus-visible {
-  outline: 2px solid var(--ring);
-}
-
-.Header-info-icon {
-  width: 0.875rem;
-  height: 0.875rem;
-  stroke-width: 2px;
-}
-
 .Header-subtitle {
   font-size: 0.75rem;
   color: var(--muted-foreground);
@@ -141,19 +109,6 @@
   .Header-actions-bar {
     width: auto;
   }
-}
-
-.Header-workers-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--secondary-foreground);
 }
 
 .Header-connection-pill {
@@ -224,102 +179,4 @@
   width: 0.8125rem;
   height: 0.8125rem;
   stroke-width: 1.5px;
-}
-
-/* Info Toggletip Modal / Popover */
-.Header-toggletip-backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: color-mix(in lch, var(--foreground) 35%, transparent);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  animation: fadeIn 0.2s ease-out;
-}
-
-.Header-toggletip-card {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  max-width: 38rem;
-  width: 100%;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  position: relative;
-  box-shadow: 0 20px 30px -10px color-mix(in lch, var(--foreground) 20%, transparent);
-}
-
-.Header-toggletip-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem;
-}
-
-.Header-toggletip-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.Header-toggletip-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--card-foreground);
-  letter-spacing: -0.02em;
-  margin-top: 0.25rem;
-}
-
-.Header-toggletip-close-btn {
-  padding: 0.35rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--secondary);
-  color: var(--foreground);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-}
-
-.Header-toggletip-close-btn:hover {
-  background-color: var(--muted);
-  color: var(--destructive);
-}
-
-.Header-toggletip-close-btn:focus-visible {
-  outline: 2px solid var(--ring);
-}
-
-.Header-toggletip-body {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  line-height: 1.6;
-}
-
-.Header-toggletip-diagram {
-  background-color: var(--secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Header-toggletip-svg {
-  width: 100%;
-  max-width: 28rem;
-  height: auto;
-  stroke: var(--primary);
 }
