@@ -1,0 +1,70 @@
+.App-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+}
+
+.App-main {
+  flex: 1;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .App-main {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+.App-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.App-section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.App-section-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.125rem;
+}
+
+.App-footer {
+  border-top: 1px solid rgba(51, 65, 85, 0.4);
+  background-color: rgba(2, 6, 23, 0.8);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.App-footer-content {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.App-footer-highlight {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.App-footer-code {
+  color: var(--color-blue);
+  font-family: var(--font-mono);
+}

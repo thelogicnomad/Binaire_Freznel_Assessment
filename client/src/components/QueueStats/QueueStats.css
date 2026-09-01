@@ -1,0 +1,151 @@
+.QueueStats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .QueueStats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.QueueStats-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.QueueStats-card-high {
+  border-color: var(--color-amber-border);
+}
+
+.QueueStats-card-workers {
+  border-color: var(--color-blue-border);
+}
+
+.QueueStats-card-completed {
+  border-color: var(--color-emerald-border);
+}
+
+.QueueStats-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.QueueStats-card-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.QueueStats-title-high {
+  color: var(--color-amber);
+}
+
+.QueueStats-title-low {
+  color: var(--text-muted);
+}
+
+.QueueStats-title-workers {
+  color: var(--color-blue);
+}
+
+.QueueStats-title-completed {
+  color: var(--color-emerald);
+}
+
+.QueueStats-icon-box {
+  padding: 0.375rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.QueueStats-icon-box-high {
+  background-color: var(--color-amber-bg);
+  color: var(--color-amber);
+}
+
+.QueueStats-icon-box-low {
+  background-color: rgba(30, 41, 59, 0.7);
+  color: var(--text-muted);
+}
+
+.QueueStats-icon-box-workers {
+  background-color: var(--color-blue-bg);
+  color: var(--color-blue);
+}
+
+.QueueStats-icon-box-completed {
+  background-color: var(--color-emerald-bg);
+  color: var(--color-emerald);
+}
+
+.QueueStats-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.QueueStats-metric-group {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.QueueStats-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.QueueStats-unit {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.QueueStats-subtext {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.QueueStats-aggregate-sum {
+  font-family: var(--font-mono);
+  color: #6ee7b7;
+  font-weight: 600;
+}
+
+.QueueStats-worker-bars {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+
+.QueueStats-worker-pill {
+  height: 0.5rem;
+  flex: 1;
+  border-radius: var(--radius-full);
+  background-color: rgba(51, 65, 85, 0.8);
+  transition: all 0.3s ease;
+}
+
+.QueueStats-worker-pill-busy {
+  background-color: var(--color-blue);
+  animation: pulse 1.5s infinite;
+}

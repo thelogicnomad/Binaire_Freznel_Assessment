@@ -1,0 +1,43 @@
+.QueueList-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.QueueList-empty-state {
+  background-color: rgba(15, 23, 42, 0.4);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.QueueList-empty-icon-box {
+  padding: 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(30, 41, 59, 0.8);
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.QueueList-empty-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.QueueList-empty-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.QueueList-empty-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  max-width: 24rem;
+}

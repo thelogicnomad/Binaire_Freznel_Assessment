@@ -1,0 +1,98 @@
+.TaskResult-card {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.5), rgba(19, 78, 74, 0.3));
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  border: 1px solid var(--color-emerald-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .TaskResult-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.TaskResult-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.TaskResult-icon-box {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-emerald-bg);
+  color: #6ee7b7;
+  border: 1px solid var(--color-emerald-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.TaskResult-calc-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.TaskResult-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.TaskResult-heading {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--color-emerald);
+}
+
+.TaskResult-sum-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.TaskResult-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(6, 78, 59, 0.6);
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .TaskResult-stats-grid {
+    width: auto;
+    border-top: none;
+    border-left: 1px solid rgba(6, 78, 59, 0.6);
+    padding-top: 0;
+    padding-left: 1rem;
+  }
+}
+
+.TaskResult-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.TaskResult-stat-label {
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.TaskResult-stat-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #a7f3d0;
+}

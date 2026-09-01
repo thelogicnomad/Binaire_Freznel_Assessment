@@ -1,0 +1,227 @@
+.Header-root {
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  background-color: var(--bg-header);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.Header-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .Header-container {
+    flex-direction: row;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+.Header-brand-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .Header-brand-wrapper {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+.Header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.Header-logo-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-blue), var(--color-indigo));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Header-logo-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ffffff;
+}
+
+.Header-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.Header-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Header-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.Header-tag {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-blue-bg);
+  color: #93c5fd;
+  border: 1px solid var(--color-blue-border);
+}
+
+.Header-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.Header-actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .Header-actions-bar {
+    width: auto;
+  }
+}
+
+.Header-workers-pill {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  background-color: rgba(30, 41, 59, 0.6);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 640px) {
+  .Header-workers-pill {
+    display: flex;
+  }
+}
+
+.Header-workers-count {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.Header-connection-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.Header-connection-connected {
+  background-color: rgba(6, 78, 59, 0.4);
+  color: #6ee7b7;
+  border-color: var(--color-emerald-border);
+}
+
+.Header-connection-disconnected {
+  background-color: var(--color-rose-bg);
+  color: #fda4af;
+  border-color: var(--color-rose-border);
+}
+
+.Header-connection-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.Header-dot-green {
+  background-color: var(--color-emerald);
+  animation: pulse 1.5s infinite;
+}
+
+.Header-dot-red {
+  background-color: var(--color-rose);
+}
+
+.Header-client-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-indigo-bg);
+  border: 1px solid var(--color-indigo-border);
+  font-size: 0.75rem;
+}
+
+.Header-client-label {
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+}
+
+.Header-client-id {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #c7d2fe;
+}
+
+.Header-icon-btn {
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: none;
+  color: #a5b4fc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.Header-icon-btn:hover {
+  color: #ffffff;
+  background-color: rgba(99, 102, 241, 0.3);
+}
+
+.Header-icon-btn-amber:hover {
+  color: var(--color-amber);
+  background-color: rgba(51, 65, 85, 0.8);
+}
+
+.Header-btn-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}

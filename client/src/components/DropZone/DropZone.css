@@ -1,0 +1,67 @@
+.DropZone-container {
+  border: 2px dashed rgba(51, 65, 85, 0.8);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--bg-card-inner);
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.DropZone-container:hover {
+  border-color: rgba(71, 85, 105, 1);
+  background-color: rgba(2, 6, 23, 0.7);
+}
+
+.DropZone-dragging {
+  border-color: var(--color-blue);
+  background-color: var(--color-blue-bg);
+  transform: scale(0.995);
+}
+
+.DropZone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+.DropZone-icon-wrapper {
+  padding: 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-blue-bg);
+  color: var(--color-blue);
+  border: 1px solid var(--color-blue-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.DropZone-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.DropZone-text-primary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.DropZone-browse-link {
+  color: var(--color-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.DropZone-text-secondary {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.DropZone-hidden-input {
+  display: none;
+}

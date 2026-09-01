@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Header } from './components/Header';
-import { QueueStats } from './components/QueueStats';
-import { FileUpload } from './components/FileUpload';
-import { QueueDashboard } from './components/QueueDashboard';
+import './App.css';
+import { Header } from './components/Header/Header';
+import { CompletionBanner } from './components/CompletionBanner/CompletionBanner';
+import { QueueStats } from './components/QueueStats/QueueStats';
+import { FileUpload } from './components/FileUpload/FileUpload';
+import { QueueDashboard } from './components/QueueDashboard/QueueDashboard';
 import { useQueueSocket } from './hooks/useQueueSocket';
 import { getClientId, resetClientId } from './utils/clientId';
-import { CheckCircle, X, Sparkles, AlertCircle } from 'lucide-react';
 
 export default function App() {
   const [clientId, setClientId] = useState(() => getClientId());
@@ -26,7 +27,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-600 selection:text-white">
+    <div className="App-container">
       {/* Persistent Navigation Header */}
       <Header
         clientId={clientId}
@@ -36,43 +37,13 @@ export default function App() {
       />
 
       {/* Completion Celebration Notification Banner */}
-      {lastCompletedTask && (
-        <aside aria-label="Task completion notification" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full animate-fadeIn">
-          <div className="bg-gradient-to-r from-emerald-950/80 via-teal-900/60 to-emerald-950/80 border border-emerald-500/50 rounded-2xl p-4 shadow-xl flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <span>Reduction Complete!</span>
-                  <span className="text-xs font-mono font-normal text-emerald-300">
-                    ({lastCompletedTask.filename})
-                  </span>
-                </h2>
-                <p className="text-xs text-emerald-200 mt-0.5">
-                  Sum calculated:{' '}
-                  <strong className="font-mono text-white text-sm">
-                    {Number(lastCompletedTask.result).toLocaleString('en-US', {
-                      maximumFractionDigits: 4,
-                    })}
-                  </strong>{' '}
-                  across {lastCompletedTask.rows?.toLocaleString()} rows in {lastCompletedTask.durationMs}ms.
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={clearLastCompleted}
-              className="p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900/50 transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        </aside>
-      )}
+      <CompletionBanner
+        task={lastCompletedTask}
+        onDismiss={clearLastCompleted}
+      />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6">
+      <main className="App-main">
         {/* System Overview Stats Bar */}
         <QueueStats stats={stats} tasks={tasks} />
 
@@ -87,11 +58,11 @@ export default function App() {
         />
 
         {/* Global Live Queue Dashboard */}
-        <section className="space-y-3">
-          <div className="flex items-center justify-between">
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div className="App-section-header">
             <div>
-              <h2 className="text-lg font-bold text-white tracking-tight">Real-Time Queue Dashboard</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="App-section-title">Real-Time Queue Dashboard</h2>
+              <p className="App-section-subtitle">
                 Live broadcast of all tasks across all connected users
               </p>
             </div>
@@ -102,13 +73,13 @@ export default function App() {
       </main>
 
       {/* Technical Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 space-y-1">
-          <p className="font-semibold text-slate-300">
+      <footer className="App-footer">
+        <div className="App-footer-content">
+          <p className="App-footer-highlight">
             CSV Multi-User Queue Engine & Worker Threads All-Reduce
           </p>
           <p>
-            Powered by Node.js <code className="text-blue-400">worker_threads</code>, Express, Socket.io, and React Vite
+            Powered by Node.js <code className="App-footer-code">worker_threads</code>, Express, Socket.io, and React Vite
           </p>
         </div>
       </footer>

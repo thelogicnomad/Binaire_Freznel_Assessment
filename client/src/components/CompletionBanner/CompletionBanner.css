@@ -1,0 +1,107 @@
+.CompletionBanner-wrapper {
+  max-width: 80rem;
+  margin: 1rem auto 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@media (min-width: 768px) {
+  .CompletionBanner-wrapper {
+    padding: 0 1.5rem;
+  }
+}
+
+.CompletionBanner-card {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.85), rgba(19, 78, 74, 0.75));
+  border: 1px solid var(--color-emerald-border);
+  border-radius: var(--radius-xl);
+  padding: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(6, 78, 59, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.CompletionBanner-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.CompletionBanner-icon-box {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-emerald-bg);
+  color: #6ee7b7;
+  border: 1px solid var(--color-emerald-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CompletionBanner-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.CompletionBanner-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.CompletionBanner-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.CompletionBanner-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.CompletionBanner-filename {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: #a7f3d0;
+  font-weight: 400;
+}
+
+.CompletionBanner-details {
+  font-size: 0.75rem;
+  color: #d1fae5;
+  margin-top: 0.125rem;
+}
+
+.CompletionBanner-sum-highlight {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+
+.CompletionBanner-dismiss-btn {
+  padding: 0.375rem;
+  border-radius: var(--radius-md);
+  color: #a7f3d0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.CompletionBanner-dismiss-btn:hover {
+  color: #ffffff;
+  background-color: rgba(6, 78, 59, 0.6);
+}
+
+.CompletionBanner-dismiss-icon {
+  width: 1rem;
+  height: 1rem;
+}
