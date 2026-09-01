@@ -6,7 +6,7 @@ const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || '';
 const API_URL = import.meta.env.VITE_API_URL || '';
 
 /**
- * Custom hook managing WebSocket connection and live queue state.
+ * Custom hook managing WebSocket connection, live queue state, and task lifecycle actions.
  *
  * @param {string} clientId - Current persistent client ID
  * @returns {Object} socket state, tasks, stats, and task management actions
@@ -166,26 +166,21 @@ export function useQueueSocket(clientId) {
   }, [clientId]);
 
   /**
-   * Clear all finished/completed tasks submitted by current client
+   * Clear all tasks submitted by current client (waiting, processing, completed, failed)
    */
-  const clearCompletedTasks = useCallback(async () => {
-    // Optimistically remove from local state
-    setTasks((prev) =>
-      prev.filter(
-        (t) =>
-          !(t.clientId === clientId && (t.status === 'Completed' || t.status === 'Failed'))
-      )
-    );
+  const clearAllTasks = useCallback(async () => {
+    // Optimistically remove all tasks belonging to current client
+    setTasks((prev) => prev.filter((t) => t.clientId !== clientId));
 
     try {
       const endpoint = `${API_URL}/api/tasks/clear`;
       await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clientId }),
+        body: JSON.stringify({ clientId, all: true }),
       });
     } catch (err) {
-      console.error('Failed to clear completed tasks:', err);
+      console.error('Failed to clear all tasks:', err);
     }
   }, [clientId]);
 
@@ -198,6 +193,6 @@ export function useQueueSocket(clientId) {
     addOptimisticTasks,
     resolveOptimisticTasks,
     removeTask,
-    clearCompletedTasks,
+    clearAllTasks,
   };
 }

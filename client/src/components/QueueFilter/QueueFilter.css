@@ -59,36 +59,37 @@
   background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
 }
 
-/* Clear Completed Tasks Button */
-.QueueFilter-clear-btn {
+/* Clear All Button matching TaskCard-remove-btn styling */
+.QueueFilter-clear-all-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.38rem 0.75rem;
   border-radius: var(--radius);
-  font-size: 0.75rem;
-  font-weight: 600;
-  font-family: var(--font-mono);
-  cursor: pointer;
   border: 1px solid var(--border);
-  background-color: var(--status-archived-bg);
-  color: var(--status-archived-text);
-  border-color: color-mix(in lch, var(--status-archived-text) 25%, transparent);
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
 }
 
-.QueueFilter-clear-btn:hover {
-  background-color: color-mix(in lch, var(--status-archived-bg) 85%, var(--status-archived-text));
+.QueueFilter-clear-all-btn:hover {
+  color: var(--destructive);
+  background-color: var(--status-archived-bg);
+  border-color: color-mix(in lch, var(--destructive) 30%, transparent);
 }
 
-.QueueFilter-clear-btn:focus-visible {
+.QueueFilter-clear-all-btn:focus-visible {
   outline: 2px solid var(--ring);
 }
 
 .QueueFilter-clear-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.8125rem;
+  height: 0.8125rem;
   stroke-width: 1.5px;
 }
 
@@ -140,4 +141,147 @@
 .QueueFilter-search-input::placeholder {
   color: var(--muted-foreground);
   font-family: var(--font-mono);
+}
+
+/* Confirmation Dialog Modal */
+.QueueFilter-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: color-mix(in lch, var(--foreground) 35%, transparent);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.QueueFilter-modal-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 28rem;
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 20px 30px -10px color-mix(in lch, var(--foreground) 20%, transparent);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.QueueFilter-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.875rem;
+}
+
+.QueueFilter-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.QueueFilter-modal-icon-box {
+  padding: 0.4rem;
+  border-radius: var(--radius);
+  background-color: var(--status-archived-bg);
+  color: var(--destructive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.QueueFilter-modal-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  stroke-width: 2px;
+}
+
+.QueueFilter-modal-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--card-foreground);
+  letter-spacing: -0.02em;
+}
+
+.QueueFilter-modal-close-btn {
+  padding: 0.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.QueueFilter-modal-close-btn:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.QueueFilter-modal-body {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.QueueFilter-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.QueueFilter-modal-btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.QueueFilter-modal-btn-cancel:hover {
+  background-color: color-mix(in lch, var(--secondary) 92%, var(--foreground));
+}
+
+.QueueFilter-modal-btn-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in lch, var(--destructive) 40%, transparent);
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.QueueFilter-modal-btn-confirm:hover {
+  background-color: color-mix(in lch, var(--destructive) 85%, black);
+}
+
+.QueueFilter-modal-btn-confirm:focus-visible,
+.QueueFilter-modal-btn-cancel:focus-visible {
+  outline: 2px solid var(--ring);
 }

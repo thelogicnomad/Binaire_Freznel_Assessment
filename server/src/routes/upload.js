@@ -126,17 +126,18 @@ export function createUploadRouter({ scheduler, uploadsDir }) {
 
   /**
    * POST /api/tasks/clear
-   * Clear all completed tasks for a specific client.
+   * Clear tasks for a specific client (supports all tasks or only completed).
    */
   router.post('/tasks/clear', (req, res) => {
     try {
       const clientId = req.body.clientId;
+      const all = req.body.all === true || req.body.all === 'true';
       if (!clientId) {
         return res.status(400).json({ error: 'clientId is required.' });
       }
 
-      const count = scheduler.clearClientTasks(clientId, true);
-      return res.json({ message: `Cleared ${count} completed task(s).`, count });
+      const count = scheduler.clearClientTasks(clientId, !all);
+      return res.json({ message: `Cleared ${count} task(s).`, count });
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }

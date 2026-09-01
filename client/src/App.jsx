@@ -20,7 +20,7 @@ export default function App() {
     addOptimisticTasks,
     resolveOptimisticTasks,
     removeTask,
-    clearCompletedTasks,
+    clearAllTasks,
   } = useQueueSocket(clientId);
 
   const handleResetClientId = () => {
@@ -84,7 +84,7 @@ export default function App() {
             tasks={tasks}
             currentClientId={clientId}
             onRemoveTask={removeTask}
-            onClearCompleted={clearCompletedTasks}
+            onClearAll={clearAllTasks}
           />
         </div>
       </main>

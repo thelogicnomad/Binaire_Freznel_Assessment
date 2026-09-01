@@ -6,7 +6,7 @@ import { QueueList } from '../QueueList/QueueList';
 /**
  * Queue visualizer dashboard container with task deletion capabilities
  */
-export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearCompleted }) {
+export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAll }) {
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -55,7 +55,7 @@ export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearCo
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         counts={counts}
-        onClearCompleted={onClearCompleted}
+        onClearAll={onClearAll}
       />
 
       <QueueList
