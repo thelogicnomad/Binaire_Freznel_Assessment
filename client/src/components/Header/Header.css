@@ -8,47 +8,61 @@
 }
 
 .Header-container {
-  max-width: 80rem;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1.125rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
-/* Brand Section */
-.Header-brand-section {
+/* Left Corner: Enlarged Pure Black Binaire Logo */
+.Header-left-corner {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  min-width: 0;
 }
 
-.Header-binaire-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  user-select: none;
-}
-
-/* Official Binaire SVG Logo */
 .Header-binaire-svg {
-  height: 1.35rem;
+  height: 1.85rem;
   width: auto;
-  max-width: 14rem;
-  color: var(--foreground);
+  max-width: 18rem;
+  color: #000000;
+  fill: #000000;
   display: block;
+  shape-rendering: crispEdges;
+}
+
+/* Center Section: CSV QUEUE Tag (color unchanged) */
+.Header-center-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
 }
 
 .Header-brand-tag {
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted-foreground);
-  letter-spacing: 0.04em;
-  margin-top: 0.125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-/* Right Navigation: Minimal "Menu ☰" Button */
+/* Right Corner: Enlarged Pure Black Menu Button & Dropdown */
+.Header-right-corner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
+
 .Header-menu-wrapper {
   position: relative;
 }
@@ -56,12 +70,12 @@
 .Header-menu-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius);
-  padding: 0.35rem 0.625rem;
-  color: var(--foreground);
+  padding: 0.4rem 0.75rem;
+  color: #000000;
   cursor: pointer;
   transition: all 0.15s ease;
   user-select: none;
@@ -82,27 +96,27 @@
 }
 
 .Header-menu-text {
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-size: 1.15rem;
+  font-weight: 600;
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
-  color: var(--foreground);
+  color: #000000;
 }
 
-/* Custom Minimal Hamburger Lines */
+/* Enlarged Pure Black Hamburger Lines */
 .Header-hamburger-icon {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 1rem;
-  height: 0.6875rem;
+  width: 1.3rem;
+  height: 0.85rem;
 }
 
 .Header-hamburger-line {
   display: block;
   width: 100%;
-  height: 1.5px;
-  background-color: var(--foreground);
+  height: 2px;
+  background-color: #000000;
   border-radius: 1px;
 }
 
