@@ -9,7 +9,6 @@ import { QueueList } from '../QueueList/QueueList';
  */
 export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAll }) {
   const [filter, setFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   // Close confirmation modal on Escape key press
@@ -25,14 +24,6 @@ export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAl
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase();
-        const matchName = task.originalName?.toLowerCase().includes(query);
-        const matchClient = task.clientId?.toLowerCase().includes(query);
-        const matchWorker = task.assignedWorkerId?.toLowerCase().includes(query);
-        if (!matchName && !matchClient && !matchWorker) return false;
-      }
-
       if (filter === 'mine') return task.clientId === currentClientId;
       if (filter === 'high') return task.priority === 'high';
       if (filter === 'low') return task.priority === 'low';
@@ -46,7 +37,7 @@ export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAl
 
       return true;
     });
-  }, [tasks, filter, searchQuery, currentClientId]);
+  }, [tasks, filter, currentClientId]);
 
   const counts = {
     total: tasks.length,
@@ -89,8 +80,6 @@ export function QueueDashboard({ tasks, currentClientId, onRemoveTask, onClearAl
       <QueueFilter
         activeFilter={filter}
         onFilterChange={setFilter}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
         counts={counts}
       />
 

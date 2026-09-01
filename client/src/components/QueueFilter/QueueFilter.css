@@ -2,18 +2,10 @@
   background-color: var(--card);
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  padding: 1rem 1.25rem;
+  padding: 0.875rem 1.25rem;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .QueueFilter-container {
-    flex-direction: row;
-    align-items: center;
-  }
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .QueueFilter-tabs-wrapper {
@@ -57,54 +49,4 @@
 
 .QueueFilter-tab-active:hover {
   background-color: color-mix(in lch, var(--primary) 85%, var(--foreground));
-}
-
-.QueueFilter-search-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .QueueFilter-search-wrapper {
-    width: 18rem;
-    flex-shrink: 0;
-  }
-}
-
-.QueueFilter-search-icon {
-  position: absolute;
-  left: 0.875rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1rem;
-  height: 1rem;
-  color: var(--muted-foreground);
-  pointer-events: none;
-  stroke-width: 1.5px;
-}
-
-.QueueFilter-search-input {
-  width: 100%;
-  padding-left: 2.5rem;
-  padding-right: 1rem;
-  padding-top: 0.45rem;
-  padding-bottom: 0.45rem;
-  border-radius: var(--radius);
-  background-color: var(--background);
-  border: 1px solid var(--input);
-  font-size: 0.8125rem;
-  font-family: var(--font-mono);
-  color: var(--foreground);
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.QueueFilter-search-input:focus {
-  border-color: var(--ring);
-  box-shadow: 0 0 0 1px var(--ring);
-}
-
-.QueueFilter-search-input::placeholder {
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
 }
